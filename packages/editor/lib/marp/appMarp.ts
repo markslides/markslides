@@ -1,11 +1,9 @@
 import { Marp } from '@marp-team/marp-core';
 import { Element as MarpitElement } from '@marp-team/marpit';
 import markdownItMermaid from '@markslides/markdown-it-mermaid';
-import markdownItTypograms from '@markslides/markdown-it-typograms';
+// import markdownItTypograms from '@markslides/markdown-it-typograms';
 import markdownItTaskLists from '@/lib/marp/plugins/taskLists';
-// import markdownItTaskLists from './plugins/taskLists';
-// import themes from '@/lib/marp/themes';
-import themes from './themes';
+import themes from '@/lib/marp/themes';
 
 const appMarp = (function () {
     let instance: Marp;
@@ -28,7 +26,7 @@ const appMarp = (function () {
         // Set plugins
         marp.use(markdownItTaskLists);
         marp.use(markdownItMermaid);
-        marp.use(markdownItTypograms);
+        // marp.use(markdownItTypograms);
 
         themes.forEach((theme) => {
             marp.themeSet.add(theme.css);
