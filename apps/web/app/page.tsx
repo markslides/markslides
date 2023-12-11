@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import MarkSlidesEditor from '@repo/editor/MarkSlidesEditor';
+import MarkSlidesEditor from '@markslides/editor';
 
 function Page(): JSX.Element {
     const [value, setValue] = useState('');

@@ -1,7 +1,7 @@
 {
   "name": "@markslides/editor",
   "description": "MarkSlides Editor",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -27,10 +27,8 @@
     "dev": "npm run build -- --watch",
     "build": "tsup components/MarkSlidesEditor.tsx --format cjs,esm --dts"
   },
-  "peerDependencies": {
-    "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.2.0",
-    "react": "^18.2.0"
+  "exports": {
+    ".": "./components/MarkSlidesEditor.tsx"
   },
   "devDependencies": {
     "@repo/eslint-config": "*",
@@ -39,7 +37,10 @@
     "@types/eslint": "^8.44.7",
     "@types/markdown-it": "^13.0.7",
     "@types/node": "^20.5.2",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
     "eslint": "^8.53.0",
+    "react": "^18.2.0",
     "tsup": "^8.0.1",
     "typescript": "^5.2.2"
   },
