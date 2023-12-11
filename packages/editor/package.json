@@ -1,27 +1,26 @@
 {
   "name": "@markslides/editor",
   "description": "MarkSlides Editor",
-  "version": "0.1.0",
+  "version": "0.1.3",
   "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "keywords": [
-      "markdown",
-      "markdown-editor",
-      "slides",
-      "markdown-presentation"
+    "markdown",
+    "markdown-editor",
+    "slides",
+    "markdown-presentation"
   ],
   "author": "Soaple <inje@soaple.io>",
   "license": "MIT",
   "repository": {
-      "type": "git",
-      "url": "git+https://github.com/markslides/markslides.git"
+    "type": "git",
+    "url": "git+https://github.com/markslides/markslides.git"
   },
   "bugs": {
-      "url": "https://github.com/markslides/markslides/issues"
+    "url": "https://github.com/markslides/markslides/issues"
   },
   "homepage": "https://github.com/markslides/markslides#readme",
-  "exports": {
-    "./MarkSlidesEditor": "./components/MarkSlidesEditor.tsx"
-  },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
     "generate:component": "turbo gen react-component",
@@ -45,7 +44,7 @@
   "dependencies": {
     "@codemirror/lang-markdown": "^6.2.3",
     "@codemirror/language-data": "^6.3.1",
-    "@markslides/markdown-it-mermaid": "^0.2.0",
+    "@markslides/markdown-it-mermaid": "^0.3.0",
     "@markslides/markdown-it-typograms": "^0.1.0",
     "@marp-team/marp-core": "^3.9.0",
     "@marp-team/marpit": "^2.6.1",
