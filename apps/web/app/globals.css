@@ -14,12 +14,10 @@
   --card-rgb: 100, 100, 100;
   --card-border-rgb: 200, 200, 200;
 
-  --glow-conic: conic-gradient(
-    from 180deg at 50% 50%,
-    #2a8af6 0deg,
-    #a853ba 180deg,
-    #e92a67 360deg
-  );
+  --glow-conic: conic-gradient(from 180deg at 50% 50%,
+      #2a8af6 0deg,
+      #a853ba 180deg,
+      #e92a67 360deg);
 }
 
 * {
@@ -36,12 +34,9 @@ body {
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
+  background: linear-gradient(to bottom,
       transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
 }
 
 a {

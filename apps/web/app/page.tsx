@@ -1,5 +1,19 @@
+'use client';
+
+import { useState } from 'react';
 import MarkSlidesEditor from '@repo/editor/MarkSlidesEditor';
 
-export default function Page(): JSX.Element {
-    return <MarkSlidesEditor />;
+function Page(): JSX.Element {
+    const [value, setValue] = useState('');
+
+    return (
+        <MarkSlidesEditor
+            value={value}
+            onChange={(newValue) => {
+                setValue(newValue);
+            }}
+        />
+    );
 }
+
+export default Page;
