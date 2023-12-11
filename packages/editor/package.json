@@ -1,13 +1,32 @@
 {
-  "name": "@repo/editor",
-  "version": "0.0.0",
-  "private": true,
+  "name": "@markslides/editor",
+  "description": "MarkSlides Editor",
+  "version": "0.1.0",
+  "main": "./dist/index.js",
+  "keywords": [
+      "markdown",
+      "markdown-editor",
+      "slides",
+      "markdown-presentation"
+  ],
+  "author": "Soaple <inje@soaple.io>",
+  "license": "MIT",
+  "repository": {
+      "type": "git",
+      "url": "git+https://github.com/markslides/markslides.git"
+  },
+  "bugs": {
+      "url": "https://github.com/markslides/markslides/issues"
+  },
+  "homepage": "https://github.com/markslides/markslides#readme",
   "exports": {
     "./MarkSlidesEditor": "./components/MarkSlidesEditor.tsx"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
-    "generate:component": "turbo gen react-component"
+    "generate:component": "turbo gen react-component",
+    "dev": "npm run build -- --watch",
+    "build": "tsup components/MarkSlidesEditor.tsx --format cjs,esm --dts"
   },
   "devDependencies": {
     "@repo/eslint-config": "*",
@@ -20,6 +39,7 @@
     "@types/react-dom": "^18.2.0",
     "eslint": "^8.53.0",
     "react": "^18.2.0",
+    "tsup": "^8.0.1",
     "typescript": "^5.2.2"
   },
   "dependencies": {

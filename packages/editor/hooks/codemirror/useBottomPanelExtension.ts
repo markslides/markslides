@@ -7,6 +7,10 @@ function useBottomPanelExtension(
     totalSlideCount: number
 ) {
     const element = useMemo(() => {
+        if (typeof window === 'undefined') {
+            return null;
+        }
+
         const element = document.createElement('div');
         element.setAttribute(
             'style',
@@ -20,6 +24,10 @@ font-size: 12px;`
     }, []);
 
     return useMemo<Extension>(() => {
+        if (!element) {
+            return showPanel.of(null);
+        }
+
         const panelConstructor = (view: EditorView): Panel => {
             element.textContent = `Current slide: ${currentSlideNum}/${totalSlideCount}`;
             return {
