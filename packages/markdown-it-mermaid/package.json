@@ -26,6 +26,13 @@
         "dev": "npm run build -- --watch",
         "build": "tsup ./src/index.ts --format cjs,esm --dts"
     },
+    "exports": {
+        ".": {
+            "import": "./dist/index.mjs",
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+        }
+    },
     "dependencies": {
         "mermaid": "^10.6.1"
     },
