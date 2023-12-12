@@ -1,7 +1,7 @@
 import MarkdownIt from 'markdown-it';
 import Token from 'markdown-it/lib/token';
 import Renderer from 'markdown-it/lib/renderer';
-import typograms from '../typograms';
+import typograms from './typograms';
 
 const renderTypograms = (source: string) => {
     try {

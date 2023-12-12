@@ -6,4 +6,3 @@ package-lock.json
 tsconfig.json
 tsconfig.lint.json
 turbo.json
-typograms.js
