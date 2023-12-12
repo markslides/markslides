@@ -1,67 +1,67 @@
 {
-  "name": "@markslides/editor",
-  "description": "MarkSlides Editor",
-  "version": "0.1.8",
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
-  "keywords": [
-    "markdown",
-    "markdown-editor",
-    "slides",
-    "markdown-presentation"
-  ],
-  "author": "Soaple <inje@soaple.io>",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/markslides/markslides.git"
-  },
-  "bugs": {
-    "url": "https://github.com/markslides/markslides/issues"
-  },
-  "homepage": "https://github.com/markslides/markslides#readme",
-  "scripts": {
-    "lint": "eslint . --max-warnings 0",
-    "generate:component": "turbo gen react-component",
-    "dev": "npm run build -- --watch",
-    "build": "tsup ./index.ts --format cjs,esm --dts"
-  },
-  "exports": {
-    ".": {
-      "import": "./dist/index.mjs",
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
+    "name": "@markslides/editor",
+    "description": "MarkSlides Editor",
+    "version": "0.1.8",
+    "main": "./dist/index.js",
+    "module": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
+    "keywords": [
+        "markdown",
+        "markdown-editor",
+        "slides",
+        "markdown-presentation"
+    ],
+    "author": "Soaple <inje@soaple.io>",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/markslides/markslides.git"
+    },
+    "bugs": {
+        "url": "https://github.com/markslides/markslides/issues"
+    },
+    "homepage": "https://github.com/markslides/markslides/tree/main/packages/editor#readme",
+    "scripts": {
+        "lint": "eslint . --max-warnings 0",
+        "generate:component": "turbo gen react-component",
+        "dev": "npm run build -- --watch",
+        "build": "tsup ./index.ts --format cjs,esm --dts"
+    },
+    "exports": {
+        ".": {
+            "import": "./dist/index.mjs",
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+        }
+    },
+    "peerDependencies": {
+        "@codemirror/state": "*",
+        "@codemirror/view": "*",
+        "@types/react": "^18.2.0",
+        "@types/react-dom": "^18.2.0",
+        "react": "^18.2.0"
+    },
+    "devDependencies": {
+        "@repo/eslint-config": "*",
+        "@repo/typescript-config": "*",
+        "@turbo/gen": "^1.10.12",
+        "@types/eslint": "^8.44.7",
+        "@types/markdown-it": "^13.0.7",
+        "@types/node": "^20.5.2",
+        "eslint": "^8.53.0",
+        "tsup": "^8.0.1",
+        "typescript": "^5.2.2"
+    },
+    "dependencies": {
+        "@codemirror/lang-markdown": "^6.2.3",
+        "@codemirror/language-data": "^6.3.1",
+        "@markslides/markdown-it-mermaid": "*",
+        "@markslides/markdown-it-typograms": "*",
+        "@marp-team/marp-core": "^3.9.0",
+        "@marp-team/marpit": "^2.6.1",
+        "@uiw/codemirror-themes-all": "^4.21.21",
+        "@uiw/react-codemirror": "^4.21.21",
+        "markdown-it": "^14.0.0",
+        "styled-components": "^6.1.1"
     }
-  },
-  "peerDependencies": {
-    "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.2.0",
-    "@codemirror/view": "*",
-    "@codemirror/state": "*",
-    "react": "^18.2.0"
-  },
-  "devDependencies": {
-    "@repo/eslint-config": "*",
-    "@repo/typescript-config": "*",
-    "@turbo/gen": "^1.10.12",
-    "@types/eslint": "^8.44.7",
-    "@types/markdown-it": "^13.0.7",
-    "@types/node": "^20.5.2",
-    "eslint": "^8.53.0",
-    "tsup": "^8.0.1",
-    "typescript": "^5.2.2"
-  },
-  "dependencies": {
-    "@codemirror/lang-markdown": "^6.2.3",
-    "@codemirror/language-data": "^6.3.1",
-    "@markslides/markdown-it-mermaid": "^0.3.0",
-    "@markslides/markdown-it-typograms": "^0.1.0",
-    "@marp-team/marp-core": "^3.9.0",
-    "@marp-team/marpit": "^2.6.1",
-    "@uiw/codemirror-themes-all": "^4.21.21",
-    "@uiw/react-codemirror": "^4.21.21",
-    "markdown-it": "^14.0.0",
-    "styled-components": "^6.1.1"
-  }
 }
