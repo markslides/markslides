@@ -1,7 +1,7 @@
 {
     "name": "@markslides/editor",
     "description": "MarkSlides Editor",
-    "version": "0.1.8",
+    "version": "0.1.10",
     "main": "./dist/index.js",
     "module": "./dist/index.mjs",
     "types": "./dist/index.d.ts",
@@ -55,8 +55,8 @@
     "dependencies": {
         "@codemirror/lang-markdown": "^6.2.3",
         "@codemirror/language-data": "^6.3.1",
-        "@markslides/markdown-it-mermaid": "*",
-        "@markslides/markdown-it-typograms": "*",
+        "@markslides/markdown-it-mermaid": "^0.3.1",
+        "@markslides/markdown-it-typograms": "^0.1.2",
         "@marp-team/marp-core": "^3.9.0",
         "@marp-team/marpit": "^2.6.1",
         "@uiw/codemirror-themes-all": "^4.21.21",
