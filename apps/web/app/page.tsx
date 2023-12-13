@@ -8,6 +8,14 @@ function Page(): JSX.Element {
 
     return (
         <MarkSlidesEditor
+            config={{
+                header: 'MarkSlides',
+                footer: 'Soaple',
+                paginate: true,
+                theme: 'default',
+                class: 'invert',
+                size: '16:9',
+            }}
             value={value}
             onChange={(newValue) => {
                 setValue(newValue);

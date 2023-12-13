@@ -49,6 +49,7 @@ type MarkSlidesEditorProps = Pick<
     'readOnly' | 'value' | 'onChange'
 > & {
     height?: number | string;
+    config?: SlideConfigState;
 };
 
 const DEFAULT_SLIDE_CONFIG: SlideConfigState = {
@@ -61,7 +62,13 @@ const DEFAULT_SLIDE_CONFIG: SlideConfigState = {
 };
 
 function MarkSlidesEditor(props: MarkSlidesEditorProps) {
-    const { height = '100vh', readOnly, value, onChange } = props;
+    const {
+        height = '100vh',
+        config = DEFAULT_SLIDE_CONFIG,
+        readOnly,
+        value,
+        onChange,
+    } = props;
 
     const codeMirrorRef = useRef<ReactCodeMirrorRef>(null);
     const editorViewRef = useRef<EditorView | null>(null);
@@ -169,7 +176,7 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
 
             <PreviewContainer>
                 <PreviewFragment
-                    config={DEFAULT_SLIDE_CONFIG}
+                    config={config}
                     content={value ?? ''}
                     currentCursorPosition={currentCursorPosition}
                     currentSlideNum={currentSlideNumber}
