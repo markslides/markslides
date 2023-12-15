@@ -2,8 +2,8 @@ import { Marp } from '@marp-team/marp-core';
 import { Element as MarpitElement } from '@marp-team/marpit';
 import markdownItMermaid from '@markslides/markdown-it-mermaid';
 import markdownItTypograms from '@markslides/markdown-it-typograms';
-import markdownItTaskLists from '@//lib/marp/plugins/taskLists';
-import themes from '@//lib/marp/themes';
+import markdownItTaskLists from '@/lib/marp/plugins/taskLists';
+import themes from '@markslides/themes';
 
 const appMarp = (function () {
     let instance: Marp;

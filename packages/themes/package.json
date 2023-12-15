@@ -1,13 +1,13 @@
 {
-    "name": "@markslides/editor",
-    "description": "MarkSlides Editor",
-    "version": "0.1.13",
+    "name": "@markslides/themes",
+    "description": "MarkSlides Themes",
+    "version": "0.1.0",
     "main": "./dist/index.js",
     "module": "./dist/index.mjs",
     "types": "./dist/index.d.ts",
     "keywords": [
         "markdown",
-        "markdown-editor",
+        "markdown-themes",
         "slides",
         "markdown-presentation"
     ],
@@ -20,7 +20,7 @@
     "bugs": {
         "url": "https://github.com/markslides/markslides/issues"
     },
-    "homepage": "https://github.com/markslides/markslides/tree/main/packages/editor#readme",
+    "homepage": "https://github.com/markslides/markslides/tree/main/packages/themes#readme",
     "scripts": {
         "lint": "eslint . --max-warnings 0",
         "generate:component": "turbo gen react-component",
@@ -34,13 +34,6 @@
             "default": "./dist/index.js"
         }
     },
-    "peerDependencies": {
-        "@codemirror/state": "*",
-        "@codemirror/view": "*",
-        "@types/react": "^18.2.0",
-        "@types/react-dom": "^18.2.0",
-        "react": "^18.2.0"
-    },
     "devDependencies": {
         "@repo/eslint-config": "*",
         "@repo/typescript-config": "*",
@@ -52,11 +45,6 @@
         "typescript": "^5.2.2"
     },
     "dependencies": {
-        "@codemirror/lang-markdown": "^6.2.3",
-        "@codemirror/language-data": "^6.3.1",
-        "@markslides/renderer": "*",
-        "@uiw/codemirror-themes-all": "^4.21.21",
-        "@uiw/react-codemirror": "^4.21.21",
         "styled-components": "^6.1.1"
     }
 }
