@@ -5,15 +5,17 @@ import type { SlideConfigState } from '@//lib/types/common';
 
 function useIndependentMarpRender(
     containerClassName: string,
-    slideConfigState: SlideConfigState,
+    slideConfig: string | SlideConfigState,
     content: string
 ) {
     const { html, css, comments } = useMemo(() => {
         if (content) {
             const config =
-                slideConfigUtil.generateMarpConfigFromSlideConfigState(
-                    slideConfigState
-                );
+                typeof slideConfig === 'string'
+                    ? slideConfig
+                    : slideConfigUtil.generateMarpConfigFromSlideConfigState(
+                          slideConfig
+                      );
 
             return appMarp
                 .createInstance(containerClassName)
@@ -21,7 +23,7 @@ function useIndependentMarpRender(
         }
 
         return { html: null, css: null, comments: null };
-    }, [slideConfigState, content, containerClassName]);
+    }, [slideConfig, content, containerClassName]);
 
     useEffect(() => {
         appMarp.getDefaultInstance().markdown.mermaid.contentLoaded();
