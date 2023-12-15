@@ -1,9 +1,10 @@
 import { useEffect, useMemo } from 'react';
-import appMarp from '@/lib/marp/appMarp';
-import slideConfigUtil from '@/lib/utils/slideConfigUtil';
-import type { SlideConfigState } from '@/lib/types/common';
+import appMarp from '@//lib/marp/appMarp';
+import slideConfigUtil from '@//lib/utils/slideConfigUtil';
+import type { SlideConfigState } from '@//lib/types/common';
 
-function useDefaultMarpRender(
+function useIndependentMarpRender(
+    containerClassName: string,
     slideConfigState: SlideConfigState,
     content: string
 ) {
@@ -13,13 +14,14 @@ function useDefaultMarpRender(
                 slideConfigUtil.generateMarpConfigFromSlideConfigState(
                     slideConfigState
                 );
+
             return appMarp
-                .getDefaultInstance()
+                .createInstance(containerClassName)
                 .render(`---\n${config}\n---\n\n${content}`);
         }
 
         return { html: null, css: null, comments: null };
-    }, [slideConfigState, content]);
+    }, [slideConfigState, content, containerClassName]);
 
     useEffect(() => {
         appMarp.getDefaultInstance().markdown.mermaid.contentLoaded();
@@ -28,4 +30,4 @@ function useDefaultMarpRender(
     return { html, css, comments };
 }
 
-export default useDefaultMarpRender;
+export default useIndependentMarpRender;

@@ -1,4 +1,4 @@
-import themes from '@/lib/marp/themes';
+import themes from '@//lib/marp/themes';
 
 const slideConfigConst = {
     // themes: ['default', 'gaia', 'uncover'] as const,

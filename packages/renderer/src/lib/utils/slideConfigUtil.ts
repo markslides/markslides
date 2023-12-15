@@ -1,4 +1,4 @@
-import type { SlideConfigState } from '@/lib/types/common';
+import type { SlideConfigState } from '@//lib/types/common';
 
 // headingDivider: 1
 // _header: ''

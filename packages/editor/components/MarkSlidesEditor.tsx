@@ -18,7 +18,7 @@ import useSyncSlideInfoExtension from '@/hooks/codemirror/useSyncSlideInfoExtens
 import useBottomPanelExtension from '@/hooks/codemirror/useBottomPanelExtension';
 import PreviewFragment from '@/components/fragments/PreviewFragment';
 import shortcutExtension from '@/lib/codemirror/shortcutExtension';
-import type { SlideConfigState } from '@/lib/types/common';
+import type { SlideConfigState } from '@markslides/renderer';
 
 const Wrapper = styled.div<{ $height: number | string }>`
     height: ${({ $height }) => $height};

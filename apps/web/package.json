@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@markslides/editor": "*",
+    "@markslides/renderer": "*",
     "@repo/ui": "*",
     "next": "^14.0.3",
     "react": "^18.2.0",

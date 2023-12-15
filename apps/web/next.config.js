@@ -1,4 +1,8 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
-    transpilePackages: ['@markslides/editor', '@repo/ui'],
+    transpilePackages: [
+        '@markslides/renderer',
+        '@markslides/editor',
+        '@repo/ui',
+    ],
 };

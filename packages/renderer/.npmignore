@@ -1,0 +1,8 @@
+.turbo/
+src/
+node_modules/
+.eslintrc.js
+package-lock.json
+tsconfig.json
+tsconfig.lint.json
+turbo.json

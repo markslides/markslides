@@ -2,8 +2,10 @@
 
 import { useRef, useEffect } from 'react';
 import styled from 'styled-components';
-import useDefaultMarpRender from '@/hooks/marp/useDefaultMarpRender';
-import type { SlideConfigState } from '@/lib/types/common';
+import {
+    useDefaultMarpRender,
+    type SlideConfigState,
+} from '@markslides/renderer';
 
 const Wrapper = styled.div`
     height: 100%;
