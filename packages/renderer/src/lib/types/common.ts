@@ -12,10 +12,3 @@ export interface SlideConfigState {
     class: SlideClass;
     size: SlideSize;
 }
-
-export type SlideShowMode = 'audience' | 'presenter' | 'public';
-
-export type MarkSlidesFile = {
-    slideConfig: SlideConfigState;
-    markdownContent: string;
-};
