@@ -2,12 +2,49 @@
 
 import { useState } from 'react';
 import MarkSlidesEditor from '@markslides/editor';
+import {
+    undo,
+    redo,
+    heading,
+    bold,
+    italic,
+    strike,
+    underline,
+    blockQuotes,
+    orderedList,
+    unorderedList,
+    todoList,
+    link,
+    image,
+    code,
+    codeBlock,
+    mermaid,
+} from '@markslides/editor/toolbar';
+// import type { ToolbarCommand } from '@markslides/editor/toolbar';
 
 function Page(): JSX.Element {
     const [value, setValue] = useState('');
 
     return (
         <MarkSlidesEditor
+            toolbarCommands={[
+                undo,
+                redo,
+                heading,
+                bold,
+                italic,
+                strike,
+                underline,
+                blockQuotes,
+                orderedList,
+                unorderedList,
+                todoList,
+                link,
+                image,
+                code,
+                codeBlock,
+                mermaid,
+            ]}
             config={{
                 header: 'MarkSlides',
                 footer: 'Soaple',

@@ -17,11 +17,21 @@ import useSyncCurrentSelectionExtension from '@/hooks/codemirror/useSyncCurrentS
 import useSyncSlideInfoExtension from '@/hooks/codemirror/useSyncSlideInfoExtension';
 import useBottomPanelExtension from '@/hooks/codemirror/useBottomPanelExtension';
 import PreviewFragment from '@/components/fragments/PreviewFragment';
+import EditorToolbar, {
+    type EditorToolbarProps,
+} from '@/components/editor/EditorToolbar';
 import shortcutExtension from '@/lib/codemirror/shortcutExtension';
+import defaultToolbarCommands from '@/toolbar/commands';
 import type { SlideConfigState } from '@markslides/renderer';
 
 const Wrapper = styled.div<{ $height: number | string }>`
     height: ${({ $height }) => $height};
+    display: flex;
+    flex-direction: column;
+`;
+
+const EditorContainer = styled.div`
+    height: calc(100% - 32px);
     display: flex;
     flex-direction: row;
     align-items: stretch;
@@ -44,13 +54,12 @@ const styleTheme = EditorView.baseTheme({
     },
 });
 
-type MarkSlidesEditorProps = Pick<
-    ReactCodeMirrorProps,
-    'readOnly' | 'value' | 'onChange'
-> & {
+interface MarkSlidesEditorProps
+    extends Pick<ReactCodeMirrorProps, 'readOnly' | 'value' | 'onChange'>,
+        Partial<Pick<EditorToolbarProps, 'toolbarCommands'>> {
     height?: number | string;
     config?: SlideConfigState;
-};
+}
 
 const DEFAULT_SLIDE_CONFIG: SlideConfigState = {
     header: '',
@@ -63,6 +72,7 @@ const DEFAULT_SLIDE_CONFIG: SlideConfigState = {
 
 function MarkSlidesEditor(props: MarkSlidesEditorProps) {
     const {
+        toolbarCommands = defaultToolbarCommands,
         height = '100vh',
         config = DEFAULT_SLIDE_CONFIG,
         readOnly,
@@ -155,33 +165,40 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
 
     return (
         <Wrapper $height={height}>
-            <ReactCodeMirror
-                ref={codeMirrorRef}
-                height='100%'
-                style={{
-                    flex: '1',
-                }}
-                theme={githubLight}
-                extensions={extensions}
-                onCreateEditor={(view: EditorView, state: EditorState) => {
-                    editorViewRef.current = view;
-                    editorStateRef.current = state;
-                }}
-                readOnly={readOnly}
-                value={value}
-                onChange={onChange}
+            <EditorToolbar
+                toolbarCommands={toolbarCommands}
+                codeMirrorRef={codeMirrorRef.current}
             />
 
-            <VerticalDivider />
-
-            <PreviewContainer>
-                <PreviewFragment
-                    config={config}
-                    content={value ?? ''}
-                    currentCursorPosition={currentCursorPosition}
-                    currentSlideNum={currentSlideNumber}
+            <EditorContainer>
+                <ReactCodeMirror
+                    ref={codeMirrorRef}
+                    height='100%'
+                    style={{
+                        flex: '1',
+                    }}
+                    theme={githubLight}
+                    extensions={extensions}
+                    onCreateEditor={(view: EditorView, state: EditorState) => {
+                        editorViewRef.current = view;
+                        editorStateRef.current = state;
+                    }}
+                    readOnly={readOnly}
+                    value={value}
+                    onChange={onChange}
                 />
-            </PreviewContainer>
+
+                <VerticalDivider />
+
+                <PreviewContainer>
+                    <PreviewFragment
+                        config={config}
+                        content={value ?? ''}
+                        currentCursorPosition={currentCursorPosition}
+                        currentSlideNum={currentSlideNumber}
+                    />
+                </PreviewContainer>
+            </EditorContainer>
         </Wrapper>
     );
 }

@@ -1,7 +1,7 @@
 {
     "name": "@markslides/editor",
     "description": "MarkSlides Editor",
-    "version": "0.1.13",
+    "version": "0.1.14",
     "main": "./dist/index.js",
     "module": "./dist/index.mjs",
     "types": "./dist/index.d.ts",
@@ -25,13 +25,18 @@
         "lint": "eslint . --max-warnings 0",
         "generate:component": "turbo gen react-component",
         "dev": "npm run build -- --watch",
-        "build": "tsup ./index.ts --format cjs,esm --dts"
+        "build": "tsup ./src/index.ts ./src/toolbar/index.ts  --format cjs,esm --dts"
     },
     "exports": {
         ".": {
             "import": "./dist/index.mjs",
             "types": "./dist/index.d.ts",
             "default": "./dist/index.js"
+        },
+        "./toolbar": {
+            "import": "./dist/toolbar/index.mjs",
+            "types": "./dist/toolbar/index.d.ts",
+            "default": "./dist/toolbar/index.js"
         }
     },
     "peerDependencies": {
@@ -57,6 +62,7 @@
         "@markslides/renderer": "*",
         "@uiw/codemirror-themes-all": "^4.21.21",
         "@uiw/react-codemirror": "^4.21.21",
+        "react-icons": "^4.12.0",
         "styled-components": "^6.1.1"
     }
 }
