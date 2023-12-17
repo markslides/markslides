@@ -1,7 +1,5 @@
 .turbo/
-components/
-hooks/
-lib/
+src/
 node_modules/
 .eslintrc.js
 package-lock.json
