@@ -5,7 +5,7 @@ import type { ToolbarCommand } from '@/toolbar/types/toolbar';
 const code: ToolbarCommand = {
     name: 'code',
     icon: <FaCode />,
-    execute: (codeMirrorRef, callback) => {
+    execute: (codeMirrorRef) => {
         const { state, view } = codeMirrorRef;
 
         if (!state || !view) {

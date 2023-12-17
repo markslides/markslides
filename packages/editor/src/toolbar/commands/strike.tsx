@@ -5,7 +5,7 @@ import type { ToolbarCommand } from '@/toolbar/types/toolbar';
 const strike: ToolbarCommand = {
     name: 'strike',
     icon: <FaStrikethrough />,
-    execute: (codeMirrorRef, callback) => {
+    execute: (codeMirrorRef) => {
         const { state, view } = codeMirrorRef;
 
         if (!state || !view) {

@@ -5,7 +5,7 @@ import type { ToolbarCommand } from '@/toolbar/types/toolbar';
 const bold: ToolbarCommand = {
     name: 'bold',
     icon: <FaBold />,
-    execute: (codeMirrorRef, callback) => {
+    execute: (codeMirrorRef) => {
         const { state, view } = codeMirrorRef;
 
         if (!state || !view) {

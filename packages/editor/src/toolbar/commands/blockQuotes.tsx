@@ -5,7 +5,7 @@ import type { ToolbarCommand } from '@/toolbar/types/toolbar';
 const blockQuotes: ToolbarCommand = {
     name: 'blockQuotes',
     icon: <FaQuoteLeft />,
-    execute: (codeMirrorRef, callback) => {
+    execute: (codeMirrorRef) => {
         const { state, view } = codeMirrorRef;
 
         if (!state || !view) {

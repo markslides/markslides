@@ -52,7 +52,7 @@ function EditorToolbar(
                         aria-label={toolbarCommand.name}
                         onClick={() => {
                             if (codeMirrorRef) {
-                                toolbarCommand.execute(codeMirrorRef, () => {});
+                                toolbarCommand.execute(codeMirrorRef);
                             }
                         }}>
                         {toolbarCommand.icon}

@@ -1,19 +1,11 @@
 import { EditorSelection } from '@codemirror/state';
 import { FaRegImage } from 'react-icons/fa6';
-// import { openModal } from '@/redux/slices/modalSlice';
 import type { ToolbarCommand } from '@/toolbar/types/toolbar';
 
 const image: ToolbarCommand = {
     name: 'image',
     icon: <FaRegImage />,
-    execute: (codeMirrorRef, callback) => {
-        // dispatch(
-        //     openModal({
-        //         key: 'Images',
-        //     })
-        // );
-        // return;
-
+    execute: (codeMirrorRef) => {
         const { state, view } = codeMirrorRef;
 
         if (!state || !view) {
