@@ -25,9 +25,13 @@ function useIndependentMarpRender(
         return { html: null, css: null, comments: null };
     }, [slideConfig, content, containerClassName]);
 
+    // useEffect(() => {
+    //     appMarp.getDefaultInstance().markdown.mermaid.contentLoaded();
+    // }, [html]);
+
     useEffect(() => {
         appMarp.getDefaultInstance().markdown.mermaid.contentLoaded();
-    }, [html]);
+    });
 
     return { html, css, comments };
 }
