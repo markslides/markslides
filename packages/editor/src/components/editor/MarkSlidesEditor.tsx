@@ -119,20 +119,14 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
     );
 
     const syncCurrentCursorPositionExtension =
-        useSyncCurrentCursorPositionExtension(
-            currentCursorPosition,
-            handleChangeCursorPosition
-        );
+        useSyncCurrentCursorPositionExtension(handleChangeCursorPosition);
     const syncCurrentLineNumberExtension = useSyncCurrentLineNumberExtension(
-        currentLineNumber,
         handleChangeLineNumber
     );
     const syncCurrentSelectionExtension = useSyncCurrentSelectionExtension(
-        currentSelection,
         handleChangeSelectionStr
     );
     const syncSlideInfoExtension = useSyncSlideInfoExtension(
-        currentLineNumber,
         handleChangeSlideInfo
     );
     const bottomPanelExtension = useBottomPanelExtension(

@@ -1,9 +1,8 @@
 import { useMemo } from 'react';
 import { EditorView, ViewUpdate } from '@codemirror/view';
-// import codemirrorUtil from '@/lib/codemirror/util';
+import codemirrorUtil from '@/lib/codemirror/util';
 
 function useSyncSlideInfoExtension(
-    currentLineNumber: number,
     handleChangeSlideInfo: (
         title: string | undefined,
         currentSlideTitle: string | undefined,
@@ -15,10 +14,8 @@ function useSyncSlideInfoExtension(
         return EditorView.updateListener.of((update: ViewUpdate) => {
             const { state } = update;
 
-            // const newLineNumber = codemirrorUtil.getCurrentLineNumber(state);
-            // if (currentLineNumber === newLineNumber) {
-            //     return;
-            // }
+            const currentLineNumber =
+                codemirrorUtil.getCurrentLineNumber(state);
 
             let lineNum = 1;
             let totalSlideCount = 1;
@@ -64,7 +61,7 @@ function useSyncSlideInfoExtension(
                 totalSlideCount
             );
         });
-    }, [currentLineNumber]);
+    }, []);
 }
 
 export default useSyncSlideInfoExtension;
