@@ -25,7 +25,7 @@
         "lint": "eslint . --max-warnings 0",
         "generate:component": "turbo gen react-component",
         "dev": "npm run build -- --watch",
-        "build": "tsup ./src/index.ts ./src/toolbar/index.ts --format cjs,esm --dts"
+        "build": "tsup --clean ./src/index.ts ./src/toolbar/index.ts --format cjs,esm --dts"
     },
     "exports": {
         ".": {
