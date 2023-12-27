@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useRef, useCallback } from 'react';
+import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import styled from 'styled-components';
 import { markdown, markdownLanguage } from '@codemirror/lang-markdown';
 import { languages } from '@codemirror/language-data';
@@ -59,6 +59,7 @@ interface MarkSlidesEditorProps
         Partial<Pick<EditorToolbarProps, 'toolbarCommands'>> {
     height?: number | string;
     config?: SlideConfigState;
+    isFixScrollToBottom?: boolean;
 }
 
 const DEFAULT_SLIDE_CONFIG: SlideConfigState = {
@@ -75,6 +76,7 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
         toolbarCommands = defaultToolbarCommands,
         height = '100vh',
         config = DEFAULT_SLIDE_CONFIG,
+        isFixScrollToBottom = false,
         readOnly,
         value,
         onChange,
@@ -84,11 +86,31 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
     const editorViewRef = useRef<EditorView | null>(null);
     const editorStateRef = useRef<EditorState | null>(null);
 
+    const previewContainerRef = useRef<HTMLDivElement>(null);
+
     const [currentCursorPosition, setCurrentCursorPosition] = useState(0);
     const [currentLineNumber, setCurrentLineNumber] = useState(0);
     const [currentSlideNumber, setCurrentSlideNumber] = useState(0);
     const [totalSlideCount, setTotalSlideCount] = useState(0);
     const [currentSelection, setCurrentSelection] = useState('');
+
+    useEffect(() => {
+        if (isFixScrollToBottom && value) {
+            if (editorViewRef.current) {
+                editorViewRef.current.scrollDOM.scrollTo({
+                    top: editorViewRef.current.scrollDOM.scrollHeight,
+                    behavior: 'smooth',
+                });
+            }
+
+            if (previewContainerRef.current) {
+                previewContainerRef.current.scrollTo({
+                    top: previewContainerRef.current.scrollHeight,
+                    behavior: 'smooth',
+                });
+            }
+        }
+    }, [value]);
 
     const handleChangeCursorPosition = useCallback(
         (newCursorPosition: number) => {
@@ -184,7 +206,7 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
 
                 <VerticalDivider />
 
-                <PreviewContainer>
+                <PreviewContainer ref={previewContainerRef}>
                     <PreviewFragment
                         config={config}
                         content={value ?? ''}

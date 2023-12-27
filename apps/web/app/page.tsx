@@ -53,6 +53,7 @@ function Page(): JSX.Element {
                 class: 'invert',
                 size: '16:9',
             }}
+            isFixScrollToBottom={false}
             value={value}
             onChange={(newValue) => {
                 setValue(newValue);
