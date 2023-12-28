@@ -99,14 +99,14 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
             if (editorViewRef.current) {
                 editorViewRef.current.scrollDOM.scrollTo({
                     top: editorViewRef.current.scrollDOM.scrollHeight,
-                    behavior: 'smooth',
+                    behavior: 'instant',
                 });
             }
 
             if (previewContainerRef.current) {
                 previewContainerRef.current.scrollTo({
                     top: previewContainerRef.current.scrollHeight,
-                    behavior: 'smooth',
+                    behavior: 'instant',
                 });
             }
         }
