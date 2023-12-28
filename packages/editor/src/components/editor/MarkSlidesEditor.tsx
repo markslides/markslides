@@ -101,6 +101,13 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
                     top: editorViewRef.current.scrollDOM.scrollHeight,
                     behavior: 'instant',
                 });
+
+                editorViewRef.current.dispatch({
+                    selection: {
+                        anchor: value.length,
+                        head: value.length,
+                    },
+                });
             }
 
             if (previewContainerRef.current) {
