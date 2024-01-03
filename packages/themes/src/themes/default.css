@@ -700,6 +700,7 @@ section img[align=left] {
 }
 
 section .emoji {
+    display: inline;
     background-color: transparent;
     max-width: none;
     vertical-align: text-top;

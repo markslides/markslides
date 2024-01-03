@@ -1,4 +1,4 @@
-import slideConfigConst from '@//lib/constants/slideConfigConst';
+import slideConfigConst from '@/lib/constants/slideConfigConst';
 
 export type SlideTheme = (typeof slideConfigConst.themes)[number];
 export type SlideClass = (typeof slideConfigConst.classes)[number]['value'];

@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from 'react';
-import appMarp from '@//lib/marp/appMarp';
-import slideConfigUtil from '@//lib/utils/slideConfigUtil';
-import type { SlideConfigState } from '@//lib/types/common';
+import appMarp from '@/lib/marp/appMarp';
+import slideConfigUtil from '@/lib/utils/slideConfigUtil';
+import type { SlideConfigState } from '@/lib/types/common';
 
 function useIndependentMarpRender(
     containerClassName: string,
