@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useEffect } from 'react';
+import { EditorView } from '@codemirror/view';
 import styled from 'styled-components';
 import {
     useDefaultMarpRender,
@@ -42,10 +43,17 @@ type PreviewFragmentProps = {
     content: string;
     currentCursorPosition: number;
     currentSlideNum: number;
+    onClickSlide: (slide: Element, index: number) => void;
 };
 
 function PreviewFragment(props: PreviewFragmentProps) {
-    const { config, content, currentCursorPosition, currentSlideNum } = props;
+    const {
+        config,
+        content,
+        currentCursorPosition,
+        currentSlideNum,
+        onClickSlide,
+    } = props;
 
     const { html, css, comments } = useDefaultMarpRender(config, content);
 
@@ -55,6 +63,16 @@ function PreviewFragment(props: PreviewFragmentProps) {
         if (wrapperRef.current) {
             const marpitElem = wrapperRef.current.querySelector('.marpit');
             if (marpitElem) {
+                // Add click event listener for each slide
+                for (let i = 0; i < marpitElem.children.length; i++) {
+                    const slide = marpitElem.children.item(i);
+                    if (slide) {
+                        slide.addEventListener('click', () => {
+                            onClickSlide(slide, i);
+                        });
+                    }
+                }
+
                 const currentSlideElem =
                     marpitElem.children[currentSlideNum - 1];
                 if (currentSlideElem) {

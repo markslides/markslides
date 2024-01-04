@@ -11,6 +11,26 @@ const codemirrorUtil = {
     getCurrentLineNumber: (state: EditorState) => {
         return state.doc.lineAt(state.selection.main.head).number;
     },
+    getLineFromSlideIndex: (state: EditorState, slideIndex: number) => {
+        let lineNum = 1;
+        let slideCount = 1;
+        const iterLine = state.doc.iterLines();
+        while (!iterLine.done) {
+            if (iterLine.value === '---') {
+                slideCount++;
+            }
+            lineNum++;
+
+            if (slideCount === slideIndex + 1) {
+                break;
+            }
+
+            iterLine.next();
+        }
+
+        const line = state.doc.line(lineNum);
+        return line;
+    },
 };
 
 export default codemirrorUtil;

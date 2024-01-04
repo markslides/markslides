@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { markdown, markdownLanguage } from '@codemirror/lang-markdown';
 import { languages } from '@codemirror/language-data';
 import { EditorView } from '@codemirror/view';
-import { EditorState } from '@codemirror/state';
+import { EditorState, Transaction } from '@codemirror/state';
 import ReactCodeMirror, {
     type ReactCodeMirrorProps,
     type ReactCodeMirrorRef,
@@ -22,6 +22,7 @@ import EditorToolbar, {
 } from '@/components/editor/EditorToolbar';
 import shortcutExtension from '@/lib/codemirror/shortcutExtension';
 import defaultToolbarCommands from '@/toolbar/commands';
+import codemirrorUtil from '@/lib/codemirror/util';
 import type { SlideConfigState } from '@markslides/renderer';
 
 const Wrapper = styled.div<{ $height: number | string }>`
@@ -186,6 +187,20 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
         bottomPanelExtension,
     ]);
 
+    const handleClickSlide = useCallback((slide: Element, index: number) => {
+        if (editorViewRef.current && editorStateRef.current) {
+            const line = codemirrorUtil.getLineFromSlideIndex(
+                editorStateRef.current,
+                index
+            );
+
+            editorViewRef.current.dispatch({
+                selection: { head: line.from, anchor: line.to },
+                scrollIntoView: true,
+            });
+        }
+    }, []);
+
     return (
         <Wrapper $height={height}>
             <EditorToolbar
@@ -219,6 +234,7 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
                         content={value ?? ''}
                         currentCursorPosition={currentCursorPosition}
                         currentSlideNum={currentSlideNumber}
+                        onClickSlide={handleClickSlide}
                     />
                 </PreviewContainer>
             </EditorContainer>
