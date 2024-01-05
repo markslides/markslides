@@ -1,7 +1,6 @@
 'use client';
 
 import { useRef, useEffect } from 'react';
-import { EditorView } from '@codemirror/view';
 import styled from 'styled-components';
 import {
     useDefaultMarpRender,

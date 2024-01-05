@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { markdown, markdownLanguage } from '@codemirror/lang-markdown';
 import { languages } from '@codemirror/language-data';
 import { EditorView } from '@codemirror/view';
-import { EditorState, Transaction } from '@codemirror/state';
+import { EditorState } from '@codemirror/state';
 import ReactCodeMirror, {
     type ReactCodeMirrorProps,
     type ReactCodeMirrorRef,
@@ -195,9 +195,22 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
             );
 
             editorViewRef.current.dispatch({
-                selection: { head: line.from, anchor: line.to },
+                selection: { head: line.from, anchor: line.from },
                 scrollIntoView: true,
             });
+            editorViewRef.current.focus();
+
+            const lineBlockAt = editorViewRef.current.lineBlockAt(line.from);
+            if (lineBlockAt) {
+                const scroller =
+                    editorViewRef.current.scrollDOM.getBoundingClientRect();
+                const middle = lineBlockAt.top - scroller.height / 2;
+
+                editorViewRef.current.scrollDOM.scrollTo({
+                    top: middle,
+                    behavior: 'smooth',
+                });
+            }
         }
     }, []);
 

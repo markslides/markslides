@@ -14,8 +14,9 @@ const codemirrorUtil = {
     getLineFromSlideIndex: (state: EditorState, slideIndex: number) => {
         let lineNum = 1;
         let slideCount = 1;
+
         const iterLine = state.doc.iterLines();
-        while (!iterLine.done) {
+        while (!iterLine.done && lineNum < state.doc.lines) {
             if (iterLine.value === '---') {
                 slideCount++;
             }
