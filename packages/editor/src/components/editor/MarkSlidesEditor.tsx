@@ -196,7 +196,7 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
 
             editorViewRef.current.dispatch({
                 selection: { head: line.from, anchor: line.from },
-                scrollIntoView: true,
+                // scrollIntoView: true,
             });
             editorViewRef.current.focus();
 
