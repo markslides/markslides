@@ -24,6 +24,7 @@ import shortcutExtension from '@/lib/codemirror/shortcutExtension';
 import defaultToolbarCommands from '@/toolbar/commands';
 import codemirrorUtil from '@/lib/codemirror/util';
 import type { SlideConfigState } from '@markslides/renderer';
+import type { SlideInfo } from '@/lib/types/common';
 
 const Wrapper = styled.div<{ $height: number | string }>`
     height: ${({ $height }) => $height};
@@ -61,6 +62,8 @@ interface MarkSlidesEditorProps
     height?: number | string;
     config?: SlideConfigState;
     isFixScrollToBottom?: boolean;
+    slideInfo: SlideInfo;
+    onChangeSlideInfo: (newSlideInfo: SlideInfo) => void;
 }
 
 const DEFAULT_SLIDE_CONFIG: SlideConfigState = {
@@ -78,6 +81,8 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
         height = '100vh',
         config = DEFAULT_SLIDE_CONFIG,
         isFixScrollToBottom = false,
+        slideInfo,
+        onChangeSlideInfo,
         readOnly,
         value,
         onChange,
@@ -91,8 +96,6 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
 
     const [currentCursorPosition, setCurrentCursorPosition] = useState(0);
     const [currentLineNumber, setCurrentLineNumber] = useState(0);
-    const [currentSlideNumber, setCurrentSlideNumber] = useState(0);
-    const [totalSlideCount, setTotalSlideCount] = useState(0);
     const [currentSelection, setCurrentSelection] = useState('');
 
     useEffect(() => {
@@ -135,19 +138,6 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
         setCurrentSelection(newSelection);
     }, []);
 
-    const handleChangeSlideInfo = useCallback(
-        (
-            title: string | undefined,
-            currentSlideTitle: string | undefined,
-            currentSlideNumber: number,
-            totalSlideCount: number
-        ) => {
-            setCurrentSlideNumber(currentSlideNumber);
-            setTotalSlideCount(totalSlideCount);
-        },
-        []
-    );
-
     const syncCurrentCursorPositionExtension =
         useSyncCurrentCursorPositionExtension(handleChangeCursorPosition);
     const syncCurrentLineNumberExtension = useSyncCurrentLineNumberExtension(
@@ -156,12 +146,10 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
     const syncCurrentSelectionExtension = useSyncCurrentSelectionExtension(
         handleChangeSelectionStr
     );
-    const syncSlideInfoExtension = useSyncSlideInfoExtension(
-        handleChangeSlideInfo
-    );
+    const syncSlideInfoExtension = useSyncSlideInfoExtension(slideInfo, onChangeSlideInfo);
     const bottomPanelExtension = useBottomPanelExtension(
-        currentSlideNumber,
-        totalSlideCount
+        slideInfo.currentSlideNumber,
+        slideInfo.totalSlideCount
     );
 
     const extensions = useMemo(() => {
@@ -246,7 +234,7 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
                         config={config}
                         content={value ?? ''}
                         currentCursorPosition={currentCursorPosition}
-                        currentSlideNum={currentSlideNumber}
+                        currentSlideNum={slideInfo.currentSlideNumber}
                         onClickSlide={handleClickSlide}
                     />
                 </PreviewContainer>

@@ -20,10 +20,18 @@ import {
     codeBlock,
     mermaid,
 } from '@markslides/editor/toolbar';
+import type { SlideInfo } from '@markslides/editor';
 // import type { ToolbarCommand } from '@markslides/editor/toolbar';
 
 function Page(): JSX.Element {
     const [value, setValue] = useState('');
+
+    const [slideInfo, setSlideInfo] = useState<SlideInfo>({
+        title: '',
+        currentSlideTitle: '',
+        currentSlideNumber: 0,
+        totalSlideCount: 0,
+    });
 
     return (
         <MarkSlidesEditor
@@ -54,6 +62,10 @@ function Page(): JSX.Element {
                 size: '16:9',
             }}
             isFixScrollToBottom={false}
+            slideInfo={slideInfo}
+            onChangeSlideInfo={(newSlideInfo) => {
+                setSlideInfo(newSlideInfo);
+            }}
             value={value}
             onChange={(newValue) => {
                 setValue(newValue);

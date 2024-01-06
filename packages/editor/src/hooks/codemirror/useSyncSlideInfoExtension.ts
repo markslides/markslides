@@ -1,14 +1,11 @@
 import { useMemo } from 'react';
 import { EditorView, ViewUpdate } from '@codemirror/view';
 import codemirrorUtil from '@/lib/codemirror/util';
+import type { SlideInfo } from '@/lib/types/common';
 
 function useSyncSlideInfoExtension(
-    handleChangeSlideInfo: (
-        title: string | undefined,
-        currentSlideTitle: string | undefined,
-        currentSlideNumber: number,
-        totalSlideCount: number
-    ) => void
+    slideInfo: SlideInfo,
+    handleChangeSlideInfo: (slideInfo: SlideInfo) => void
 ) {
     return useMemo(() => {
         return EditorView.updateListener.of((update: ViewUpdate) => {
@@ -54,14 +51,25 @@ function useSyncSlideInfoExtension(
                 iterLine.next();
             }
 
-            handleChangeSlideInfo(
+            const newSlideInfo = {
                 title,
-                slideTitleArray[currentSlideNumber - 1],
-                currentSlideNumber,
-                totalSlideCount
-            );
+                currentSlideTitle: slideTitleArray[currentSlideNumber - 1],
+                currentSlideNumber: currentSlideNumber,
+                totalSlideCount: totalSlideCount,
+            };
+
+            // prettier-ignore
+            // Invoke callback only if there exists difference between current slide info and new slide info
+            if (
+                slideInfo.currentSlideNumber !== newSlideInfo.currentSlideNumber ||
+                slideInfo.totalSlideCount !== newSlideInfo.totalSlideCount ||
+                slideInfo.currentSlideTitle !== newSlideInfo.currentSlideTitle ||
+                slideInfo.title !== newSlideInfo.title
+            ) {
+                handleChangeSlideInfo(newSlideInfo);
+            }
         });
-    }, []);
+    }, [slideInfo, handleChangeSlideInfo]);
 }
 
 export default useSyncSlideInfoExtension;
