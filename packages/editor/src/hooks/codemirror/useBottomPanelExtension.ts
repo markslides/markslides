@@ -29,13 +29,13 @@ font-size: 12px;`
         }
 
         const panelConstructor = (view: EditorView): Panel => {
-            element.textContent = `Current slide: ${currentSlideNum}/${totalSlideCount}`;
+            element.textContent = `Current page: ${currentSlideNum}/${totalSlideCount}`;
             return {
                 dom: element,
                 // mount: () => {},
                 update: (update: ViewUpdate) => {
                     if (update.docChanged) {
-                        element.textContent = `Current slide: ${currentSlideNum}/${totalSlideCount}`;
+                        element.textContent = `Current page: ${currentSlideNum}/${totalSlideCount}`;
                     }
                 },
                 // destroy: () => {},
