@@ -89,8 +89,8 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
     } = props;
 
     const codeMirrorRef = useRef<ReactCodeMirrorRef>(null);
-    const editorViewRef = useRef<EditorView | null>(null);
-    const editorStateRef = useRef<EditorState | null>(null);
+    // const editorViewRef = useRef<EditorView | null>(null);
+    // const editorStateRef = useRef<EditorState | null>(null);
 
     const previewContainerRef = useRef<HTMLDivElement>(null);
 
@@ -100,13 +100,14 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
 
     useEffect(() => {
         if (isFixScrollToBottom && value) {
-            if (editorViewRef.current) {
-                editorViewRef.current.scrollDOM.scrollTo({
-                    top: editorViewRef.current.scrollDOM.scrollHeight,
+            const view = codeMirrorRef.current?.view;
+            if (view) {
+                view.scrollDOM.scrollTo({
+                    top: view.scrollDOM.scrollHeight,
                     behavior: 'instant',
                 });
 
-                editorViewRef.current.dispatch({
+                view.dispatch({
                     selection: {
                         anchor: value.length,
                         head: value.length,
@@ -146,7 +147,10 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
     const syncCurrentSelectionExtension = useSyncCurrentSelectionExtension(
         handleChangeSelectionStr
     );
-    const syncSlideInfoExtension = useSyncSlideInfoExtension(slideInfo, onChangeSlideInfo);
+    const syncSlideInfoExtension = useSyncSlideInfoExtension(
+        slideInfo,
+        onChangeSlideInfo
+    );
     const bottomPanelExtension = useBottomPanelExtension(
         slideInfo.currentSlideNumber,
         slideInfo.totalSlideCount
@@ -176,29 +180,34 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
     ]);
 
     const handleClickSlide = useCallback((slide: Element, index: number) => {
-        if (editorViewRef.current && editorStateRef.current) {
-            const line = codemirrorUtil.getLineFromSlideIndex(
-                editorStateRef.current,
-                index
-            );
+        if (!codeMirrorRef.current) {
+            return;
+        }
 
-            editorViewRef.current.dispatch({
-                selection: { head: line.from, anchor: line.from },
-                // scrollIntoView: true,
+        const { view } = codeMirrorRef.current;
+        if (!view) {
+            return;
+        }
+        // NOTE: Do not use codeMirrorRef.current.state, because it doen't updated in correctly
+        const state = view.state;
+
+        const line = codemirrorUtil.getLineFromSlideIndex(state, index);
+
+        view.dispatch({
+            selection: { head: line.from, anchor: line.from },
+            // scrollIntoView: true,
+        });
+        view.focus();
+
+        const lineBlockAt = view.lineBlockAt(line.from);
+        if (lineBlockAt) {
+            const scroller = view.scrollDOM.getBoundingClientRect();
+            const middle = lineBlockAt.top - scroller.height / 2;
+
+            view.scrollDOM.scrollTo({
+                top: middle,
+                behavior: 'smooth',
             });
-            editorViewRef.current.focus();
-
-            const lineBlockAt = editorViewRef.current.lineBlockAt(line.from);
-            if (lineBlockAt) {
-                const scroller =
-                    editorViewRef.current.scrollDOM.getBoundingClientRect();
-                const middle = lineBlockAt.top - scroller.height / 2;
-
-                editorViewRef.current.scrollDOM.scrollTo({
-                    top: middle,
-                    behavior: 'smooth',
-                });
-            }
         }
     }, []);
 
@@ -218,10 +227,10 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
                     }}
                     theme={githubLight}
                     extensions={extensions}
-                    onCreateEditor={(view: EditorView, state: EditorState) => {
-                        editorViewRef.current = view;
-                        editorStateRef.current = state;
-                    }}
+                    // onCreateEditor={(view: EditorView, state: EditorState) => {
+                    //     editorViewRef.current = view;
+                    //     editorStateRef.current = state;
+                    // }}
                     readOnly={readOnly}
                     value={value}
                     onChange={onChange}
