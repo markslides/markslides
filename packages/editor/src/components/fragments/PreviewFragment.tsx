@@ -1,11 +1,28 @@
 'use client';
 
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useCallback, MouseEvent } from 'react';
 import styled from 'styled-components';
 import {
     useDefaultMarpRender,
     type SlideConfigState,
 } from '@markslides/renderer';
+
+function findParentSection(element: HTMLElement) {
+    let currentElement = element;
+
+    while (currentElement !== null) {
+        if (currentElement.tagName === 'SECTION') {
+            return currentElement;
+        }
+
+        if (!currentElement.parentElement) {
+            break;
+        }
+        currentElement = currentElement.parentElement;
+    }
+
+    return null;
+}
 
 const Wrapper = styled.div`
     height: 100%;
@@ -42,7 +59,7 @@ type PreviewFragmentProps = {
     content: string;
     currentCursorPosition: number;
     currentSlideNum: number;
-    onClickSlide: (slide: Element, index: number) => void;
+    onClickSlide: (slide: HTMLElement, index: number) => void;
 };
 
 function PreviewFragment(props: PreviewFragmentProps) {
@@ -58,20 +75,23 @@ function PreviewFragment(props: PreviewFragmentProps) {
 
     const wrapperRef = useRef<HTMLDivElement | null>(null);
 
+    const handleClickMarpitContainer = useCallback(
+        (event: MouseEvent) => {
+            const sectionElem = findParentSection(event.target as HTMLElement);
+            if (sectionElem) {
+                onClickSlide(
+                    sectionElem,
+                    Number(sectionElem.getAttribute('id')) - 1
+                );
+            }
+        },
+        [onClickSlide]
+    );
+
     useEffect(() => {
         if (wrapperRef.current) {
             const marpitElem = wrapperRef.current.querySelector('.marpit');
             if (marpitElem) {
-                // Add click event listener for each slide
-                for (let i = 0; i < marpitElem.children.length; i++) {
-                    const slide = marpitElem.children.item(i);
-                    if (slide) {
-                        slide.addEventListener('click', () => {
-                            onClickSlide(slide, i);
-                        });
-                    }
-                }
-
                 const currentSlideElem =
                     marpitElem.children[currentSlideNum - 1];
                 if (currentSlideElem) {
@@ -83,7 +103,7 @@ function PreviewFragment(props: PreviewFragmentProps) {
                 }
             }
         }
-    }, [config, content, currentCursorPosition, currentSlideNum, onClickSlide]);
+    }, [currentSlideNum]);
 
     if (!html) {
         return <Wrapper />;
@@ -97,6 +117,7 @@ function PreviewFragment(props: PreviewFragmentProps) {
                 dangerouslySetInnerHTML={{
                     __html: html,
                 }}
+                onClick={handleClickMarpitContainer}
             />
         </Wrapper>
     );
