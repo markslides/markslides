@@ -83,7 +83,7 @@ function PreviewFragment(props: PreviewFragmentProps) {
                 }
             }
         }
-    }, [currentCursorPosition, currentSlideNum]);
+    }, [config, content, currentCursorPosition, currentSlideNum, onClickSlide]);
 
     if (!html) {
         return <Wrapper />;
