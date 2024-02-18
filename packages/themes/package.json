@@ -1,7 +1,7 @@
 {
     "name": "@markslides/themes",
     "description": "MarkSlides Themes",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "main": "./dist/index.js",
     "module": "./dist/index.mjs",
     "types": "./dist/index.d.ts",
@@ -40,6 +40,7 @@
         "@turbo/gen": "^1.10.12",
         "@types/eslint": "^8.44.7",
         "@types/node": "^20.5.2",
+        "css-loader": "^6.10.0",
         "eslint": "^8.53.0",
         "tsup": "^8.0.1",
         "typescript": "^5.2.2"
