@@ -1,5 +1,6 @@
 import { Marp } from '@marp-team/marp-core';
 import { Element as MarpitElement } from '@marp-team/marpit';
+import markdownItContainer from 'markdown-it-container';
 import markdownItMermaid from '@markslides/markdown-it-mermaid';
 import markdownItTypograms from '@markslides/markdown-it-typograms';
 import markdownItTaskLists from '@/lib/marp/plugins/taskLists';
@@ -20,17 +21,26 @@ const appMarp = (function () {
             //     class: 'slide',
             // }),
             inlineSVG: true,
+            html: true,
         });
-        // marp.themeSet.default = marp.themeSet.add(themeVscode);
 
         // Set plugins
+        marp.use(markdownItContainer, 'columns-2', {});
+        marp.use(markdownItContainer, 'columns-3', {});
+        marp.use(markdownItContainer, 'columns-4', {});
+        marp.use(markdownItContainer, 'columns-5', {});
+        marp.use(markdownItContainer, 'columns-6', {});
         marp.use(markdownItTaskLists);
         marp.use(markdownItMermaid);
         marp.use(markdownItTypograms);
 
-        themes.forEach((theme) => {
-            marp.themeSet.add(theme.css);
-        });
+        // Set themes
+        if (themes.length > 0) {
+            marp.themeSet.default = marp.themeSet.add(themes[0]!.css);
+            themes.forEach((theme) => {
+                marp.themeSet.add(theme.css);
+            });
+        }
 
         return marp;
     }

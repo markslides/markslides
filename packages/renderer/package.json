@@ -1,7 +1,7 @@
 {
     "name": "@markslides/renderer",
     "description": "MarkSlides Renderer",
-    "version": "0.1.8",
+    "version": "0.1.10",
     "main": "./dist/index.js",
     "module": "./dist/index.mjs",
     "types": "./dist/index.d.ts",
@@ -45,6 +45,7 @@
         "@turbo/gen": "^1.10.12",
         "@types/eslint": "^8.44.7",
         "@types/markdown-it": "^13.0.7",
+        "@types/markdown-it-container": "^2.0.9",
         "@types/node": "^20.5.2",
         "eslint": "^8.53.0",
         "tsup": "^8.0.1",
@@ -56,6 +57,7 @@
         "@markslides/themes": "*",
         "@marp-team/marp-core": "^3.9.0",
         "@marp-team/marpit": "^2.6.1",
-        "markdown-it": "^14.0.0"
+        "markdown-it": "^14.0.0",
+        "markdown-it-container": "^4.0.0"
     }
 }

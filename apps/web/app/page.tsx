@@ -58,7 +58,7 @@ function Page(): JSX.Element {
                 footer: 'Soaple',
                 paginate: true,
                 theme: 'default',
-                class: 'invert',
+                class: 'normal',
                 size: '16:9',
             }}
             isFixScrollToBottom={false}
