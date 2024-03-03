@@ -22,6 +22,10 @@ const appMarp = (function () {
             // }),
             inlineSVG: true,
             html: true,
+            markdown: {
+                html: true,
+                breaks: true,
+            },
         });
 
         // Set plugins
