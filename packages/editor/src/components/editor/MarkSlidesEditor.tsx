@@ -188,7 +188,7 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
         if (!view) {
             return;
         }
-        // NOTE: Do not use codeMirrorRef.current.state, because it doen't updated in correctly
+        // NOTE: Do not use codeMirrorRef.current.state, because it doesn't updated in correctly
         const state = view.state;
 
         const line = codemirrorUtil.getLineFromSlideIndex(state, index);
