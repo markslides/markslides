@@ -6,6 +6,7 @@ import { markdown, markdownLanguage } from '@codemirror/lang-markdown';
 import { languages } from '@codemirror/language-data';
 import { EditorView } from '@codemirror/view';
 import { EditorState } from '@codemirror/state';
+import { history as historyExtension } from '@codemirror/commands';
 import ReactCodeMirror, {
     type ReactCodeMirrorProps,
     type ReactCodeMirrorRef,
@@ -158,6 +159,7 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
 
     const extensions = useMemo(() => {
         return [
+            historyExtension(),
             styleTheme,
             shortcutExtension,
             markdown({
