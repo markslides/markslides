@@ -2,7 +2,8 @@ import themes from '@markslides/themes';
 
 const slideConfigConst = {
     // themes: ['default', 'gaia', 'uncover'] as const,
-    themes: ['default', ...themes.map((theme) => theme.name)] as const,
+    // themes: ['default', ...themes.map((theme) => theme.name)] as const,
+    themes: [...themes.map((theme) => theme.name)] as const,
     // classes: ['normal', 'invert', 'lead'] as const,
     classes: [
         { label: 'light', value: 'normal' },
