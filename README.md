@@ -1,3 +1,5 @@
+<img src="https://raw.githubusercontent.com/markslides/markslides/main/apps/web/public/logo_github_readme.svg" width="512px" height="auto" />
+
 # MarkSlides
 
 This is entrance repository of MarkSlides.
