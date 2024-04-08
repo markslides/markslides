@@ -71,7 +71,10 @@ function PreviewFragment(props: PreviewFragmentProps) {
         onClickSlide,
     } = props;
 
-    const { html, css, comments } = useDefaultMarpRender(config, content);
+    const { html, css, comments, refresh } = useDefaultMarpRender(
+        config,
+        content
+    );
 
     const wrapperRef = useRef<HTMLDivElement | null>(null);
 
