@@ -28,9 +28,7 @@ function useDefaultMarpRender(
     }, []);
 
     useEffect(() => {
-        if (html) {
-            refresh();
-        }
+        refresh();
     }, [html]);
 
     return { html, css, comments, refresh };

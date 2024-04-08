@@ -30,10 +30,8 @@ function useIndependentMarpRender(
     }, []);
 
     useEffect(() => {
-        if (html) {
-            refresh();
-        }
-    }, [html]);
+        refresh();
+    });
 
     return { html, css, comments, refresh };
 }
