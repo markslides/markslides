@@ -5,7 +5,7 @@ import mermaid from 'mermaid';
 
 const mermaidChart = (code: string) => {
     try {
-        mermaid.parse(code);
+        mermaid.parse(code, { suppressErrors: true });
         return `<div class="mermaid">${code}</div>`;
     } catch ({ str, hash }: any) {
         return `<pre>${str}</pre>`;
