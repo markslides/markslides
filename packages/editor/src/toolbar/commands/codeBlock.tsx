@@ -1,10 +1,10 @@
 import { EditorSelection } from '@codemirror/state';
-import { PiCodeBlockBold } from 'react-icons/pi';
+import { FileCode2Icon } from 'lucide-react';
 import type { ToolbarCommand } from '@/toolbar/types/toolbar';
 
 const codeBlock: ToolbarCommand = {
     name: 'codeBlock',
-    icon: <PiCodeBlockBold />,
+    icon: <FileCode2Icon size={16} />,
     execute: (codeMirrorRef) => {
         const { state, view } = codeMirrorRef;
 

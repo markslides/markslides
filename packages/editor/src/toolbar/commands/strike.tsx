@@ -1,10 +1,10 @@
 import { EditorSelection } from '@codemirror/state';
-import { FaStrikethrough } from 'react-icons/fa6';
+import { StrikethroughIcon } from 'lucide-react';
 import type { ToolbarCommand } from '@/toolbar/types/toolbar';
 
 const strike: ToolbarCommand = {
     name: 'strike',
-    icon: <FaStrikethrough />,
+    icon: <StrikethroughIcon size={16} />,
     execute: (codeMirrorRef) => {
         const { state, view } = codeMirrorRef;
 

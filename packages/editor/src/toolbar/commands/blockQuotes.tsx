@@ -1,10 +1,16 @@
 import { EditorSelection } from '@codemirror/state';
-import { FaQuoteLeft } from 'react-icons/fa6';
+import { QuoteIcon } from 'lucide-react';
+
 import type { ToolbarCommand } from '@/toolbar/types/toolbar';
 
 const blockQuotes: ToolbarCommand = {
     name: 'blockQuotes',
-    icon: <FaQuoteLeft />,
+    icon: (
+        <QuoteIcon
+            size={16}
+            fill='black'
+        />
+    ),
     execute: (codeMirrorRef) => {
         const { state, view } = codeMirrorRef;
 

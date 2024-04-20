@@ -1,10 +1,10 @@
 import { undo as undoHandle } from '@codemirror/commands';
-import { IoArrowUndo } from 'react-icons/io5';
+import { UndoIcon } from 'lucide-react';
 import type { ToolbarCommand } from '@/toolbar/types/toolbar';
 
 const undo: ToolbarCommand = {
     name: 'undo',
-    icon: <IoArrowUndo />,
+    icon: <UndoIcon size={16} />,
     execute: (codeMirrorRef) => {
         const { state, view } = codeMirrorRef;
 

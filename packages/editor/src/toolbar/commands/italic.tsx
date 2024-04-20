@@ -1,10 +1,10 @@
 import { EditorSelection } from '@codemirror/state';
-import { FaItalic } from 'react-icons/fa6';
+import { ItalicIcon } from 'lucide-react';
 import type { ToolbarCommand } from '@/toolbar/types/toolbar';
 
 const italic: ToolbarCommand = {
     name: 'italic',
-    icon: <FaItalic />,
+    icon: <ItalicIcon size={16} />,
     execute: (codeMirrorRef) => {
         const { state, view } = codeMirrorRef;
 

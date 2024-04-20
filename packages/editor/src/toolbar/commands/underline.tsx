@@ -1,10 +1,10 @@
 import { EditorSelection } from '@codemirror/state';
-import { FaUnderline } from 'react-icons/fa6';
+import { UnderlineIcon } from 'lucide-react';
 import type { ToolbarCommand } from '@/toolbar/types/toolbar';
 
 const underline: ToolbarCommand = {
     name: 'underline',
-    icon: <FaUnderline />,
+    icon: <UnderlineIcon size={16} />,
     execute: (codeMirrorRef) => {
         const { state, view } = codeMirrorRef;
 

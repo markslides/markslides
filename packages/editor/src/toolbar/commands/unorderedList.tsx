@@ -1,10 +1,10 @@
 import { EditorSelection } from '@codemirror/state';
-import { FaListUl } from 'react-icons/fa6';
+import { ListIcon } from 'lucide-react';
 import type { ToolbarCommand } from '@/toolbar/types/toolbar';
 
 const unorderedList: ToolbarCommand = {
     name: 'unorderedList',
-    icon: <FaListUl />,
+    icon: <ListIcon size={16} />,
     execute: (codeMirrorRef) => {
         const { state, view } = codeMirrorRef;
 

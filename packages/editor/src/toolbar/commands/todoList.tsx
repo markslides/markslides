@@ -1,10 +1,10 @@
 import { EditorSelection } from '@codemirror/state';
-import { FaListCheck } from 'react-icons/fa6';
+import { ListChecksIcon } from 'lucide-react';
 import type { ToolbarCommand } from '@/toolbar/types/toolbar';
 
 const todoList: ToolbarCommand = {
     name: 'todoList',
-    icon: <FaListCheck />,
+    icon: <ListChecksIcon size={16} />,
     execute: (codeMirrorRef) => {
         const { state, view } = codeMirrorRef;
 

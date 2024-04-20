@@ -1,10 +1,10 @@
 import { EditorSelection } from '@codemirror/state';
-import { FaCode } from 'react-icons/fa';
+import { CodeXmlIcon } from 'lucide-react';
 import type { ToolbarCommand } from '@/toolbar/types/toolbar';
 
 const code: ToolbarCommand = {
     name: 'code',
-    icon: <FaCode />,
+    icon: <CodeXmlIcon size={16} />,
     execute: (codeMirrorRef) => {
         const { state, view } = codeMirrorRef;
 

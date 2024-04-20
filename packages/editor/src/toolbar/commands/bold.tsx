@@ -1,10 +1,15 @@
 import { EditorSelection } from '@codemirror/state';
-import { FaBold } from 'react-icons/fa';
+import { BoldIcon } from 'lucide-react';
 import type { ToolbarCommand } from '@/toolbar/types/toolbar';
 
 const bold: ToolbarCommand = {
     name: 'bold',
-    icon: <FaBold />,
+    icon: (
+        <BoldIcon
+            size={16}
+            strokeWidth={4}
+        />
+    ),
     execute: (codeMirrorRef) => {
         const { state, view } = codeMirrorRef;
 

@@ -1,10 +1,10 @@
 import { EditorSelection } from '@codemirror/state';
-import { FaLink } from 'react-icons/fa6';
+import { LinkIcon } from 'lucide-react';
 import type { ToolbarCommand } from '@/toolbar/types/toolbar';
 
 const link: ToolbarCommand = {
     name: 'link',
-    icon: <FaLink />,
+    icon: <LinkIcon size={16} />,
     execute: (codeMirrorRef) => {
         const { state, view } = codeMirrorRef;
 

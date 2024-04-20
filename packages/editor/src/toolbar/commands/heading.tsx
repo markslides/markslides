@@ -1,10 +1,15 @@
 import { EditorSelection } from '@codemirror/state';
-import { FaHeading } from 'react-icons/fa6';
+import { HeadingIcon } from 'lucide-react';
 import type { ToolbarCommand } from '@/toolbar/types/toolbar';
 
 const heading: ToolbarCommand = {
     name: 'heading',
-    icon: <FaHeading />,
+    icon: (
+        <HeadingIcon
+            size={16}
+            strokeWidth={4}
+        />
+    ),
     execute: (codeMirrorRef) => {
         const { state, view } = codeMirrorRef;
 

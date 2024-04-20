@@ -1,7 +1,7 @@
 {
     "name": "@markslides/editor",
     "description": "MarkSlides Editor",
-    "version": "0.1.35",
+    "version": "0.1.36",
     "main": "./dist/index.js",
     "module": "./dist/index.mjs",
     "types": "./dist/index.d.ts",
@@ -62,7 +62,7 @@
         "@markslides/renderer": "^0.1.16",
         "@uiw/codemirror-themes-all": "^4.21.21",
         "@uiw/react-codemirror": "^4.21.21",
-        "react-icons": "^4.12.0",
+        "lucide-react": "^0.372.0",
         "styled-components": "^6.1.1"
     }
 }

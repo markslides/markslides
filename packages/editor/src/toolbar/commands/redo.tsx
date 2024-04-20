@@ -1,10 +1,10 @@
 import { redo as redoHandle } from '@codemirror/commands';
-import { IoArrowRedo } from 'react-icons/io5';
+import { RedoIcon } from 'lucide-react';
 import type { ToolbarCommand } from '@/toolbar/types/toolbar';
 
 const redo: ToolbarCommand = {
     name: 'redo',
-    icon: <IoArrowRedo />,
+    icon: <RedoIcon size={16} />,
     execute: (codeMirrorRef) => {
         const { state, view } = codeMirrorRef;
 
