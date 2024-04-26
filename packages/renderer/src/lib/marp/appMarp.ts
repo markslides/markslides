@@ -1,9 +1,10 @@
 import { Marp } from '@marp-team/marp-core';
 import { Element as MarpitElement } from '@marp-team/marpit';
 import markdownItContainer from 'markdown-it-container';
+import markdonwItLink from '@markslides/markdown-it-link';
+import markdownItTaskLists from '@/lib/marp/plugins/taskLists';
 import markdownItMermaid from '@markslides/markdown-it-mermaid';
 import markdownItTypograms from '@markslides/markdown-it-typograms';
-import markdownItTaskLists from '@/lib/marp/plugins/taskLists';
 import themes from '@markslides/themes';
 
 const appMarp = (function () {
@@ -34,6 +35,7 @@ const appMarp = (function () {
         marp.use(markdownItContainer, 'columns-4', {});
         marp.use(markdownItContainer, 'columns-5', {});
         marp.use(markdownItContainer, 'columns-6', {});
+        marp.use(markdonwItLink);
         marp.use(markdownItTaskLists);
         marp.use(markdownItMermaid);
         marp.use(markdownItTypograms);
