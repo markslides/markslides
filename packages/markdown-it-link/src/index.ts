@@ -3,7 +3,7 @@ import Token from 'markdown-it/lib/token';
 import Renderer from 'markdown-it/lib/renderer';
 
 const urlRegExp =
-    /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+    /^(https?:\/\/)?([\w\.-]+(?:\:[\w\.]*)?@)?([\w\.-]+\.[a-z\.]{2,6})(\:\d{1,5})?(\/[\/\w \.-]*)*(\?[&\w\.-=]*)?(#[\w\-]*)?$/;
 
 const markdownItLink = (md: MarkdownIt) => {
     var defaultRender =
