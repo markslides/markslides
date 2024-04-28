@@ -10,7 +10,7 @@ npm install --save @markslides/markdown-it-link
 ## Usage
 
 ```tsx
-import markdownItMermaid from '@markslides/markdown-it-link';
+import markdownItLink from '@markslides/markdown-it-link';
 
 
 ```
