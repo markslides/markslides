@@ -10,16 +10,20 @@ function useIndependentMarpRender(
 ) {
     const { html, css, comments } = useMemo(() => {
         if (content) {
-            const config =
-                typeof slideConfig === 'string'
-                    ? slideConfig
-                    : slideConfigUtil.generateMarpConfigFromSlideConfigState(
-                          slideConfig
-                      );
+            try {
+                const config =
+                    typeof slideConfig === 'string'
+                        ? slideConfig
+                        : slideConfigUtil.generateMarpConfigFromSlideConfigState(
+                              slideConfig
+                          );
 
-            return appMarp
-                .createInstance(containerClassName)
-                .render(`---\n${config}\n---\n\n${content}`);
+                return appMarp
+                    .createInstance(containerClassName)
+                    .render(`---\n${config}\n---\n\n${content}`);
+            } catch (error) {
+                console.error(error);
+            }
         }
 
         return { html: null, css: null, comments: null };
