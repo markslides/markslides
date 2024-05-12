@@ -1,7 +1,7 @@
 {
     "name": "@markslides/editor",
     "description": "MarkSlides Editor",
-    "version": "0.1.39",
+    "version": "0.1.40",
     "main": "./dist/index.js",
     "module": "./dist/index.mjs",
     "types": "./dist/index.d.ts",
