@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import MarkSlidesEditor from '@markslides/editor';
 import {
     undo,
@@ -20,10 +20,11 @@ import {
     codeBlock,
     mermaid,
 } from '@markslides/editor/toolbar';
-import type { SlideInfo } from '@markslides/editor';
+import type { RenderMode, SlideInfo } from '@markslides/editor';
 // import type { ToolbarCommand } from '@markslides/editor/toolbar';
 
 function Page(): JSX.Element {
+    const [renderMode, setRenderMode] = useState<RenderMode>('slide');
     const [value, setValue] = useState('');
 
     const [slideInfo, setSlideInfo] = useState<SlideInfo>({
@@ -33,8 +34,19 @@ function Page(): JSX.Element {
         totalSlideCount: 0,
     });
 
+    const toggleRenderMode = useCallback(() => {
+        setRenderMode((prevRenderMode) => {
+            if (prevRenderMode === 'slide') {
+                return 'document';
+            }
+            return 'slide';
+        });
+    }, []);
+
     return (
         <MarkSlidesEditor
+            renderMode={renderMode}
+            toggleRenderMode={toggleRenderMode}
             toolbarCommands={[
                 undo,
                 redo,

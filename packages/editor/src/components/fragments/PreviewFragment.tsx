@@ -29,23 +29,21 @@ const Wrapper = styled.div`
     background-color: #eeeeee;
 `;
 
-const MarpitContainer = styled.div<{ $currentSlideNum: number }>`
+const MarpitContainer = styled.div<{
+    $currentSlideNum: number;
+}>`
     height: 100%;
     .marpit {
         min-height: 100%;
         padding: 32px;
+        background-color: #eeeeee;
+        font-family: 'Noto Sans KR', sans-serif;
         display: flex;
         flex-direction: column;
         gap: 32px;
-        background-color: #eeeeee;
-        font-family: 'Noto Sans KR', sans-serif;
 
         & > * {
             box-shadow: 0 0 4px 8px transparent;
-            /* border-width: 8px;
-            border-style: solid;
-            border-color: transparent;
-            transition: border-color 0.2s ease-in-out; */
             transition: box-shadow 0.2s ease-in-out;
         }
         & > :nth-child(${({ $currentSlideNum }) => $currentSlideNum}) {

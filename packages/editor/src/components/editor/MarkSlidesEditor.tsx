@@ -59,7 +59,12 @@ const styleTheme = EditorView.baseTheme({
 
 interface MarkSlidesEditorProps
     extends Pick<ReactCodeMirrorProps, 'readOnly' | 'value' | 'onChange'>,
-        Partial<Pick<EditorToolbarProps, 'toolbarCommands'>> {
+        Partial<
+            Pick<
+                EditorToolbarProps,
+                'renderMode' | 'toggleRenderMode' | 'toolbarCommands'
+            >
+        > {
     height?: number | string;
     config?: SlideConfigState;
     isFixScrollToBottom?: boolean;
@@ -78,6 +83,8 @@ const DEFAULT_SLIDE_CONFIG: SlideConfigState = {
 
 function MarkSlidesEditor(props: MarkSlidesEditorProps) {
     const {
+        renderMode = 'slide',
+        toggleRenderMode,
         toolbarCommands = defaultToolbarCommands,
         height = '100vh',
         config = DEFAULT_SLIDE_CONFIG,
@@ -216,6 +223,8 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
     return (
         <Wrapper $height={height}>
             <EditorToolbar
+                renderMode={renderMode}
+                toggleRenderMode={toggleRenderMode}
                 toolbarCommands={toolbarCommands}
                 codeMirrorRef={codeMirrorRef.current}
             />
@@ -241,13 +250,17 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
                 <VerticalDivider />
 
                 <PreviewContainer ref={previewContainerRef}>
-                    <PreviewFragment
-                        config={config}
-                        content={value ?? ''}
-                        currentCursorPosition={currentCursorPosition}
-                        currentSlideNum={slideInfo.currentSlideNumber}
-                        onClickSlide={handleClickSlide}
-                    />
+                    {renderMode === 'slide' ? (
+                        <PreviewFragment
+                            config={config}
+                            content={value ?? ''}
+                            currentCursorPosition={currentCursorPosition}
+                            currentSlideNum={slideInfo.currentSlideNumber}
+                            onClickSlide={handleClickSlide}
+                        />
+                    ) : (
+                        <div>{value}</div>
+                    )}
                 </PreviewContainer>
             </EditorContainer>
         </Wrapper>

@@ -1,5 +1,7 @@
 import type { SlideConfigState } from '@markslides/renderer';
 
+export type RenderMode = 'slide' | 'document';
+
 export type SlideShowMode = 'audience' | 'presenter' | 'public';
 
 export type SlideInfo = {

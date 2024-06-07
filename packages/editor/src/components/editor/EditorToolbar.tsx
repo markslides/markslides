@@ -1,8 +1,10 @@
 import { ForwardedRef, forwardRef } from 'react';
 import styled from 'styled-components';
 import { ReactCodeMirrorRef } from '@uiw/react-codemirror';
+import { GalleryVerticalIcon, FileTextIcon } from 'lucide-react';
 import appConst from '@/lib/constants/appConst';
 import type { ToolbarCommand } from '@/toolbar';
+import type { RenderMode } from '@/lib/types/common';
 
 const TOOLBAR_HEIGHT = 32;
 
@@ -30,7 +32,13 @@ const ToolbarItem = styled.button`
     }
 `;
 
+const Filler = styled.div`
+    flex: 1;
+`;
+
 export interface EditorToolbarProps {
+    renderMode?: RenderMode;
+    toggleRenderMode?: () => void;
     toolbarCommands: ToolbarCommand[];
     codeMirrorRef: ReactCodeMirrorRef | null;
 }
@@ -39,7 +47,8 @@ function EditorToolbar(
     props: EditorToolbarProps,
     forwardedRef: ForwardedRef<HTMLDivElement>
 ) {
-    const { toolbarCommands, codeMirrorRef } = props;
+    const { renderMode, toggleRenderMode, toolbarCommands, codeMirrorRef } =
+        props;
 
     return (
         <Wrapper
@@ -59,6 +68,24 @@ function EditorToolbar(
                     </ToolbarItem>
                 );
             })}
+
+            <Filler />
+
+            <ToolbarItem
+                aria-label='toggle render mode'
+                onClick={toggleRenderMode}>
+                {renderMode === 'slide' ? (
+                    <FileTextIcon
+                        size={16}
+                        strokeWidth={2}
+                    />
+                ) : (
+                    <GalleryVerticalIcon
+                        size={16}
+                        strokeWidth={2}
+                    />
+                )}
+            </ToolbarItem>
         </Wrapper>
     );
 }
