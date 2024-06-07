@@ -43,6 +43,7 @@
         "@repo/eslint-config": "*",
         "@repo/typescript-config": "*",
         "@turbo/gen": "^1.10.12",
+        "@types/dompurify": "^3.0.5",
         "@types/eslint": "^8.44.7",
         "@types/markdown-it": "^13.0.7",
         "@types/markdown-it-container": "^2.0.9",
@@ -58,7 +59,10 @@
         "@markslides/themes": "^0.1.5",
         "@marp-team/marp-core": "^3.9.0",
         "@marp-team/marpit": "^2.6.1",
+        "dompurify": "^3.1.5",
+        "jsdom": "^24.1.0",
         "markdown-it": "^14.0.0",
-        "markdown-it-container": "^4.0.0"
+        "markdown-it-container": "^4.0.0",
+        "marked": "^12.0.2"
     }
 }
