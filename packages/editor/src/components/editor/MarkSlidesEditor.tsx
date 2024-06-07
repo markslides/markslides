@@ -17,6 +17,7 @@ import useSyncCurrentLineNumberExtension from '@/hooks/codemirror/useSyncCurrent
 import useSyncCurrentSelectionExtension from '@/hooks/codemirror/useSyncCurrentSelectionExtension';
 import useSyncSlideInfoExtension from '@/hooks/codemirror/useSyncSlideInfoExtension';
 import useBottomPanelExtension from '@/hooks/codemirror/useBottomPanelExtension';
+import DocumentPreviewFragment from '@/components/fragments/DocumentPreviewFragment';
 import PreviewFragment from '@/components/fragments/PreviewFragment';
 import EditorToolbar, {
     type EditorToolbarProps,
@@ -259,7 +260,7 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
                             onClickSlide={handleClickSlide}
                         />
                     ) : (
-                        <div>{value}</div>
+                        <DocumentPreviewFragment content={value} />
                     )}
                 </PreviewContainer>
             </EditorContainer>
