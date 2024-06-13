@@ -21,20 +21,25 @@
         "generate:component": "turbo gen react-component"
     },
     "exports": {
-        "./button": "./src/button.tsx",
-        "./card": "./src/card.tsx",
-        "./code": "./src/code.tsx"
+        "./alert-dialog": "./src/components/alert-dialog/index.tsx",
+        "./button": "./src/components/button.tsx",
+        "./card": "./src/components/card.tsx",
+        "./code": "./src/components/code.tsx"
     },
     "devDependencies": {
         "@repo/eslint-config": "*",
         "@repo/typescript-config": "*",
         "@turbo/gen": "^1.10.12",
-        "@types/node": "^20.5.2",
         "@types/eslint": "^8.44.7",
+        "@types/node": "^20.5.2",
         "@types/react": "^18.2.0",
         "@types/react-dom": "^18.2.0",
         "eslint": "^8.53.0",
         "react": "^18.2.0",
         "typescript": "^5.2.2"
+    },
+    "dependencies": {
+        "@radix-ui/react-alert-dialog": "^1.0.5",
+        "styled-components": "^6.1.11"
     }
 }
