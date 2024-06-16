@@ -4,9 +4,8 @@ import styled, { css } from 'styled-components';
 export const MenubarRoot = styled(MenubarPrimitive.Root)`
     display: flex;
     background-color: white;
-    padding: 3px;
-    border-radius: 6px;
-    box-shadow: 0 2px 10px var(--black-a7);
+    padding: 4px;
+    /* box-shadow: 0 2px 10px var(--black-a7); */
 `;
 
 export const MenubarTrigger = styled(MenubarPrimitive.MenubarTrigger)`
@@ -17,18 +16,19 @@ export const MenubarTrigger = styled(MenubarPrimitive.MenubarTrigger)`
     font-weight: 500;
     line-height: 1;
     border-radius: 4px;
-    color: var(--violet-11);
+    color: black;
     font-size: 13px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 2px;
+    transition: background-color 0.1s ease-in-out;
 
-    [data-highlighted] {
-        background-color: var(--violet-4);
+    &[data-highlighted] {
+        background-color: #00000033;
     }
-    [data-state='open'] {
-        background-color: var(--violet-4);
+    &[data-state='open'] {
+        background-color: #00000033;
     }
 `;
 
@@ -54,37 +54,33 @@ export const MenubarSubContent = styled(MenubarPrimitive.MenubarSubContent)`
 
 export const itemStyles = css`
     all: unset;
-    font-size: 13px;
-    line-height: 1;
-    color: var(--violet-11);
-    border-radius: 4px;
+    position: relative;
+    padding: 8px 8px;
     display: flex;
     align-items: center;
-    height: 25px;
-    padding: 0 10px;
-    position: relative;
+    color: black;
+    font-size: 14px;
+    line-height: 1;
+    border-radius: 4px;
     user-select: none;
+    transition: background-color 0.1s ease-in-out;
 
     .inset {
         padding-left: 20px;
     }
 
-    [data-state='open'] {
-        background-color: var(--violet-4);
-        color: var(--violet-11);
+    &[data-state='open'] {
+        background-color: #00000033;
+        /* color: white; */
     }
 
-    [data-highlighted] {
-        background-image: linear-gradient(
-            135deg,
-            var(--violet-9) 0%,
-            var(--violet-10) 100%
-        );
-        color: var(--violet-1);
+    &[data-highlighted] {
+        background-color: #00000033;
+        /* color: white; */
     }
 
-    [data-disabled] {
-        color: var(--mauve-8);
+    &[data-disabled] {
+        color: black;
         pointer-events: none;
     }
 `;
@@ -115,11 +111,23 @@ export const MenubarItemIndicator = styled(
 
 export const MenubarSeparator = styled(MenubarPrimitive.MenubarSeparator)`
     height: 1px;
-    background-color: var(--violet-6);
-    margin: 5px;
+    margin: 8px;
+    background-color: #eeeeee;
 `;
 
 export const MenubarMenu = styled(MenubarPrimitive.MenubarMenu)``;
 export const MenubarRadioGroup = styled(MenubarPrimitive.MenubarRadioGroup)``;
 export const MenubarPortal = styled(MenubarPrimitive.MenubarPortal)``;
 export const MenubarSub = styled(MenubarPrimitive.MenubarSub)``;
+
+export const MenubarRightSlot = styled.div`
+    margin-left: auto;
+    padding-left: 20px;
+    color: black;
+    &[data-highlighted] {
+        color: white;
+    }
+    &[data-disabled] {
+        color: gray;
+    }
+`;
