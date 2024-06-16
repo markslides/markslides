@@ -22,9 +22,8 @@
     },
     "exports": {
         "./alert-dialog": "./src/components/alert-dialog/index.tsx",
-        "./button": "./src/components/Button/index.tsx",
-        "./card": "./src/components/card.tsx",
-        "./code": "./src/components/code.tsx"
+        "./button": "./src/components/button/index.tsx",
+        "./menu-bar": "./src/components/menu-bar/index.tsx"
     },
     "devDependencies": {
         "@repo/eslint-config": "*",

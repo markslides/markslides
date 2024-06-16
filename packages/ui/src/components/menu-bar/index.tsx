@@ -92,13 +92,13 @@ export const itemStyles = css`
 export const MenubarItem = styled(MenubarPrimitive.Item)`
     ${itemStyles}
 `;
-export const MenubarSubTrigger = styled(MenubarPrimitive.Item)`
+export const MenubarSubTrigger = styled(MenubarPrimitive.SubTrigger)`
     ${itemStyles}
 `;
-export const MenubarCheckboxItem = styled(MenubarPrimitive.Item)`
+export const MenubarCheckboxItem = styled(MenubarPrimitive.CheckboxItem)`
     ${itemStyles}
 `;
-export const MenubarRadioItem = styled(MenubarPrimitive.Item)`
+export const MenubarRadioItem = styled(MenubarPrimitive.RadioItem)`
     ${itemStyles}
 `;
 
@@ -123,15 +123,3 @@ export const MenubarMenu = styled(MenubarPrimitive.MenubarMenu)``;
 export const MenubarRadioGroup = styled(MenubarPrimitive.MenubarRadioGroup)``;
 export const MenubarPortal = styled(MenubarPrimitive.MenubarPortal)``;
 export const MenubarSub = styled(MenubarPrimitive.MenubarSub)``;
-
-export const RightSlot = styled.div`
-    margin-left: auto;
-    padding-left: 20px;
-    color: var(--mauve-9);
-    [data-highlighted] {
-        color: white;
-    }
-    [data-disabled] {
-        color: var(--mauve-8);
-    }
-`;
