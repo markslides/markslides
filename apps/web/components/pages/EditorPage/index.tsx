@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { Button } from '@markslides/ui/button';
 import MarkSlidesEditor from '@markslides/editor';
 import {
     undo,
@@ -23,7 +24,7 @@ import {
 import type { SlideInfo } from '@markslides/editor';
 // import type { ToolbarCommand } from '@markslides/editor/toolbar';
 
-function Page(): JSX.Element {
+function EditorPage(): JSX.Element {
     const [value, setValue] = useState('');
 
     const [slideInfo, setSlideInfo] = useState<SlideInfo>({
@@ -35,6 +36,7 @@ function Page(): JSX.Element {
 
     return (
         <MarkSlidesEditor
+            height='100%'
             toolbarCommands={[
                 undo,
                 redo,
@@ -74,4 +76,4 @@ function Page(): JSX.Element {
     );
 }
 
-export default Page;
+export default EditorPage;
