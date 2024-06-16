@@ -22,7 +22,7 @@
     },
     "exports": {
         "./alert-dialog": "./src/components/alert-dialog/index.tsx",
-        "./button": "./src/components/button.tsx",
+        "./button": "./src/components/Button/index.tsx",
         "./card": "./src/components/card.tsx",
         "./code": "./src/components/code.tsx"
     },
