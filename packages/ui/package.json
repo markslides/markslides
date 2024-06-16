@@ -21,9 +21,11 @@
         "generate:component": "turbo gen react-component"
     },
     "exports": {
-        "./alert-dialog": "./src/components/alert-dialog/index.tsx",
+        "./box": "./src/components/box/index.tsx",
+        "./flex": "./src/components/flex/index.tsx",
         "./button": "./src/components/button/index.tsx",
-        "./menu-bar": "./src/components/menu-bar/index.tsx"
+        "./menu-bar": "./src/components/menu-bar/index.tsx",
+        "./alert-dialog": "./src/components/alert-dialog/index.tsx"
     },
     "devDependencies": {
         "@repo/eslint-config": "*",
