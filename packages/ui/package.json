@@ -24,6 +24,8 @@
         "./box": "./src/components/box/index.tsx",
         "./flex": "./src/components/flex/index.tsx",
         "./button": "./src/components/button/index.tsx",
+        "./image": "./src/components/image/index.tsx",
+        "./text": "./src/components/text/index.tsx",
         "./menu-bar": "./src/components/menu-bar/index.tsx",
         "./alert-dialog": "./src/components/alert-dialog/index.tsx"
     },
