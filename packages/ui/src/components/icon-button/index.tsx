@@ -27,7 +27,7 @@ export const Wrapper = styled.button.attrs<
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     icon: JSX.Element;
     size: 'xs' | 'sm' | 'lg' | 'xl';
-    variant: 'solid' | 'outline';
+    variant: 'solid' | 'outline' | 'unstyled';
 }
 
 export function IconButton(props: ButtonProps): JSX.Element {

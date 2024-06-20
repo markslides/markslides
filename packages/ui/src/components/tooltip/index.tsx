@@ -89,19 +89,25 @@ const TooltipArrow = styled(TooltipPrimitive.Arrow)`
     fill: white;
 `;
 
-interface TooltipProps extends PropsWithChildren<{ label: string }> {}
+interface TooltipProps extends PropsWithChildren {
+    hasArrow: boolean;
+    placement: 'left' | 'top' | 'right' | 'bottom';
+    label: string;
+}
 
 export function Tooltip(props: TooltipProps) {
-    const { label, children } = props;
+    const { hasArrow, placement, label, children } = props;
 
     return (
         <TooltipProvider>
             <TooltipRoot>
                 <TooltipTrigger asChild>{children}</TooltipTrigger>
                 <TooltipPortal>
-                    <TooltipContent sideOffset={5}>
+                    <TooltipContent
+                        side={placement}
+                        sideOffset={5}>
                         {label}
-                        <TooltipArrow />
+                        {hasArrow && <TooltipArrow />}
                     </TooltipContent>
                 </TooltipPortal>
             </TooltipRoot>
