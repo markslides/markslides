@@ -23,6 +23,7 @@
     "exports": {
         "./box": "./src/components/box/index.tsx",
         "./flex": "./src/components/flex/index.tsx",
+        "./center": "./src/components/center/index.tsx",
         "./button": "./src/components/button/index.tsx",
         "./image": "./src/components/image/index.tsx",
         "./text": "./src/components/text/index.tsx",
