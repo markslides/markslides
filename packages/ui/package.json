@@ -28,6 +28,7 @@
         "./icon-button": "./src/components/icon-button/index.tsx",
         "./image": "./src/components/image/index.tsx",
         "./text": "./src/components/text/index.tsx",
+        "./tooltip": "./src/components/tooltip/index.tsx",
         "./menu-bar": "./src/components/menu-bar/index.tsx",
         "./progress": "./src/components/progress/index.tsx",
         "./alert-dialog": "./src/components/alert-dialog/index.tsx"
@@ -47,6 +48,7 @@
     "dependencies": {
         "@radix-ui/react-alert-dialog": "^1.0.5",
         "@radix-ui/react-menubar": "^1.0.4",
+        "@radix-ui/react-tooltip": "^1.1.0",
         "styled-components": "^6.1.11"
     }
 }
