@@ -29,6 +29,7 @@
         "./image": "./src/components/image/index.tsx",
         "./text": "./src/components/text/index.tsx",
         "./menu-bar": "./src/components/menu-bar/index.tsx",
+        "./progress": "./src/components/progress/index.tsx",
         "./alert-dialog": "./src/components/alert-dialog/index.tsx"
     },
     "devDependencies": {
