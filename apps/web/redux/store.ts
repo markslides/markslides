@@ -27,7 +27,7 @@ const sagaMiddleware = createSagaMiddleware();
 export const store = configureStore({
     reducer: persistedReducer,
     middleware: (getDefaultMiddleware) => {
-        const defaultMiddleware = getDefaultMiddleware({
+        return getDefaultMiddleware({
             serializableCheck: {
                 ignoredActions: [
                     FLUSH,
@@ -38,9 +38,7 @@ export const store = configureStore({
                     REGISTER,
                 ],
             },
-        });
-        defaultMiddleware.concat(sagaMiddleware);
-        return defaultMiddleware;
+        }).concat(sagaMiddleware);
     },
     // NOTE: Make redux-devtools to only work for development mode
     devTools: process.env.NEXT_PUBLIC_ENV === 'development',
