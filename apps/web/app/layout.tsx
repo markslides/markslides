@@ -1,5 +1,6 @@
 import { type PropsWithChildren } from 'react';
 import type { Metadata } from 'next';
+import App from '@/components/base/App';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -12,7 +13,9 @@ function RootLayout(props: PropsWithChildren): JSX.Element {
 
     return (
         <html lang='en'>
-            <body>{children}</body>
+            <body>
+                <App>{children}</App>
+            </body>
         </html>
     );
 }
