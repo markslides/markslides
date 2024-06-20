@@ -1,34 +1,57 @@
-import styled, { type CSSProperties } from 'styled-components';
+import * as ProgressPrimitive from '@radix-ui/react-progress';
+import styled from 'styled-components';
 
-const Wrapper = styled.div.attrs<CSSProperties>((props) => ({
-    style: {
-        ...props,
-    },
-}))<CSSProperties>`
+type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
+const ProgressRoot = styled(ProgressPrimitive.Root)<{ size: Size }>`
     width: 100%;
-    height: 8px;
-    border-radius: 4px;
+    height: ${({ size }) => {
+        switch (size) {
+            case 'xs':
+                return '2px';
+            case 'sm':
+                return '4px';
+            case 'md':
+                return '8px';
+            case 'lg':
+                return '12px';
+            case 'xl':
+                return '16px';
+        }
+    }};
+    position: relative;
+    overflow: hidden;
     background-color: #eeeeee;
+    border-radius: 99999px;
+
+    /* Fix overflow clipping in Safari */
+    /* https://gist.github.com/domske/b66047671c780a238b51c51ffde8d3a0 */
+    transform: translateZ(0);
 `;
 
-const Bar = styled.div<{ width: string }>`
-    width: ${({ width }) => width};
-    height: inherit;
-    border-radius: 4px;
+const ProgressIndicator = styled(ProgressPrimitive.Indicator)`
     background-color: #9d00ea;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    transition: transform 660ms cubic-bezier(0.65, 0, 0.35, 1);
 `;
 
-interface ProgressProps extends CSSProperties {
-    size: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+interface ProgressProps {
+    size: Size;
     value: number;
 }
 
 export function Progress(props: ProgressProps) {
-    const { value, ...others } = props;
+    const { size, value } = props;
 
     return (
-        <Wrapper {...others}>
-            <Bar width={`${value}%`} />
-        </Wrapper>
+        <ProgressRoot
+            size={size}
+            value={value}>
+            <ProgressIndicator
+                style={{ transform: `translateX(-${100 - value}%)` }}
+            />
+        </ProgressRoot>
     );
 }
