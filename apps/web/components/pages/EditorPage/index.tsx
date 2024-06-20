@@ -1,7 +1,6 @@
 'use client';
 
-import { useState } from 'react';
-import { Button } from '@markslides/ui/button';
+import { useMemo } from 'react';
 import MarkSlidesEditor from '@markslides/editor';
 import {
     undo,
@@ -21,40 +20,65 @@ import {
     codeBlock,
     mermaid,
 } from '@markslides/editor/toolbar';
-import type { SlideInfo } from '@markslides/editor';
-// import type { ToolbarCommand } from '@markslides/editor/toolbar';
+import useAppDispatch from '@/redux/hooks/useAppDispatch';
+import useAppSelector from '@/redux/hooks/useAppSelector';
+import { setContentRequested } from '@/redux/slices/localSlice';
+import { setSlideInfo } from '@/redux/slices/editorSlice';
+import SlideShowFragment from '@/components/fragments/SlideShowFragment';
+import slideConfigUtil from '@/lib/utils/slideConfigUtil';
 
 function EditorPage(): JSX.Element {
-    const [value, setValue] = useState('');
+    const isSlideShowMode = useAppSelector(
+        (state) => state.app.isSlideShowMode
+    );
+    const slideConfigState = useAppSelector((state) => state.slideConfig);
+    const slideInfo = useAppSelector((state) => state.editor.slideInfo);
+    const localContent = useAppSelector((state) => state.local.content);
+    const dispatch = useAppDispatch();
 
-    const [slideInfo, setSlideInfo] = useState<SlideInfo>({
-        title: '',
-        currentSlideTitle: '',
-        currentSlideNumber: 0,
-        totalSlideCount: 0,
-    });
+    const markdownContent = useAppSelector((state) => state.local.content);
+
+    const toolbarCommands = useMemo(() => {
+        return [
+            undo,
+            redo,
+            heading,
+            bold,
+            italic,
+            strike,
+            underline,
+            blockQuotes,
+            orderedList,
+            unorderedList,
+            todoList,
+            link,
+            image,
+            code,
+            codeBlock,
+            mermaid,
+        ];
+    }, []);
+
+    const slideConfig = useMemo(() => {
+        return slideConfigUtil.generateMarpConfigFromSlideConfigState(
+            slideConfigState
+        );
+    }, [slideConfigState]);
+
+    if (isSlideShowMode) {
+        return (
+            <SlideShowFragment
+                mode='audience'
+                content={localContent}
+                config={slideConfig}
+            />
+        );
+    }
 
     return (
         <MarkSlidesEditor
             height='100%'
-            toolbarCommands={[
-                undo,
-                redo,
-                heading,
-                bold,
-                italic,
-                strike,
-                underline,
-                blockQuotes,
-                orderedList,
-                unorderedList,
-                todoList,
-                link,
-                image,
-                code,
-                codeBlock,
-                mermaid,
-            ]}
+            toolbarCommands={toolbarCommands}
             config={{
                 header: 'MarkSlides',
                 footer: 'Soaple',
@@ -66,11 +90,11 @@ function EditorPage(): JSX.Element {
             isFixScrollToBottom={false}
             slideInfo={slideInfo}
             onChangeSlideInfo={(newSlideInfo) => {
-                setSlideInfo(newSlideInfo);
+                dispatch(setSlideInfo(newSlideInfo));
             }}
-            value={value}
+            value={markdownContent}
             onChange={(newValue) => {
-                setValue(newValue);
+                dispatch(setContentRequested(newValue));
             }}
         />
     );
