@@ -1,7 +1,7 @@
 import { useEffect, useRef, memo } from 'react';
 import styled from 'styled-components';
-import { Slide as SlideTransition } from '@chakra-ui/react';
 import { useDefaultMarpRender } from '@markslides/renderer';
+import { SlideTransition } from '@markslides/ui/transitions';
 import useSetSearchParam from '@/hooks/router/useSetSearchParam';
 import useDisclosure from '@/hooks/app/useDisclosure';
 import useActiveSlideIndex from '@/hooks/app/useActiveSlideIndex';
@@ -132,7 +132,7 @@ function SlideExplorerFragment(props: SlideExplorerFragmentProps) {
 
             <SlideTransition
                 direction='left'
-                in={isOpen}
+                isOpen={isOpen}
                 style={{ zIndex: 1000 }}>
                 <SlidesContainer
                     id='slide-explorer-container'

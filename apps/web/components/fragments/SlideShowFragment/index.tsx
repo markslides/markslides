@@ -481,12 +481,12 @@ function SlideShowFragment(props: SlideShowFragmentProps) {
                 )}
             </Wrapper>
 
-            {/* {!isMobileDevice && (
+            {!isMobileDevice && (
                 <SlideExplorerFragment
                     content={content}
                     config={config}
                 />
-            )} */}
+            )}
         </>
     );
 }
