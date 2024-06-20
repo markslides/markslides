@@ -25,6 +25,7 @@
         "./flex": "./src/components/flex/index.tsx",
         "./center": "./src/components/center/index.tsx",
         "./button": "./src/components/button/index.tsx",
+        "./icon-button": "./src/components/icon-button/index.tsx",
         "./image": "./src/components/image/index.tsx",
         "./text": "./src/components/text/index.tsx",
         "./menu-bar": "./src/components/menu-bar/index.tsx",
