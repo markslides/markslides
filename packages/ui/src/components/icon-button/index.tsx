@@ -1,31 +1,32 @@
 import { ButtonHTMLAttributes } from 'react';
-import styled, { CSSProperties } from 'styled-components';
+import styled, { type CSSProperties } from 'styled-components';
 
-export const Wrapper = styled.button.attrs<
-    ButtonHTMLAttributes<HTMLButtonElement>
->((props) => ({
+function inlineRules(rulesObj: CSSProperties) {
+    return Object.entries(rulesObj)
+        .map(([property, value]) => `${property}: ${value};`)
+        .join('');
+}
+
+const Wrapper = styled.button.attrs<
+    ButtonHTMLAttributes<HTMLButtonElement> & { _hover?: CSSProperties }
+>(({ _hover, ...others }) => ({
     style: {
-        ...props,
+        ...others,
     },
-}))<ButtonHTMLAttributes<HTMLButtonElement> & { _hover?: CSSProperties }>`
+}))`
     all: unset;
-    height: min-content;
-    padding: 8px 16px;
-    font-size: 14px;
-    line-height: 1;
-    color: black;
+    padding: 8px;
     cursor: pointer;
-    background-color: #eeeeee;
+    background-color: transparent;
     border-radius: 4px;
     transition: background-color 0.1s ease-in-out;
 
-    ${({ _hover }) =>
-        _hover &&
-        `
-        :hover {
-            ${_hover}
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        * {
+            ${({ _hover }) => _hover && inlineRules(_hover)};
         }
-    `}
+    }
 `;
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {

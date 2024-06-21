@@ -147,7 +147,7 @@ function SlideShowBottomMenu(props: SlideShowBottomMenuProps) {
                                 <ChevronFirstIcon fontSize='2rem' />
                             </Center>
                         }
-                        color='gray.600'
+                        color='gray'
                         _hover={{
                             color: 'white',
                         }}
@@ -172,7 +172,7 @@ function SlideShowBottomMenu(props: SlideShowBottomMenuProps) {
                                 <ChevronLeftIcon fontSize='2rem' />
                             </Center>
                         }
-                        color='gray.600'
+                        color='gray'
                         _hover={{
                             color: 'white',
                         }}
@@ -197,7 +197,7 @@ function SlideShowBottomMenu(props: SlideShowBottomMenuProps) {
                                 <ExpandIcon fontSize='2rem' />
                             </Center>
                         }
-                        color='gray.600'
+                        color='gray'
                         _hover={{
                             color: 'white',
                         }}
@@ -223,7 +223,7 @@ function SlideShowBottomMenu(props: SlideShowBottomMenuProps) {
                                         <PresentationIcon fontSize='2rem' />
                                     </Center>
                                 }
-                                color='gray.600'
+                                color='gray'
                                 _hover={{
                                     color: 'white',
                                 }}
@@ -247,7 +247,7 @@ function SlideShowBottomMenu(props: SlideShowBottomMenuProps) {
                                         <LogOutIcon fontSize='2rem' />
                                     </Center>
                                 }
-                                color='gray.600'
+                                color='gray'
                                 _hover={{
                                     color: 'white',
                                 }}
@@ -275,7 +275,7 @@ function SlideShowBottomMenu(props: SlideShowBottomMenuProps) {
                                 <ChevronRightIcon fontSize='2rem' />
                             </Center>
                         }
-                        color='gray.600'
+                        color='gray'
                         _hover={{
                             color: 'white',
                         }}
@@ -300,7 +300,7 @@ function SlideShowBottomMenu(props: SlideShowBottomMenuProps) {
                                 <ChevronLastIcon fontSize='2rem' />
                             </Center>
                         }
-                        color='gray.600'
+                        color='gray'
                         _hover={{
                             color: 'white',
                         }}
