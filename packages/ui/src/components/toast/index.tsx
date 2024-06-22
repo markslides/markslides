@@ -1,5 +1,6 @@
 import * as ToastPrimitive from '@radix-ui/react-toast';
 import styled, { keyframes } from 'styled-components';
+import { XIcon } from 'lucide-react';
 
 const hide = keyframes`
     from {
@@ -65,14 +66,14 @@ export const ToastTitle = styled(ToastPrimitive.Title)`
     grid-area: title;
     margin-bottom: 5px;
     font-weight: 500;
-    color: var(--slate-12);
+    color: black;
     font-size: 15px;
 `;
 
 export const ToastDescription = styled(ToastPrimitive.Description)`
     grid-area: description;
     margin: 0;
-    color: var(--slate-11);
+    color: black;
     font-size: 13px;
     line-height: 1.3;
 `;
@@ -82,7 +83,7 @@ export const ToastAction = styled(ToastPrimitive.Action)`
 `;
 
 export const ToastViewport = styled(ToastPrimitive.Viewport)`
-    --viewport-padding: 25px;
+    --viewport-padding: 24px;
     position: fixed;
     bottom: 0;
     right: 0;
@@ -97,3 +98,16 @@ export const ToastViewport = styled(ToastPrimitive.Viewport)`
     z-index: 2147483647;
     outline: none;
 `;
+
+export function ToastClose(props: ToastPrimitive.ToastCloseProps) {
+    return (
+        <ToastPrimitive.Close
+            style={{
+                all: 'unset',
+                color: 'black',
+            }}
+            {...props}>
+            <XIcon />
+        </ToastPrimitive.Close>
+    );
+}

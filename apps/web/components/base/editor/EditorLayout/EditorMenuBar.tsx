@@ -1,4 +1,4 @@
-import { ChevronRightIcon } from 'lucide-react';
+import { useCallback } from 'react';
 import {
     MenubarRoot,
     MenubarMenu,
@@ -16,8 +16,52 @@ import {
     MenubarRadioItem,
     MenubarRightSlot,
 } from '@markslides/ui/menu-bar';
+import useAppSelector from '@/redux/hooks/useAppSelector';
+import useAppDispatch from '@/redux/hooks/useAppDispatch';
+import { setIsSlideShowMode } from '@/redux/slices/appSlice';
+import { resetLocalSlice } from '@/redux/slices/localSlice';
+import useDisclosure from '@/hooks/app/useDisclosure';
+import useHandleSave from '@/hooks/app/useHandleSave';
 
 function EditorMenuBar() {
+    const dispatch = useAppDispatch();
+
+    const {
+        isOpen: isOpenDeleteConfirmDialog,
+        onOpen: openDeleteConfirmDialog,
+        onClose: closeDeleteConfirmDialog,
+    } = useDisclosure();
+
+    const setNewSlideForLocalMode = useCallback(() => {
+        dispatch(resetLocalSlice());
+    }, [dispatch]);
+
+    const handleClickNewSlide = useCallback(() => {
+        openDeleteConfirmDialog();
+    }, [openDeleteConfirmDialog, setNewSlideForLocalMode]);
+
+    const handleClickOpenSlide = useCallback(async () => {
+        // dispatch(
+        //     openModal({
+        //         key: 'OpenSlide',
+        //     })
+        // );
+    }, [dispatch]);
+
+    const handleClickSave = useHandleSave();
+
+    const handleClickSaveAs = useCallback(() => {
+        // dispatch(
+        //     openModal({
+        //         key: 'SaveAs',
+        //     })
+        // );
+    }, [dispatch]);
+
+    const handleClickSlideShow = useCallback(() => {
+        dispatch(setIsSlideShowMode(true));
+    }, [dispatch]);
+
     return (
         <MenubarRoot>
             <MenubarMenu>
@@ -27,28 +71,25 @@ function EditorMenuBar() {
                         align='start'
                         sideOffset={5}
                         alignOffset={-3}>
-                        <MenubarItem>
+                        <MenubarItem onClick={handleClickNewSlide}>
                             New Slides<MenubarRightSlot>⌘⌥N</MenubarRightSlot>
                         </MenubarItem>
-                        <MenubarItem>
+                        <MenubarItem onClick={handleClickOpenSlide}>
                             Open...
                             <MenubarRightSlot>⌘O</MenubarRightSlot>
                         </MenubarItem>
-                        <MenubarItem>
+                        <MenubarItem
+                            onClick={() => {
+                                handleClickSave();
+                            }}>
                             Save<MenubarRightSlot>⌘S</MenubarRightSlot>
                         </MenubarItem>
-                        <MenubarItem>
+                        <MenubarItem onClick={handleClickSaveAs}>
                             Save As...<MenubarRightSlot>⌘⌥S</MenubarRightSlot>
                         </MenubarItem>
 
                         <MenubarSeparator />
 
-                        <MenubarItem>Rename</MenubarItem>
-
-                        <MenubarSeparator />
-
-                        <MenubarItem>Share Setting</MenubarItem>
-                        <MenubarItem>Publish Setting</MenubarItem>
                         <MenubarItem>Export as PDF</MenubarItem>
 
                         <MenubarSeparator />
@@ -84,7 +125,9 @@ function EditorMenuBar() {
                         align='start'
                         sideOffset={5}
                         alignOffset={-3}>
-                        <MenubarItem>► Slide Show</MenubarItem>
+                        <MenubarItem onClick={handleClickSlideShow}>
+                            ► Slide Show
+                        </MenubarItem>
                     </MenubarContent>
                 </MenubarPortal>
             </MenubarMenu>
