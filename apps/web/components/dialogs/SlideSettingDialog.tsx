@@ -3,9 +3,15 @@ import DialogBase, {
 } from '@/components/dialogs/DialogBase';
 
 function SlideSettingDialog(props: DialogPropsWithPayload) {
-    const { payload, ...others } = props;
+    const { payload, onOpenChange, ...others } = props;
 
-    return <DialogBase {...others}>SlideSettingDialog</DialogBase>;
+    return (
+        <DialogBase
+            onOpenChange={onOpenChange}
+            {...others}>
+            SlideSettingDialog
+        </DialogBase>
+    );
 }
 
 export default SlideSettingDialog;

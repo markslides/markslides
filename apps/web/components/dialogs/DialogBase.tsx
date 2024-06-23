@@ -1,4 +1,4 @@
-import { useCallback, type PropsWithChildren } from 'react';
+import { type PropsWithChildren } from 'react';
 import { XIcon } from 'lucide-react';
 import {
     DialogRoot,
@@ -9,14 +9,14 @@ import {
     DialogDescription,
     DialogClose,
 } from '@markslides/ui/dialog';
-import { closeDialog } from '@/redux/slices/dialogSlice';
-import useAppDispatch from '@/redux/hooks/useAppDispatch';
-import { type DialogKey } from '@/components/dialogs';
+import { Flex } from '@markslides/ui/flex';
+import { Box } from '@markslides/ui/box';
+import { IconButton } from '@markslides/ui/icon-button';
 
 export interface DialogProps extends PropsWithChildren {
-    dialogKey: DialogKey;
     title: string;
     description: string;
+    onOpenChange: (open: boolean) => void;
 }
 
 export interface DialogPropsWithPayload extends DialogProps {
@@ -24,40 +24,37 @@ export interface DialogPropsWithPayload extends DialogProps {
 }
 
 function DialogBase(props: DialogProps) {
-    const { dialogKey, title, description, children } = props;
-
-    const dispatch = useAppDispatch();
-
-    const handleOpenChange = useCallback(
-        (open: boolean) => {
-            if (!open) {
-                dispatch(closeDialog(dialogKey));
-            }
-        },
-        [dialogKey, dispatch]
-    );
+    const { title, description, onOpenChange, children } = props;
 
     return (
         <DialogRoot
             open={true}
-            onOpenChange={handleOpenChange}>
+            onOpenChange={onOpenChange}>
             <DialogPortal>
                 <DialogOverlay />
                 <DialogContent>
-                    <DialogTitle>{title}</DialogTitle>
+                    <Flex
+                        alignItems='center'
+                        justifyContent='space-between'>
+                        <DialogTitle>{title}</DialogTitle>
+                        <DialogClose asChild>
+                            <IconButton
+                                size='sm'
+                                variant='outline'
+                                icon={
+                                    <XIcon
+                                        fontSize='1.4rem'
+                                        color='black'
+                                    />
+                                }
+                            />
+                        </DialogClose>
+                    </Flex>
                     {!!description && (
                         <DialogDescription>{description}</DialogDescription>
                     )}
 
-                    {children}
-
-                    <DialogClose asChild>
-                        <button
-                            className='IconButton'
-                            aria-label='Close'>
-                            <XIcon />
-                        </button>
-                    </DialogClose>
+                    <Box paddingTop='8px'>{children}</Box>
                 </DialogContent>
             </DialogPortal>
         </DialogRoot>
