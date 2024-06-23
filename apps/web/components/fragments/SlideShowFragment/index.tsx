@@ -370,7 +370,7 @@ function SlideShowFragment(props: SlideShowFragmentProps) {
                         right='0'
                         zIndex='10'>
                         <Progress
-                            size='sm'
+                            size='md'
                             // colorScheme='primary'
                             // sx={{
                             //     '& > div:first-of-type': {

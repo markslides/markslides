@@ -79,14 +79,7 @@ function EditorPage(): JSX.Element {
         <MarkSlidesEditor
             height='100%'
             toolbarCommands={toolbarCommands}
-            config={{
-                header: 'MarkSlides',
-                footer: 'Soaple',
-                paginate: true,
-                theme: 'default',
-                class: 'normal',
-                size: '16:9',
-            }}
+            config={slideConfigState}
             isFixScrollToBottom={false}
             slideInfo={slideInfo}
             onChangeSlideInfo={(newSlideInfo) => {
