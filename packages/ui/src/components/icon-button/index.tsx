@@ -1,11 +1,6 @@
 import { ButtonHTMLAttributes } from 'react';
 import styled, { type CSSProperties } from 'styled-components';
-
-function inlineRules(rulesObj: CSSProperties) {
-    return Object.entries(rulesObj)
-        .map(([property, value]) => `${property}: ${value};`)
-        .join('');
-}
+import { inlineRules } from '../../utils/rulesUtil';
 
 const Wrapper = styled.button.attrs<
     ButtonHTMLAttributes<HTMLButtonElement> & { _hover?: CSSProperties }
