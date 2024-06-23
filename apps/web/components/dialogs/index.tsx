@@ -2,8 +2,8 @@
 
 import dynamic from 'next/dynamic';
 import useAppSelector from '@/redux/hooks/useAppSelector';
-const SaveAsDialog = dynamic(
-    () => import('@/components/dialogs/SaveAsDialog'),
+const SlideSettingDialog = dynamic(
+    () => import('@/components/dialogs/SlideSettingDialog'),
     {
         ssr: false,
     }
@@ -11,10 +11,10 @@ const SaveAsDialog = dynamic(
 
 export const dialogObjs = [
     {
-        key: 'SaveAs',
-        title: 'Save As',
-        description: '',
-        dialog: SaveAsDialog,
+        key: 'SlideSetting',
+        title: 'Slide Setting',
+        description: 'Customize your slide setting',
+        dialog: SlideSettingDialog,
     },
 ] as const;
 

@@ -1,6 +1,8 @@
 import { useCallback } from 'react';
 import {
     fileOpen,
+    // directoryOpen,
+    fileSave,
     supported as isFileSystemAccessApiSupported,
 } from 'browser-fs-access';
 import {
@@ -22,8 +24,10 @@ import {
 } from '@markslides/ui/menu-bar';
 import useAppSelector from '@/redux/hooks/useAppSelector';
 import useAppDispatch from '@/redux/hooks/useAppDispatch';
-import { setIsSlideShowMode } from '@/redux/slices/appSlice';
-import { openDialog } from '@/redux/slices/dialogSlice';
+import {
+    setCurrentFileHandle,
+    setIsSlideShowMode,
+} from '@/redux/slices/appSlice';
 import { setSlideConfig } from '@/redux/slices/slideConfigSlice';
 import {
     setTitle,
@@ -32,13 +36,17 @@ import {
 } from '@/redux/slices/localSlice';
 import useDisclosure from '@/hooks/app/useDisclosure';
 import useHandleSave from '@/hooks/app/useHandleSave';
-import slideConfigUtil from '@/lib/utils/slideConfigUtil';
 import { useToast } from '@/components/ui/use-toast';
+import slideConfigUtil from '@/lib/utils/slideConfigUtil';
 
 function EditorMenuBar() {
     const { toast } = useToast();
 
     const dispatch = useAppDispatch();
+
+    const slideConfigState = useAppSelector((state) => state.slideConfig);
+    const markdownTitle = useAppSelector((state) => state.local.title);
+    const markdownContent = useAppSelector((state) => state.local.content);
 
     const {
         isOpen: isOpenDeleteConfirmDialog,
@@ -93,12 +101,37 @@ function EditorMenuBar() {
 
     const handleClickSave = useHandleSave();
 
-    const handleClickSaveAs = useCallback(() => {
-        dispatch(
-            openDialog({
-                key: 'SaveAs',
-            })
-        );
+    const handleClickSaveAs = useCallback(async () => {
+        if (!isFileSystemAccessApiSupported) {
+            toast({
+                title: 'File System Access API is not supported on your computer.',
+                // status: 'error',
+                // position: 'top',
+                duration: 3000,
+            });
+            return;
+        }
+
+        try {
+            const slideConfig =
+                slideConfigUtil.generateMarpConfigFromSlideConfigState(
+                    slideConfigState
+                );
+            const file = `---\n${slideConfig}\n---\n\n${markdownContent}`;
+            const blob = new Blob([file], {
+                type: 'text/markdown',
+            });
+
+            const fileHandle = await fileSave(blob, {
+                fileName: markdownTitle || 'Untitled',
+                description: 'MarkSlides file',
+                extensions: ['.md'],
+            });
+
+            dispatch(setCurrentFileHandle(fileHandle));
+        } catch (error) {
+            console.log(error);
+        }
     }, [dispatch]);
 
     const handleClickSlideShow = useCallback(() => {
