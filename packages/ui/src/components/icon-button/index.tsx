@@ -15,10 +15,11 @@ const Wrapper = styled.button.attrs<
     },
 }))`
     all: unset;
-    padding: 8px;
+    padding: 4px;
     cursor: pointer;
     background-color: transparent;
     border-radius: 4px;
+    line-height: 0;
     transition: background-color 0.1s ease-in-out;
 
     &:hover {
@@ -39,7 +40,14 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 export function IconButton(props: ButtonProps): JSX.Element {
     // TODO: Apply size, variant prop to button style
-    const { icon, size = 'md', variant, isDisabled, _hover, ...other } = props;
+    const {
+        icon,
+        size = 'md',
+        variant = 'solid',
+        isDisabled,
+        _hover,
+        ...other
+    } = props;
 
     return (
         <Wrapper
