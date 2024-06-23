@@ -19,6 +19,7 @@ import {
 import useAppSelector from '@/redux/hooks/useAppSelector';
 import useAppDispatch from '@/redux/hooks/useAppDispatch';
 import { setIsSlideShowMode } from '@/redux/slices/appSlice';
+import { openDialog } from '@/redux/slices/dialogSlice';
 import { resetLocalSlice } from '@/redux/slices/localSlice';
 import useDisclosure from '@/hooks/app/useDisclosure';
 import useHandleSave from '@/hooks/app/useHandleSave';
@@ -41,21 +42,21 @@ function EditorMenuBar() {
     }, [openDeleteConfirmDialog, setNewSlideForLocalMode]);
 
     const handleClickOpenSlide = useCallback(async () => {
-        // dispatch(
-        //     openModal({
-        //         key: 'OpenSlide',
-        //     })
-        // );
+        dispatch(
+            openDialog({
+                key: 'OpenSlide',
+            })
+        );
     }, [dispatch]);
 
     const handleClickSave = useHandleSave();
 
     const handleClickSaveAs = useCallback(() => {
-        // dispatch(
-        //     openModal({
-        //         key: 'SaveAs',
-        //     })
-        // );
+        dispatch(
+            openDialog({
+                key: 'SaveAs',
+            })
+        );
     }, [dispatch]);
 
     const handleClickSlideShow = useCallback(() => {

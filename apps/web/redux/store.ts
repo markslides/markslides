@@ -18,7 +18,7 @@ const persistConfig = {
     key: 'root',
     storage: storage,
     version: 1,
-    blacklist: ['app'],
+    blacklist: ['app', 'dialog'],
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

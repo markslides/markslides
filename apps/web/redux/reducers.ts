@@ -2,6 +2,7 @@ import { combineReducers } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import appReducer from '@/redux/slices/appSlice';
+import dialogReducer from '@/redux/slices/dialogSlice';
 import slideConfigReducer from '@/redux/slices/slideConfigSlice';
 import localReducer from '@/redux/slices/localSlice';
 import editorReducer from '@/redux/slices/editorSlice';
@@ -14,6 +15,7 @@ const appReducerConfig = {
 
 const rootReducer = combineReducers({
     app: persistReducer(appReducerConfig, appReducer),
+    dialog: dialogReducer,
     slideConfig: slideConfigReducer,
     local: localReducer,
     editor: editorReducer,
