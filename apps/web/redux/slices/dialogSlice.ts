@@ -1,16 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import type { DialogKey } from '@/components/dialogs';
+import { dialogObjs, type DialogKey } from '@/components/dialogs';
 
 export interface DialogState {
     dialogStateMap: Record<DialogKey, null | Object>;
 }
 
 const initialState: DialogState = {
-    dialogStateMap: {
-        OpenSlide: null,
-        SaveAs: null,
-    },
+    dialogStateMap: dialogObjs.reduce(
+        (prev, current) => {
+            prev[current.key] = null;
+            return prev;
+        },
+        {} as Record<DialogKey, null | Object>
+    ),
 };
 
 export const dialogSlice = createSlice({

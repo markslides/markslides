@@ -1,5 +1,9 @@
 import { useCallback } from 'react';
 import {
+    fileOpen,
+    supported as isFileSystemAccessApiSupported,
+} from 'browser-fs-access';
+import {
     MenubarRoot,
     MenubarMenu,
     MenubarTrigger,
@@ -20,11 +24,20 @@ import useAppSelector from '@/redux/hooks/useAppSelector';
 import useAppDispatch from '@/redux/hooks/useAppDispatch';
 import { setIsSlideShowMode } from '@/redux/slices/appSlice';
 import { openDialog } from '@/redux/slices/dialogSlice';
-import { resetLocalSlice } from '@/redux/slices/localSlice';
+import { setSlideConfig } from '@/redux/slices/slideConfigSlice';
+import {
+    setTitle,
+    setContentRequested,
+    resetLocalSlice,
+} from '@/redux/slices/localSlice';
 import useDisclosure from '@/hooks/app/useDisclosure';
 import useHandleSave from '@/hooks/app/useHandleSave';
+import slideConfigUtil from '@/lib/utils/slideConfigUtil';
+import { useToast } from '@/components/ui/use-toast';
 
 function EditorMenuBar() {
+    const { toast } = useToast();
+
     const dispatch = useAppDispatch();
 
     const {
@@ -42,11 +55,40 @@ function EditorMenuBar() {
     }, [openDeleteConfirmDialog, setNewSlideForLocalMode]);
 
     const handleClickOpenSlide = useCallback(async () => {
-        dispatch(
-            openDialog({
-                key: 'OpenSlide',
-            })
-        );
+        if (!isFileSystemAccessApiSupported) {
+            toast({
+                title: 'File System Access API is not supported on your computer.',
+                // status: 'error',
+                // position: 'top',
+                duration: 3000,
+            });
+            return;
+        }
+
+        try {
+            const blob = await fileOpen({
+                mimeTypes: ['text/markdown'],
+                extensions: ['.md'],
+            });
+
+            const extensionIndex = blob.name.lastIndexOf('.md');
+            const title = blob.name.substring(0, extensionIndex);
+
+            const file = await new Response(blob).text();
+            const parts = file.split('---\n').filter((part) => !!part);
+            const [marpConfig, ...restParts] = parts;
+            const loadedMarkdownContent = restParts.join('---\n');
+            const loadedSlideConfigState =
+                slideConfigUtil.generateSlideConfigStateFromMarpConfig(
+                    marpConfig
+                );
+
+            dispatch(setSlideConfig(loadedSlideConfigState));
+            dispatch(setTitle(title));
+            dispatch(setContentRequested(loadedMarkdownContent));
+        } catch (error) {
+            console.log(error);
+        }
     }, [dispatch]);
 
     const handleClickSave = useHandleSave();

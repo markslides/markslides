@@ -2,12 +2,6 @@
 
 import dynamic from 'next/dynamic';
 import useAppSelector from '@/redux/hooks/useAppSelector';
-const OpenSlideDialog = dynamic(
-    () => import('@/components/dialogs/OpenSlideDialog'),
-    {
-        ssr: false,
-    }
-);
 const SaveAsDialog = dynamic(
     () => import('@/components/dialogs/SaveAsDialog'),
     {
@@ -16,12 +10,6 @@ const SaveAsDialog = dynamic(
 );
 
 export const dialogObjs = [
-    {
-        key: 'OpenSlide',
-        title: 'Open Slide',
-        description: 'Select slide to open',
-        dialog: OpenSlideDialog,
-    },
     {
         key: 'SaveAs',
         title: 'Save As',
