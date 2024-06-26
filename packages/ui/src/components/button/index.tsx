@@ -4,18 +4,26 @@ import styled from 'styled-components';
 const StyledButton = styled.button`
     all: unset;
     height: min-content;
-    padding: 8px 16px;
-    font-size: 14px;
-    line-height: 1;
-    color: black;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
     cursor: pointer;
+    color: black;
     background-color: #eeeeee;
     border-radius: 4px;
     transition: background-color 0.1s ease-in-out;
 
-    :hover {
-        background-color: #999999;
+    &:hover {
+        background-color: #cccccc;
     }
+`;
+
+const TitleContainer = styled.text`
+    margin-bottom: -2px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1;
 `;
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -31,7 +39,7 @@ export function Button(props: ButtonProps): JSX.Element {
             type='button'
             {...other}>
             {icon && icon}
-            {children}
+            <TitleContainer>{children}</TitleContainer>
         </StyledButton>
     );
 }
