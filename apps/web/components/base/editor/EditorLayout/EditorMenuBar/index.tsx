@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+import Link from 'next/link';
 import {
     MenubarRoot,
     MenubarMenu,
@@ -127,8 +128,18 @@ function EditorMenuBar() {
                         align='start'
                         sideOffset={5}
                         alignOffset={-3}>
-                        <MenubarItem>What is MarkSlides?</MenubarItem>
-                        <MenubarItem>Markdown Syntax</MenubarItem>
+                        <Link
+                            target='_blank'
+                            referrerPolicy='no-referrer'
+                            href='https://www.markslides.ai/intro'>
+                            <MenubarItem>What is MarkSlides?</MenubarItem>
+                        </Link>
+                        <Link
+                            target='_blank'
+                            referrerPolicy='no-referrer'
+                            href='https://www.markdownguide.org/basic-syntax/'>
+                            <MenubarItem>Markdown Syntax</MenubarItem>
+                        </Link>
                     </MenubarContent>
                 </MenubarPortal>
             </MenubarMenu>
