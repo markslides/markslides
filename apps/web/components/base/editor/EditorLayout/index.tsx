@@ -3,6 +3,7 @@
 import { PropsWithChildren } from 'react';
 import { Flex } from '@markslides/ui/flex';
 import { Box } from '@markslides/ui/box';
+import useShortcutsExtension from '@/hooks/app/useShortcutsExtension';
 import EditorHeader from '@/components/base/editor/EditorLayout/EditorHeader';
 import EditorMenuBar from '@/components/base/editor/EditorLayout/EditorMenuBar';
 import CurrentFileName from '@/components/base/editor/EditorLayout/CurrentFileName';
@@ -10,6 +11,8 @@ import CurrentFileName from '@/components/base/editor/EditorLayout/CurrentFileNa
 interface EditorLayoutProps extends PropsWithChildren<{}> {}
 
 function EditorLayout(props: EditorLayoutProps) {
+    useShortcutsExtension();
+
     return (
         <Flex
             height='100vh'
