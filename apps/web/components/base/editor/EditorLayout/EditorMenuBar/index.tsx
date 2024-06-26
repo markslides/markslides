@@ -24,6 +24,7 @@ import NewSlideMenubarItem from '@/components/base/editor/EditorLayout/EditorMen
 import OpenMenubarItem from '@/components/base/editor/EditorLayout/EditorMenuBar/OpenMenubarItem';
 import SaveMenubarItem from '@/components/base/editor/EditorLayout/EditorMenuBar/SaveMenubarItem';
 import SaveAsMenubarItem from '@/components/base/editor/EditorLayout/EditorMenuBar/SaveAsMenubarItem';
+import ExportToPdfMenubarItem from '@/components/base/editor/EditorLayout/EditorMenuBar/ExportToPdfMenubarItem';
 import appConst from '@/lib/constants/appConst';
 
 function EditorMenuBar() {
@@ -77,7 +78,7 @@ function EditorMenuBar() {
 
                         <MenubarSeparator />
 
-                        <MenubarItem>Export as PDF</MenubarItem>
+                        <ExportToPdfMenubarItem />
 
                         <MenubarSeparator />
 
