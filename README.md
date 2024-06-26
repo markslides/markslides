@@ -20,6 +20,10 @@ Markdown renderer for MarkSlides.
 Markdown editor for MarkSlides.
 [🔗 link](https://github.com/markslides/markslides/tree/main/packages/editor)
 
+### `@markslides/ui`
+UI components for MarkSlides.
+[🔗 link](https://github.com/markslides/markslides/tree/main/packages/ui)
+
 ## License
 
 Licenced under the [MIT License](https://raw.githubusercontent.com/markslides/markslides/main/LICENSE).
