@@ -23,6 +23,7 @@ import NewSlideMenubarItem from '@/components/base/editor/EditorLayout/EditorMen
 import OpenMenubarItem from '@/components/base/editor/EditorLayout/EditorMenuBar/OpenMenubarItem';
 import SaveMenubarItem from '@/components/base/editor/EditorLayout/EditorMenuBar/SaveMenubarItem';
 import SaveAsMenubarItem from '@/components/base/editor/EditorLayout/EditorMenuBar/SaveAsMenubarItem';
+import appConst from '@/lib/constants/appConst';
 
 function EditorMenuBar() {
     const dispatch = useAppDispatch();
@@ -34,6 +35,26 @@ function EditorMenuBar() {
             })
         );
     }, [dispatch]);
+
+    const handleClickUndoButton = useCallback(() => {
+        const undoButton = document.querySelector<HTMLButtonElement>(
+            `#${appConst.EDITOR_TOOLBAR_ID} > button:nth-child(1)`
+        );
+
+        if (undoButton) {
+            undoButton.click();
+        }
+    }, []);
+
+    const handleClickRedoButton = useCallback(() => {
+        const redoButton = document.querySelector<HTMLButtonElement>(
+            `#${appConst.EDITOR_TOOLBAR_ID} > button:nth-child(2)`
+        );
+
+        if (redoButton) {
+            redoButton.click();
+        }
+    }, []);
 
     const handleClickSlideShow = useCallback(() => {
         dispatch(setIsSlideShowMode(true));
@@ -73,11 +94,11 @@ function EditorMenuBar() {
                         align='start'
                         sideOffset={5}
                         alignOffset={-3}>
-                        <MenubarItem>
+                        <MenubarItem onClick={handleClickUndoButton}>
                             Undo
                             <MenubarRightSlot>⌘Z</MenubarRightSlot>
                         </MenubarItem>
-                        <MenubarItem>
+                        <MenubarItem onClick={handleClickRedoButton}>
                             Redo
                             <MenubarRightSlot>⌘⇧Z</MenubarRightSlot>
                         </MenubarItem>
