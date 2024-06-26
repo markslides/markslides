@@ -293,6 +293,7 @@ function SlideSettingDialog(props: DialogPropsWithPayload) {
             </Flex>
 
             <Flex
+                marginTop='16px'
                 justifyContent='flex-end'
                 gap='8px'>
                 <Button onClick={() => onOpenChange(false)}>Cancel</Button>

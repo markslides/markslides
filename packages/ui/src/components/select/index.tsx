@@ -4,17 +4,17 @@ import styled, { css } from 'styled-components';
 export const SelectRoot = styled(SelectPrimitive.Root)``;
 
 export const SelectTrigger = styled(SelectPrimitive.Trigger)`
+    height: 32px;
+    padding: 0 16px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: 5px;
     border-radius: 4px;
-    padding: 0 15px;
+    color: black;
     font-size: 0.8rem;
     line-height: 1;
-    height: 35px;
-    gap: 5px;
     background-color: white;
-    color: black;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 
     &:hover {
@@ -24,7 +24,7 @@ export const SelectTrigger = styled(SelectPrimitive.Trigger)`
         box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
     }
     &[data-placeholder] {
-        color: black;
+        color: #cccccc;
     }
 `;
 
@@ -54,14 +54,14 @@ export const SelectGroup = styled(SelectPrimitive.Group)``;
 export const SelectLabel = styled(SelectPrimitive.Label)`
     padding: 0 25px;
     font-size: 12px;
-    line-height: 25px;
+    line-height: 24px;
     color: black;
 `;
 
 export const SelectItem = styled(SelectPrimitive.Item)`
     font-size: 13px;
     line-height: 1;
-    color: black;
+    color: #777777;
     border-radius: 3px;
     display: flex;
     align-items: center;
@@ -69,9 +69,10 @@ export const SelectItem = styled(SelectPrimitive.Item)`
     padding: 0 35px 0 25px;
     position: relative;
     user-select: none;
+    transition: background-color 0.1s ease-in-out;
 
     &[data-disabled] {
-        color: black;
+        color: #777777;
         pointer-events: none;
     }
     &[data-highlighted] {
@@ -98,7 +99,7 @@ const scrollButonStyle = css`
     justify-content: center;
     height: 25px;
     background-color: white;
-    color: var(--violet-11);
+    color: black;
     cursor: default;
 `;
 
@@ -112,6 +113,6 @@ export const SelectScrollDownButton = styled(SelectPrimitive.ScrollDownButton)`
 
 export const SelectSeparator = styled(SelectPrimitive.Separator)`
     height: 1px;
-    background-color: var(--violet-6);
-    margin: 5px;
+    margin: 4px;
+    background-color: #cccccc;
 `;

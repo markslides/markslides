@@ -11,6 +11,14 @@ export const Input = styled.input.attrs<
         ...others,
     },
 }))`
+    all: unset;
+    width: 100%;
+    padding: 8px;
+    color: black;
+    font-size: 0.8rem;
+    border: 0.5px solid #cccccc;
+    border-radius: 4px;
+
     &:focus {
         background-color: rgba(255, 255, 255, 0.1);
         * {
