@@ -2,9 +2,10 @@
 
 import { PropsWithChildren } from 'react';
 import { Flex } from '@markslides/ui/flex';
+import { Box } from '@markslides/ui/box';
 import EditorHeader from '@/components/base/editor/EditorLayout/EditorHeader';
 import EditorMenuBar from '@/components/base/editor/EditorLayout/EditorMenuBar';
-import { Box } from '@markslides/ui/box';
+import CurrentFileName from '@/components/base/editor/EditorLayout/CurrentFileName';
 
 interface EditorLayoutProps extends PropsWithChildren<{}> {}
 
@@ -21,6 +22,7 @@ function EditorLayout(props: EditorLayoutProps) {
                 justifyContent='space-between'
                 backgroundColor='white'>
                 <EditorMenuBar />
+                <CurrentFileName />
             </Flex>
 
             <Box

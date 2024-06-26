@@ -58,11 +58,11 @@ const TooltipPortal = styled(TooltipPrimitive.Portal)``;
 
 const TooltipContent = styled(TooltipPrimitive.Content)`
     border-radius: 4px;
-    padding: 10px 15px;
-    font-size: 15px;
+    padding: 8px 12px;
+    font-size: 0.8rem;
     line-height: 1;
-    color: var(--violet-11);
-    background-color: white;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.6);
     box-shadow:
         hsl(206 22% 7% / 35%) 0px 10px 38px -10px,
         hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
@@ -86,7 +86,7 @@ const TooltipContent = styled(TooltipPrimitive.Content)`
 `;
 
 const TooltipArrow = styled(TooltipPrimitive.Arrow)`
-    fill: white;
+    fill: rgba(0, 0, 0, 0.6);
 `;
 
 interface TooltipProps extends PropsWithChildren {
