@@ -25,7 +25,19 @@ function EditorHeader() {
             />
 
             <Button
-                icon={<PlayIcon size={14} />}
+                style={{
+                    color: 'white',
+                    backgroundColor: '#AD00FF',
+                }}
+                _hover={{
+                    backgroundColor: '#8600C6',
+                }}
+                icon={
+                    <PlayIcon
+                        fill='white'
+                        size={14}
+                    />
+                }
                 onClick={() => {
                     dispatch(setIsSlideShowMode(true));
                 }}>

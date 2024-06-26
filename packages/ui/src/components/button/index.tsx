@@ -1,7 +1,14 @@
 import { ButtonHTMLAttributes, ReactNode } from 'react';
-import styled from 'styled-components';
+import styled, { type CSSProperties } from 'styled-components';
+import { inlineRules } from '../../utils/rulesUtil';
 
-const StyledButton = styled.button`
+const StyledButton = styled.button.attrs<
+    ButtonHTMLAttributes<HTMLButtonElement> & { _hover?: CSSProperties }
+>(({ _hover, ...others }) => ({
+    style: {
+        ...others,
+    },
+}))`
     all: unset;
     height: min-content;
     padding: 10px 16px;
@@ -16,6 +23,9 @@ const StyledButton = styled.button`
 
     &:hover {
         background-color: #cccccc;
+        * {
+            ${({ _hover }) => _hover && inlineRules(_hover)};
+        }
     }
 `;
 
@@ -29,14 +39,16 @@ const TitleContainer = styled.text`
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     icon?: JSX.Element;
     children: ReactNode;
+    _hover?: CSSProperties;
 }
 
 export function Button(props: ButtonProps): JSX.Element {
-    const { icon, children, ...other } = props;
+    const { icon, children, _hover, ...other } = props;
 
     return (
         <StyledButton
             type='button'
+            _hover={_hover}
             {...other}>
             {icon && icon}
             <TitleContainer>{children}</TitleContainer>
