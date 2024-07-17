@@ -315,10 +315,9 @@ function SlideShowFragment(props: SlideShowFragmentProps) {
 
     const handleMouseDown = useCallback(
         (event: MouseEvent) => {
-            const elem = event.target as HTMLElement;
-
             // Skip moving slide when anchor tag is clicked
-            if (elem.tagName == 'A') {
+            const elem = event.target as HTMLElement;
+            if (elem.tagName == 'A' || elem.parentElement.tagName == 'A') {
                 return;
             }
 
