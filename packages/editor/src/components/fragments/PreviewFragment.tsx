@@ -7,11 +7,14 @@ import {
     type SlideConfigState,
 } from '@markslides/renderer';
 
-function findParentSection(element: HTMLElement) {
+function findMarpitSvgElement(element: HTMLElement) {
     let currentElement = element;
 
     while (currentElement !== null) {
-        if (currentElement.tagName === 'SECTION') {
+        if (
+            currentElement.tagName === 'svg' &&
+            currentElement.getAttribute('data-marpit-svg') !== null
+        ) {
             return currentElement;
         }
 
@@ -22,6 +25,18 @@ function findParentSection(element: HTMLElement) {
     }
 
     return null;
+}
+
+function getIndexOfChildElement(parentElement: Element, childElement: Element) {
+    const children = parentElement.children;
+    let index;
+
+    for (index = 0; index < children.length; index++) {
+        if (children[index] === childElement) {
+            break;
+        }
+    }
+    return index;
 }
 
 const Wrapper = styled.div`
@@ -80,12 +95,16 @@ function PreviewFragment(props: PreviewFragmentProps) {
 
     const handleClickMarpitContainer = useCallback(
         (event: MouseEvent) => {
-            const sectionElem = findParentSection(event.target as HTMLElement);
-            if (sectionElem) {
-                onClickSlide(
-                    sectionElem,
-                    Number(sectionElem.getAttribute('id')) - 1
+            const sectionElem = findMarpitSvgElement(
+                event.target as HTMLElement
+            );
+            if (sectionElem && sectionElem.parentElement) {
+                const pageIndex = getIndexOfChildElement(
+                    sectionElem.parentElement,
+                    sectionElem
                 );
+
+                onClickSlide(sectionElem, pageIndex);
             }
         },
         [onClickSlide]
