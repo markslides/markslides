@@ -1,6 +1,4 @@
 import Image from 'next/image';
-import { Card } from '@markslides/ui/card';
-import { Code } from '@markslides/ui/code';
 import { Button } from '@markslides/ui/button';
 import styles from './page.module.css';
 
@@ -57,10 +55,7 @@ export default function Page(): JSX.Element {
     return (
         <main className={styles.main}>
             <div className={styles.description}>
-                <p>
-                    examples/basic&nbsp;
-                    <Code className={styles.code}>docs</Code>
-                </p>
+                <p>examples/basic&nbsp;</p>
                 <div>
                     <a
                         href='https://vercel.com?utm_source=create-turbo&utm_medium=basic&utm_campaign=create-turbo'
@@ -78,12 +73,6 @@ export default function Page(): JSX.Element {
                     </a>
                 </div>
             </div>
-
-            <Button
-                appName='web'
-                className={styles.button}>
-                Click me!
-            </Button>
 
             <div className={styles.hero}>
                 <div className={styles.heroContent}>
@@ -139,18 +128,6 @@ export default function Page(): JSX.Element {
                         </svg>
                     </div>
                 </div>
-            </div>
-
-            <div className={styles.grid}>
-                {LINKS.map(({ title, href, description }) => (
-                    <Card
-                        className={styles.card}
-                        href={href}
-                        key={title}
-                        title={title}>
-                        {description}
-                    </Card>
-                ))}
             </div>
         </main>
     );
