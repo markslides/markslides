@@ -244,8 +244,7 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
                     <PreviewFragment
                         config={config}
                         content={value ?? ''}
-                        currentCursorPosition={currentCursorPosition}
-                        currentSlideNum={slideInfo.currentSlideNumber}
+                        currentSlideNumber={slideInfo.currentSlideNumber}
                         onClickSlide={handleClickSlide}
                     />
                 </PreviewContainer>
