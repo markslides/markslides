@@ -1,7 +1,7 @@
 {
     "name": "@markslides/renderer",
     "description": "MarkSlides Renderer",
-    "version": "0.1.20",
+    "version": "0.1.21",
     "main": "./dist/index.js",
     "module": "./dist/index.mjs",
     "types": "./dist/index.d.ts",
@@ -53,7 +53,7 @@
     },
     "dependencies": {
         "@markslides/markdown-it-link": "^0.1.1",
-        "@markslides/markdown-it-mermaid": "^0.3.2",
+        "@markslides/markdown-it-mermaid": "^0.3.3",
         "@markslides/markdown-it-typograms": "^0.1.2",
         "@markslides/themes": "^0.1.5",
         "@marp-team/marp-core": "^3.9.0",
