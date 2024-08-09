@@ -15,41 +15,40 @@ const mermaidChart = (code: string) => {
 // TODO: Inject this value from outside
 const isDarkMode = false;
 
-const markdownItMermaid = (config?: MermaidConfig) => {
+const markdownItMermaid = (md: MarkdownIt, config?: MermaidConfig) => {
     mermaid.initialize({
         theme: isDarkMode ? 'default' : 'dark',
         darkMode: isDarkMode,
-        fontFamily: 'ui-monospace',
-        altFontFamily: 'monospace',
+        fontFamily: 'monospace',
+        // fontFamily: 'ui-monospace',
+        // altFontFamily: 'monospace',
         startOnLoad: true,
         ...config,
     });
 
-    return (md: MarkdownIt) => {
-        // @ts-ignore
-        md.mermaid = mermaid;
+    // @ts-ignore
+    md.mermaid = mermaid;
 
-        const original =
-            md.renderer.rules.fence ||
-            function (tokens, idx, options, env, self) {
-                return self.renderToken(tokens, idx, options);
-            };
-
-        md.renderer.rules.fence = (
-            tokens: Token[],
-            idx: number,
-            options: MarkdownIt.Options,
-            env: any,
-            self: Renderer
-        ) => {
-            const token = tokens[idx];
-            const code = token.content.trim();
-            if (token.info === 'mermaid') {
-                return mermaidChart(code);
-            }
-
-            return original(tokens, idx, options, env, self);
+    const original =
+        md.renderer.rules.fence ||
+        function (tokens, idx, options, env, self) {
+            return self.renderToken(tokens, idx, options);
         };
+
+    md.renderer.rules.fence = (
+        tokens: Token[],
+        idx: number,
+        options: MarkdownIt.Options,
+        env: any,
+        self: Renderer
+    ) => {
+        const token = tokens[idx];
+        const code = token.content.trim();
+        if (token.info === 'mermaid') {
+            return mermaidChart(code);
+        }
+
+        return original(tokens, idx, options, env, self);
     };
 };
 
