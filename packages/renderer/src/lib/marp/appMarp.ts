@@ -37,7 +37,7 @@ const appMarp = (function () {
         marp.use(markdownItContainer, 'columns-6', {});
         marp.use(markdownItLink);
         marp.use(markdownItTaskLists);
-        marp.use(markdownItMermaid());
+        marp.use(markdownItMermaid, {});
         marp.use(markdownItTypograms);
 
         // Set themes
