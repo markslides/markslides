@@ -1,7 +1,7 @@
 'use client';
 
-import { useMemo } from 'react';
-import MarkSlidesEditor from '@markslides/editor';
+import { useState, useMemo, useCallback } from 'react';
+import MarkSlidesEditor, { type RenderMode } from '@markslides/editor';
 import {
     undo,
     redo,
@@ -28,6 +28,8 @@ import SlideShowFragment from '@/components/fragments/SlideShowFragment';
 import slideConfigUtil from '@/lib/utils/slideConfigUtil';
 
 function EditorPage(): JSX.Element {
+    const [renderMode, setRenderMode] = useState<RenderMode>('slide');
+
     const isSlideShowMode = useAppSelector(
         (state) => state.app.isSlideShowMode
     );
@@ -65,6 +67,15 @@ function EditorPage(): JSX.Element {
         );
     }, [slideConfigState]);
 
+    const toggleRenderMode = useCallback(() => {
+        setRenderMode((prevRenderMode) => {
+            if (prevRenderMode === 'slide') {
+                return 'document';
+            }
+            return 'slide';
+        });
+    }, []);
+
     if (isSlideShowMode) {
         return (
             <SlideShowFragment
@@ -78,6 +89,8 @@ function EditorPage(): JSX.Element {
     return (
         <MarkSlidesEditor
             height='100%'
+            renderMode={renderMode}
+            toggleRenderMode={toggleRenderMode}
             toolbarCommands={toolbarCommands}
             config={slideConfigState}
             isFixScrollToBottom={false}
