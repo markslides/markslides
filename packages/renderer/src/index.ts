@@ -1,3 +1,4 @@
+import appMarp from '@/lib/marp/appMarp';
 import useMarkedRender from '@/hooks/useMarkedRender';
 import useDefaultMarpRender from '@/hooks/useDefaultMarpRender';
 import useIndependentMarpRender from '@/hooks/useIndependentMarpRender';
@@ -11,6 +12,7 @@ import type {
 
 export {
     useMarkedRender,
+    appMarp,
     useDefaultMarpRender,
     useIndependentMarpRender,
     slideConfigConst,

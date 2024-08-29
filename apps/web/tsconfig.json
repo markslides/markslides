@@ -1,6 +1,21 @@
 {
   "extends": "@repo/typescript-config/nextjs.json",
   "compilerOptions": {
+    "esModuleInterop": true,
+    "incremental": false,
+    "isolatedModules": true,
+    "lib": [
+      "es2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "moduleDetection": "force",
+    "noUncheckedIndexedAccess": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "strictNullChecks": false,
+    "target": "ES2022",
     "plugins": [
       {
         "name": "next"
@@ -9,7 +24,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": [
-        "../../packages/editor/*"
+        "./*"
       ]
     }
   },

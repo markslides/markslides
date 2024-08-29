@@ -1,0 +1,11 @@
+{
+  "extends": "@repo/typescript-config/nextjs.json",
+  "include": [
+    "."
+  ],
+  "exclude": [
+    "dist",
+    "build",
+    "node_modules"
+  ]
+}

@@ -1,7 +1,7 @@
 import MarkdownIt from 'markdown-it';
 import Token from 'markdown-it/lib/token';
 import Renderer from 'markdown-it/lib/renderer';
-import mermaid from 'mermaid';
+import mermaid, { type MermaidConfig } from 'mermaid';
 
 const mermaidChart = (code: string) => {
     try {
@@ -15,13 +15,15 @@ const mermaidChart = (code: string) => {
 // TODO: Inject this value from outside
 const isDarkMode = false;
 
-const markdownItMermaid = (md: MarkdownIt) => {
+const markdownItMermaid = (md: MarkdownIt, config?: MermaidConfig) => {
     mermaid.initialize({
         theme: isDarkMode ? 'default' : 'dark',
         darkMode: isDarkMode,
-        fontFamily: 'ui-monospace',
-        altFontFamily: 'monospace',
+        fontFamily: 'monospace',
+        // fontFamily: 'ui-monospace',
+        // altFontFamily: 'monospace',
         startOnLoad: true,
+        ...config,
     });
 
     // @ts-ignore

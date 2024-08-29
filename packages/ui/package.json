@@ -1,26 +1,66 @@
 {
-  "name": "@repo/ui",
-  "version": "0.0.0",
-  "private": true,
-  "exports": {
-    "./button": "./src/button.tsx",
-    "./card": "./src/card.tsx",
-    "./code": "./src/code.tsx"
-  },
-  "scripts": {
-    "lint": "eslint . --max-warnings 0",
-    "generate:component": "turbo gen react-component"
-  },
-  "devDependencies": {
-    "@repo/eslint-config": "*",
-    "@repo/typescript-config": "*",
-    "@turbo/gen": "^1.10.12",
-    "@types/node": "^20.5.2",
-    "@types/eslint": "^8.44.7",
-    "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.2.0",
-    "eslint": "^8.53.0",
-    "react": "^18.2.0",
-    "typescript": "^5.2.2"
-  }
+    "name": "@markslides/ui",
+    "description": "MarkSlides UI components",
+    "version": "0.0.1",
+    "main": "./dist/index.js",
+    "module": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
+    "keywords": [],
+    "author": "Soaple <inje@soaple.io>",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/markslides/markslides.git"
+    },
+    "bugs": {
+        "url": "https://github.com/markslides/markslides/issues"
+    },
+    "homepage": "https://github.com/markslides/markslides/tree/main/packages/ui#readme",
+    "scripts": {
+        "lint": "eslint . --max-warnings 0",
+        "generate:component": "turbo gen react-component"
+    },
+    "exports": {
+        "./box": "./src/components/box/index.tsx",
+        "./flex": "./src/components/flex/index.tsx",
+        "./center": "./src/components/center/index.tsx",
+        "./button": "./src/components/button/index.tsx",
+        "./icon-button": "./src/components/icon-button/index.tsx",
+        "./image": "./src/components/image/index.tsx",
+        "./text": "./src/components/text/index.tsx",
+        "./tooltip": "./src/components/tooltip/index.tsx",
+        "./menu-bar": "./src/components/menu-bar/index.tsx",
+        "./input": "./src/components/input/index.tsx",
+        "./switch": "./src/components/switch/index.tsx",
+        "./select": "./src/components/select/index.tsx",
+        "./progress": "./src/components/progress/index.tsx",
+        "./toast": "./src/components/toast/index.tsx",
+        "./dialog": "./src/components/dialog/index.tsx",
+        "./alert-dialog": "./src/components/alert-dialog/index.tsx",
+        "./transitions": "./src/components/transitions/index.tsx"
+    },
+    "devDependencies": {
+        "@repo/eslint-config": "*",
+        "@repo/typescript-config": "*",
+        "@turbo/gen": "^1.10.12",
+        "@types/eslint": "^8.44.7",
+        "@types/node": "^20.5.2",
+        "@types/react": "^18.2.0",
+        "@types/react-dom": "^18.2.0",
+        "eslint": "^8.53.0",
+        "react": "^18.2.0",
+        "typescript": "^5.2.2"
+    },
+    "dependencies": {
+        "@radix-ui/react-alert-dialog": "^1.0.5",
+        "@radix-ui/react-dialog": "^1.1.1",
+        "@radix-ui/react-menubar": "^1.0.4",
+        "@radix-ui/react-progress": "^1.1.0",
+        "@radix-ui/react-select": "^2.1.1",
+        "@radix-ui/react-switch": "^1.1.0",
+        "@radix-ui/react-toast": "^1.2.1",
+        "@radix-ui/react-tooltip": "^1.1.0",
+        "framer-motion": "^11.2.11",
+        "styled-components": "^6.1.11"
+    }
 }
