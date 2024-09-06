@@ -1337,3 +1337,36 @@ section[data-color] h5,
 section[data-color] h6 {
     color: currentcolor;
 }
+
+/*
+ * Customized
+ */
+.columns-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 8px;
+}
+
+.columns-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 8px;
+}
+
+.columns-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-column-gap: 8px;
+}
+
+.columns-5 {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-column-gap: 8px;
+}
+
+.columns-6 {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-column-gap: 8px;
+}
