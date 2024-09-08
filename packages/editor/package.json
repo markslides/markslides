@@ -59,6 +59,7 @@
     "dependencies": {
         "@codemirror/lang-markdown": "^6.2.3",
         "@codemirror/language-data": "^6.3.1",
+        "@codemirror/lint": "^6.8.1",
         "@markslides/renderer": "^0.1.20",
         "@uiw/codemirror-themes-all": "^4.21.21",
         "@uiw/react-codemirror": "^4.21.21",

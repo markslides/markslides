@@ -7,6 +7,7 @@ import { languages } from '@codemirror/language-data';
 import { EditorView } from '@codemirror/view';
 import { EditorState } from '@codemirror/state';
 import { history as historyExtension } from '@codemirror/commands';
+import { lintGutter } from '@codemirror/lint';
 import ReactCodeMirror, {
     type ReactCodeMirrorProps,
     type ReactCodeMirrorRef,
@@ -22,6 +23,7 @@ import EditorToolbar, {
     type EditorToolbarProps,
 } from '@/components/editor/EditorToolbar';
 import shortcutExtension from '@/lib/codemirror/shortcutExtension';
+import lintExtension from '@/lib/codemirror/lintExtension';
 import defaultToolbarCommands from '@/toolbar/commands';
 import codemirrorUtil from '@/lib/codemirror/util';
 import type { SlideConfigState } from '@markslides/renderer';
@@ -162,6 +164,8 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
             historyExtension(),
             styleTheme,
             shortcutExtension,
+            lintExtension,
+            // lintGutter(),
             markdown({
                 base: markdownLanguage,
                 codeLanguages: languages,
