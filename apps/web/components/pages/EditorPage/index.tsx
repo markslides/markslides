@@ -20,6 +20,7 @@ import {
     codeBlock,
     mermaid,
 } from '@markslides/editor/toolbar';
+import { Box } from '@markslides/ui/box';
 import useAppDispatch from '@/redux/hooks/useAppDispatch';
 import useAppSelector from '@/redux/hooks/useAppSelector';
 import { setContentRequested } from '@/redux/slices/localSlice';
@@ -65,31 +66,31 @@ function EditorPage(): JSX.Element {
         );
     }, [slideConfigState]);
 
-    if (isSlideShowMode) {
-        return (
-            <SlideShowFragment
-                mode='audience'
-                content={localContent}
-                config={slideConfig}
-            />
-        );
-    }
-
     return (
-        <MarkSlidesEditor
-            height='100%'
-            toolbarCommands={toolbarCommands}
-            config={slideConfigState}
-            isFixScrollToBottom={false}
-            slideInfo={slideInfo}
-            onChangeSlideInfo={(newSlideInfo) => {
-                dispatch(setSlideInfo(newSlideInfo));
-            }}
-            value={markdownContent}
-            onChange={(newValue) => {
-                dispatch(setContentRequested(newValue));
-            }}
-        />
+        <Box height='100%'>
+            <MarkSlidesEditor
+                height='inherit'
+                toolbarCommands={toolbarCommands}
+                config={slideConfigState}
+                isFixScrollToBottom={false}
+                slideInfo={slideInfo}
+                onChangeSlideInfo={(newSlideInfo) => {
+                    dispatch(setSlideInfo(newSlideInfo));
+                }}
+                value={markdownContent}
+                onChange={(newValue) => {
+                    dispatch(setContentRequested(newValue));
+                }}
+            />
+
+            {isSlideShowMode && (
+                <SlideShowFragment
+                    mode='audience'
+                    content={localContent}
+                    config={slideConfig}
+                />
+            )}
+        </Box>
     );
 }
 
