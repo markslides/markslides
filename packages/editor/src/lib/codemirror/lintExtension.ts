@@ -1,7 +1,7 @@
 import { linter, Diagnostic } from '@codemirror/lint';
 
 const regExpForTableDivider = /(\|\s*-+\s*)+\|/g;
-const regExpForPageDivider = /---[\s|\S]+/g;
+const regExpForWrongPageDivider = /---[\s|\S]+/g;
 
 const lintExtension = linter(
     (view) => {
@@ -16,7 +16,7 @@ const lintExtension = linter(
                 continue;
             }
 
-            const matches = regExpForPageDivider.exec(line.text);
+            const matches = regExpForWrongPageDivider.exec(line.text);
             if (matches) {
                 diagnostics.push({
                     from: line.from + matches.index,
