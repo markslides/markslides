@@ -23,11 +23,23 @@ import EditorToolbar, {
     type EditorToolbarProps,
 } from '@/components/editor/EditorToolbar';
 import shortcutExtension from '@/lib/codemirror/shortcutExtension';
+import dividerHighlightExtension from '@/lib/codemirror/dividerHighlightExtension';
 import lintExtension from '@/lib/codemirror/lintExtension';
 import defaultToolbarCommands from '@/toolbar/commands';
 import codemirrorUtil from '@/lib/codemirror/util';
 import type { SlideConfigState } from '@markslides/renderer';
 import type { SlideInfo } from '@/lib/types/common';
+
+const pageDividerTheme = EditorView.baseTheme({
+    '&dark .cm-page-divider': {
+        backgroundColor: '#FFFFFF44',
+        fontWeight: 'bold',
+    },
+    '&light .cm-page-divider': {
+        backgroundColor: '#00000033',
+        fontWeight: 'bold',
+    },
+});
 
 const Wrapper = styled.div<{ $height: number | string }>`
     height: ${({ $height }) => $height};
@@ -164,6 +176,7 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
             historyExtension(),
             styleTheme,
             shortcutExtension,
+            dividerHighlightExtension,
             lintExtension,
             // lintGutter(),
             markdown({
@@ -231,7 +244,7 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
                     style={{
                         flex: '1',
                     }}
-                    theme={githubLight}
+                    theme={[githubLight, pageDividerTheme]}
                     extensions={extensions}
                     // onCreateEditor={(view: EditorView, state: EditorState) => {
                     //     editorViewRef.current = view;

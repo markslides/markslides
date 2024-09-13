@@ -1,6 +1,7 @@
 import { linter, Diagnostic } from '@codemirror/lint';
 
-const regExpForLintingDivider = /---[\s|\S]+/g;
+const regExpForTableDivider = /(\|\s*-+\s*)+\|/g;
+const regExpForWrongPageDivider = /---[\s|\S]+/g;
 
 const lintExtension = linter(
     (view) => {
@@ -10,12 +11,17 @@ const lintExtension = linter(
         for (let i = 1; i <= view.state.doc.lines; i++) {
             const line = view.state.doc.line(i);
 
-            const matches = regExpForLintingDivider.exec(line.text);
+            const isTableDivider = regExpForTableDivider.test(line.text);
+            if (isTableDivider) {
+                continue;
+            }
+
+            const matches = regExpForWrongPageDivider.exec(line.text);
             if (matches) {
                 diagnostics.push({
                     from: line.from + matches.index,
                     to: line.from + matches.index + matches[0].length,
-                    message: `Line ${i}: There are other characters after ‘---’`,
+                    message: `Line ${i}: Invalid page divider. Please use it exactly in '---' form.`,
                     severity: 'warning',
                 });
             }
