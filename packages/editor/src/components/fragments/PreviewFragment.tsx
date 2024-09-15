@@ -72,12 +72,19 @@ const MarpitContainer = styled.div<{ $currentSlideNum: number }>`
 type PreviewFragmentProps = {
     config: SlideConfigState;
     content: string;
+    currentLineNumber: number;
     currentSlideNumber: number;
     onClickSlide: (slide: HTMLElement, index: number) => void;
 };
 
 function PreviewFragment(props: PreviewFragmentProps) {
-    const { config, content, currentSlideNumber, onClickSlide } = props;
+    const {
+        config,
+        content,
+        currentLineNumber,
+        currentSlideNumber,
+        onClickSlide,
+    } = props;
 
     const { html, css, comments, refresh } = useDefaultMarpRender(
         config,
@@ -120,7 +127,7 @@ function PreviewFragment(props: PreviewFragmentProps) {
                 }
             }
         }
-    }, [currentSlideNumber]);
+    }, [currentLineNumber, currentSlideNumber]);
 
     if (!html) {
         return <Wrapper />;
