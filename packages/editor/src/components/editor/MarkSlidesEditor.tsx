@@ -261,6 +261,7 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
                     <PreviewFragment
                         config={config}
                         content={value ?? ''}
+                        currentLineNumber={currentLineNumber}
                         currentSlideNumber={slideInfo.currentSlideNumber}
                         onClickSlide={handleClickSlide}
                     />
