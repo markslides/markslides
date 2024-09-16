@@ -6,6 +6,8 @@ import {
     useDefaultMarpRender,
     type SlideConfigState,
 } from '@markslides/renderer';
+import useIsSafari from '@/hooks/navigator/useIsSafari';
+import useElementSizeById from '@/hooks/element/useElementSizeById';
 
 function findMarpitSvgElement(element: HTMLElement) {
     let currentElement = element;
@@ -44,7 +46,12 @@ const Wrapper = styled.div`
     background-color: #eeeeee;
 `;
 
-const MarpitContainer = styled.div<{ $currentSlideNum: number }>`
+const MarpitContainer = styled.div<{
+    $isSafari: boolean;
+    $currentSlideNum: number;
+    $wrapperWidth: number;
+    $targetSlideSize: number;
+}>`
     height: 100%;
     .marpit {
         min-height: 100%;
@@ -67,6 +74,20 @@ const MarpitContainer = styled.div<{ $currentSlideNum: number }>`
             box-shadow: 0 0 4px 8px #d292ff;
         }
     }
+
+    /* Safari-only styles */
+    ${({ $isSafari, $wrapperWidth, $targetSlideSize }) => {
+        if ($isSafari && $wrapperWidth > 0) {
+            return `
+                section {
+                    transform-origin: 0 0;
+                    transform: scale(${
+                        ($wrapperWidth - 64) / $targetSlideSize
+                    });
+                }
+            `;
+        }
+    }}
 `;
 
 type PreviewFragmentProps = {
@@ -93,22 +114,8 @@ function PreviewFragment(props: PreviewFragmentProps) {
 
     const wrapperRef = useRef<HTMLDivElement | null>(null);
 
-    const handleClickMarpitContainer = useCallback(
-        (event: MouseEvent) => {
-            const sectionElem = findMarpitSvgElement(
-                event.target as HTMLElement
-            );
-            if (sectionElem && sectionElem.parentElement) {
-                const pageIndex = getIndexOfChildElement(
-                    sectionElem.parentElement,
-                    sectionElem
-                );
-
-                onClickSlide(sectionElem, pageIndex);
-            }
-        },
-        [onClickSlide]
-    );
+    const isSafari = useIsSafari();
+    const { width, height } = useElementSizeById('preview-fragment-wrapper');
 
     useEffect(() => {
         if (wrapperRef.current) {
@@ -129,15 +136,37 @@ function PreviewFragment(props: PreviewFragmentProps) {
         }
     }, [currentLineNumber, currentSlideNumber]);
 
+    const handleClickMarpitContainer = useCallback(
+        (event: MouseEvent) => {
+            const sectionElem = findMarpitSvgElement(
+                event.target as HTMLElement
+            );
+            if (sectionElem && sectionElem.parentElement) {
+                const pageIndex = getIndexOfChildElement(
+                    sectionElem.parentElement,
+                    sectionElem
+                );
+
+                onClickSlide(sectionElem, pageIndex);
+            }
+        },
+        [onClickSlide]
+    );
+
     if (!html) {
         return <Wrapper />;
     }
 
     return (
-        <Wrapper ref={wrapperRef}>
+        <Wrapper
+            id='preview-fragment-wrapper'
+            ref={wrapperRef}>
             <style>{css}</style>
             <MarpitContainer
+                $isSafari={isSafari}
                 $currentSlideNum={currentSlideNumber}
+                $wrapperWidth={width}
+                $targetSlideSize={config.size === '16:9' ? 1280 : 960}
                 dangerouslySetInnerHTML={{
                     __html: html,
                 }}
