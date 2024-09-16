@@ -7,7 +7,7 @@ import {
     type SlideConfigState,
 } from '@markslides/renderer';
 import useIsSafari from '@/hooks/navigator/useIsSafari';
-import useElementSizeById from '@/hooks/element/useElementSizeById';
+import useElementSizeByCallbackRef from '@/hooks/element/useElementSizeByCallbackRef';
 
 function findMarpitSvgElement(element: HTMLElement) {
     let currentElement = element;
@@ -42,24 +42,25 @@ function getIndexOfChildElement(parentElement: Element, childElement: Element) {
 }
 
 const Wrapper = styled.div`
-    height: 100%;
+    min-height: 100%;
+    height: max-content;
+    padding: 32px;
     background-color: #eeeeee;
 `;
 
 const MarpitContainer = styled.div<{
     $isSafari: boolean;
-    $currentSlideNum: number;
     $wrapperWidth: number;
     $targetSlideSize: number;
+    $currentSlideNum: number;
 }>`
     height: 100%;
+
     .marpit {
         min-height: 100%;
-        padding: 32px;
         display: flex;
         flex-direction: column;
         gap: 32px;
-        background-color: #eeeeee;
         font-family: 'Noto Sans KR', sans-serif;
 
         & > * {
@@ -81,9 +82,7 @@ const MarpitContainer = styled.div<{
             return `
                 section {
                     transform-origin: 0 0;
-                    transform: scale(${
-                        ($wrapperWidth - 64) / $targetSlideSize
-                    });
+                    transform: scale(${$wrapperWidth / $targetSlideSize});
                 }
             `;
         }
@@ -107,15 +106,16 @@ function PreviewFragment(props: PreviewFragmentProps) {
         onClickSlide,
     } = props;
 
+    const isSafari = useIsSafari();
+    const { elementSize, callbackRef } =
+        useElementSizeByCallbackRef<HTMLDivElement>();
+
     const { html, css, comments, refresh } = useDefaultMarpRender(
         config,
         content
     );
 
     const wrapperRef = useRef<HTMLDivElement | null>(null);
-
-    const isSafari = useIsSafari();
-    const { width, height } = useElementSizeById('preview-fragment-wrapper');
 
     useEffect(() => {
         if (wrapperRef.current) {
@@ -158,15 +158,14 @@ function PreviewFragment(props: PreviewFragmentProps) {
     }
 
     return (
-        <Wrapper
-            id='preview-fragment-wrapper'
-            ref={wrapperRef}>
+        <Wrapper ref={wrapperRef}>
             <style>{css}</style>
             <MarpitContainer
+                ref={callbackRef}
                 $isSafari={isSafari}
-                $currentSlideNum={currentSlideNumber}
-                $wrapperWidth={width}
+                $wrapperWidth={elementSize.width}
                 $targetSlideSize={config.size === '16:9' ? 1280 : 960}
+                $currentSlideNum={currentSlideNumber}
                 dangerouslySetInnerHTML={{
                     __html: html,
                 }}
