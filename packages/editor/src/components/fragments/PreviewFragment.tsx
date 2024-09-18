@@ -6,8 +6,6 @@ import {
     useDefaultMarpRender,
     type SlideConfigState,
 } from '@markslides/renderer';
-import useIsSafari from '@/hooks/navigator/useIsSafari';
-import useElementSizeByCallbackRef from '@/hooks/element/useElementSizeByCallbackRef';
 
 function findMarpitSvgElement(element: HTMLElement) {
     let currentElement = element;
@@ -48,12 +46,7 @@ const Wrapper = styled.div`
     background-color: #eeeeee;
 `;
 
-const MarpitContainer = styled.div<{
-    $isSafari: boolean;
-    $wrapperWidth: number;
-    $targetSlideSize: number;
-    $currentSlideNum: number;
-}>`
+const MarpitContainer = styled.div<{ $currentSlideNum: number }>`
     height: 100%;
 
     .marpit {
@@ -75,18 +68,6 @@ const MarpitContainer = styled.div<{
             box-shadow: 0 0 4px 8px #d292ff;
         }
     }
-
-    /* Safari-only styles */
-    ${({ $isSafari, $wrapperWidth, $targetSlideSize }) => {
-        if ($isSafari && $wrapperWidth > 0) {
-            return `
-                section {
-                    transform-origin: 0 0;
-                    transform: scale(${$wrapperWidth / $targetSlideSize});
-                }
-            `;
-        }
-    }}
 `;
 
 type PreviewFragmentProps = {
@@ -105,10 +86,6 @@ function PreviewFragment(props: PreviewFragmentProps) {
         currentSlideNumber,
         onClickSlide,
     } = props;
-
-    const isSafari = useIsSafari();
-    const { elementSize, callbackRef } =
-        useElementSizeByCallbackRef<HTMLDivElement>();
 
     const { html, css, comments, refresh } = useDefaultMarpRender(
         config,
@@ -161,10 +138,6 @@ function PreviewFragment(props: PreviewFragmentProps) {
         <Wrapper ref={wrapperRef}>
             <style>{css}</style>
             <MarpitContainer
-                ref={callbackRef}
-                $isSafari={isSafari}
-                $wrapperWidth={elementSize.width}
-                $targetSlideSize={config.size === '16:9' ? 1280 : 960}
                 $currentSlideNum={currentSlideNumber}
                 dangerouslySetInnerHTML={{
                     __html: html,
