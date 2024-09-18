@@ -40,19 +40,20 @@ function getIndexOfChildElement(parentElement: Element, childElement: Element) {
 }
 
 const Wrapper = styled.div`
-    height: 100%;
+    min-height: 100%;
+    height: max-content;
+    padding: 32px;
     background-color: #eeeeee;
 `;
 
 const MarpitContainer = styled.div<{ $currentSlideNum: number }>`
     height: 100%;
+
     .marpit {
         min-height: 100%;
-        padding: 32px;
         display: flex;
         flex-direction: column;
         gap: 32px;
-        background-color: #eeeeee;
         font-family: 'Noto Sans KR', sans-serif;
 
         & > * {
@@ -93,23 +94,6 @@ function PreviewFragment(props: PreviewFragmentProps) {
 
     const wrapperRef = useRef<HTMLDivElement | null>(null);
 
-    const handleClickMarpitContainer = useCallback(
-        (event: MouseEvent) => {
-            const sectionElem = findMarpitSvgElement(
-                event.target as HTMLElement
-            );
-            if (sectionElem && sectionElem.parentElement) {
-                const pageIndex = getIndexOfChildElement(
-                    sectionElem.parentElement,
-                    sectionElem
-                );
-
-                onClickSlide(sectionElem, pageIndex);
-            }
-        },
-        [onClickSlide]
-    );
-
     useEffect(() => {
         if (wrapperRef.current) {
             const marpitElem = wrapperRef.current.querySelector('.marpit');
@@ -128,6 +112,23 @@ function PreviewFragment(props: PreviewFragmentProps) {
             }
         }
     }, [currentLineNumber, currentSlideNumber]);
+
+    const handleClickMarpitContainer = useCallback(
+        (event: MouseEvent) => {
+            const sectionElem = findMarpitSvgElement(
+                event.target as HTMLElement
+            );
+            if (sectionElem && sectionElem.parentElement) {
+                const pageIndex = getIndexOfChildElement(
+                    sectionElem.parentElement,
+                    sectionElem
+                );
+
+                onClickSlide(sectionElem, pageIndex);
+            }
+        },
+        [onClickSlide]
+    );
 
     if (!html) {
         return <Wrapper />;
