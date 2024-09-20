@@ -94,6 +94,7 @@ const CurrentPageSyncButtonContainer = styled.div`
     top: 0;
     right: 0;
     bottom: 0;
+    z-index: 100;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -304,6 +305,17 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
 
                 <VerticalDivider />
 
+                <PreviewContainer ref={previewContainerRef}>
+                    <PreviewFragment
+                        config={config}
+                        content={value ?? ''}
+                        isSyncCurrentPage={isSyncCurrentPage}
+                        currentLineNumber={currentLineNumber}
+                        currentSlideNumber={slideInfo.currentSlideNumber}
+                        onClickSlide={handleClickSlide}
+                    />
+                </PreviewContainer>
+
                 <CurrentPageSyncButtonContainer>
                     <CurrentPageSyncButton
                         onClick={() => {
@@ -324,17 +336,6 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
                         )}
                     </CurrentPageSyncButton>
                 </CurrentPageSyncButtonContainer>
-
-                <PreviewContainer ref={previewContainerRef}>
-                    <PreviewFragment
-                        config={config}
-                        content={value ?? ''}
-                        isSyncCurrentPage={isSyncCurrentPage}
-                        currentLineNumber={currentLineNumber}
-                        currentSlideNumber={slideInfo.currentSlideNumber}
-                        onClickSlide={handleClickSlide}
-                    />
-                </PreviewContainer>
             </EditorContainer>
         </Wrapper>
     );
