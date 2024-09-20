@@ -33,22 +33,20 @@ import codemirrorUtil from '@/lib/codemirror/util';
 import type { SlideConfigState } from '@markslides/renderer';
 import type { SlideInfo } from '@/lib/types/common';
 
-function markdownWithHTML() {
-    return markdown({
-        base: markdownLanguage,
-        codeLanguages: languages,
-        extensions: {
-            wrap: parseMixed((node) => {
-                if (node.name === 'HTMLBlock') {
-                    return {
-                        parser: langs.html().language.parser,
-                    };
-                }
-                return null;
-            }),
-        },
-    });
-}
+const extendedMarkdownLanguage = markdown({
+    base: markdownLanguage,
+    codeLanguages: languages,
+    extensions: {
+        wrap: parseMixed((node) => {
+            if (node.name === 'HTMLBlock') {
+                return {
+                    parser: langs.css().language.parser,
+                };
+            }
+            return null;
+        }),
+    },
+});
 
 const pageDividerTheme = EditorView.baseTheme({
     '&dark .cm-page-divider': {
@@ -200,7 +198,7 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
             dividerHighlightExtension,
             lintExtension,
             // lintGutter(),
-            markdownWithHTML(),
+            extendedMarkdownLanguage,
             EditorView.lineWrapping,
             syncCurrentCursorPositionExtension,
             syncCurrentLineNumberExtension,
