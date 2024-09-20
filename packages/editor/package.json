@@ -60,9 +60,12 @@
         "@codemirror/lang-markdown": "^6.2.3",
         "@codemirror/language-data": "^6.3.1",
         "@codemirror/lint": "^6.8.1",
+        "@lezer/common": "^1.2.1",
         "@markslides/renderer": "^0.1.24",
-        "@uiw/codemirror-themes-all": "^4.21.21",
-        "@uiw/react-codemirror": "^4.21.21",
+        "@uiw/codemirror-extensions-color": "^4.23.2",
+        "@uiw/codemirror-extensions-langs": "^4.23.2",
+        "@uiw/codemirror-themes-all": "^4.23.2",
+        "@uiw/react-codemirror": "^4.23.2",
         "lucide-react": "^0.372.0",
         "styled-components": "^6.1.1"
     }

@@ -8,10 +8,13 @@ import { EditorView } from '@codemirror/view';
 import { EditorState } from '@codemirror/state';
 import { history as historyExtension } from '@codemirror/commands';
 import { lintGutter } from '@codemirror/lint';
+import { parseMixed } from '@lezer/common';
 import ReactCodeMirror, {
     type ReactCodeMirrorProps,
     type ReactCodeMirrorRef,
 } from '@uiw/react-codemirror';
+import { langs } from '@uiw/codemirror-extensions-langs';
+import { color as colorPickerExtension } from '@uiw/codemirror-extensions-color';
 import { githubLight } from '@uiw/codemirror-themes-all';
 import useSyncCurrentCursorPositionExtension from '@/hooks/codemirror/useSyncCurrentCursorPositionExtension';
 import useSyncCurrentLineNumberExtension from '@/hooks/codemirror/useSyncCurrentLineNumberExtension';
@@ -29,6 +32,21 @@ import defaultToolbarCommands from '@/toolbar/commands';
 import codemirrorUtil from '@/lib/codemirror/util';
 import type { SlideConfigState } from '@markslides/renderer';
 import type { SlideInfo } from '@/lib/types/common';
+
+const extendedMarkdownLanguage = markdown({
+    base: markdownLanguage,
+    codeLanguages: languages,
+    extensions: {
+        wrap: parseMixed((node) => {
+            if (node.name === 'HTMLBlock') {
+                return {
+                    parser: langs.css().language.parser,
+                };
+            }
+            return null;
+        }),
+    },
+});
 
 const pageDividerTheme = EditorView.baseTheme({
     '&dark .cm-page-divider': {
@@ -176,13 +194,11 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
             historyExtension(),
             styleTheme,
             shortcutExtension,
+            colorPickerExtension,
             dividerHighlightExtension,
             lintExtension,
             // lintGutter(),
-            markdown({
-                base: markdownLanguage,
-                codeLanguages: languages,
-            }),
+            extendedMarkdownLanguage,
             EditorView.lineWrapping,
             syncCurrentCursorPositionExtension,
             syncCurrentLineNumberExtension,
