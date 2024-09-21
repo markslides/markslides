@@ -316,13 +316,13 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
                     />
                 </PreviewContainer>
 
-                <CurrentPageSyncButtonContainer>
-                    <CurrentPageSyncButton
-                        onClick={() => {
-                            setIsSyncCurrentPage((prevIsSyncCurrentPage) => {
-                                return !prevIsSyncCurrentPage;
-                            });
-                        }}>
+                <CurrentPageSyncButtonContainer
+                    onClick={() => {
+                        setIsSyncCurrentPage((prevIsSyncCurrentPage) => {
+                            return !prevIsSyncCurrentPage;
+                        });
+                    }}>
+                    <CurrentPageSyncButton>
                         {isSyncCurrentPage ? (
                             <RefreshCwIcon
                                 color='#333333'
