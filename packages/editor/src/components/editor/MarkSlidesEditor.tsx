@@ -16,6 +16,8 @@ import ReactCodeMirror, {
 import { langs } from '@uiw/codemirror-extensions-langs';
 import { color as colorPickerExtension } from '@uiw/codemirror-extensions-color';
 import { githubLight } from '@uiw/codemirror-themes-all';
+import type { SlideConfigState } from '@markslides/renderer';
+import { RefreshCwIcon, RefreshCwOffIcon } from 'lucide-react';
 import useSyncCurrentCursorPositionExtension from '@/hooks/codemirror/useSyncCurrentCursorPositionExtension';
 import useSyncCurrentLineNumberExtension from '@/hooks/codemirror/useSyncCurrentLineNumberExtension';
 import useSyncCurrentSelectionExtension from '@/hooks/codemirror/useSyncCurrentSelectionExtension';
@@ -30,7 +32,6 @@ import dividerHighlightExtension from '@/lib/codemirror/dividerHighlightExtensio
 import lintExtension from '@/lib/codemirror/lintExtension';
 import defaultToolbarCommands from '@/toolbar/commands';
 import codemirrorUtil from '@/lib/codemirror/util';
-import type { SlideConfigState } from '@markslides/renderer';
 import type { SlideInfo } from '@/lib/types/common';
 
 const extendedMarkdownLanguage = markdown({
@@ -70,6 +71,7 @@ const EditorContainer = styled.div`
     display: flex;
     flex-direction: row;
     align-items: stretch;
+    position: relative;
 `;
 
 const PreviewContainer = styled.div`
@@ -81,6 +83,35 @@ const VerticalDivider = styled.div`
     width: 1px;
     height: 100%;
     background-color: #dddddd;
+`;
+
+const CurrentPageSyncButtonContainer = styled.div`
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    margin: auto;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #dddddd;
+    border-radius: 100%;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    background-color: white;
+    &:hover {
+        background-color: #cccccc;
+    }
+`;
+
+const CurrentPageSyncButton = styled.button`
+    all: unset;
+    width: 20px;
+    height: 20px;
 `;
 
 const styleTheme = EditorView.baseTheme({
@@ -127,6 +158,7 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
 
     const previewContainerRef = useRef<HTMLDivElement>(null);
 
+    const [isSyncCurrentPage, setIsSyncCurrentPage] = useState(true);
     const [currentCursorPosition, setCurrentCursorPosition] = useState(0);
     const [currentLineNumber, setCurrentLineNumber] = useState(0);
     const [currentSelection, setCurrentSelection] = useState('');
@@ -277,11 +309,33 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
                     <PreviewFragment
                         config={config}
                         content={value ?? ''}
+                        isSyncCurrentPage={isSyncCurrentPage}
                         currentLineNumber={currentLineNumber}
                         currentSlideNumber={slideInfo.currentSlideNumber}
                         onClickSlide={handleClickSlide}
                     />
                 </PreviewContainer>
+
+                <CurrentPageSyncButtonContainer>
+                    <CurrentPageSyncButton
+                        onClick={() => {
+                            setIsSyncCurrentPage((prevIsSyncCurrentPage) => {
+                                return !prevIsSyncCurrentPage;
+                            });
+                        }}>
+                        {isSyncCurrentPage ? (
+                            <RefreshCwIcon
+                                color='#333333'
+                                size={20}
+                            />
+                        ) : (
+                            <RefreshCwOffIcon
+                                color='#666666'
+                                size={20}
+                            />
+                        )}
+                    </CurrentPageSyncButton>
+                </CurrentPageSyncButtonContainer>
             </EditorContainer>
         </Wrapper>
     );

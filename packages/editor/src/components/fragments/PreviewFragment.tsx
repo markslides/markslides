@@ -73,6 +73,7 @@ const MarpitContainer = styled.div<{ $currentSlideNum: number }>`
 type PreviewFragmentProps = {
     config: SlideConfigState;
     content: string;
+    isSyncCurrentPage?: boolean;
     currentLineNumber: number;
     currentSlideNumber: number;
     onClickSlide: (slide: HTMLElement, index: number) => void;
@@ -82,6 +83,7 @@ function PreviewFragment(props: PreviewFragmentProps) {
     const {
         config,
         content,
+        isSyncCurrentPage = true,
         currentLineNumber,
         currentSlideNumber,
         onClickSlide,
@@ -95,6 +97,10 @@ function PreviewFragment(props: PreviewFragmentProps) {
     const wrapperRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
+        if (!isSyncCurrentPage) {
+            return;
+        }
+
         if (wrapperRef.current) {
             const marpitElem = wrapperRef.current.querySelector('.marpit');
             if (marpitElem) {
@@ -111,7 +117,7 @@ function PreviewFragment(props: PreviewFragmentProps) {
                 }
             }
         }
-    }, [currentLineNumber, currentSlideNumber]);
+    }, [isSyncCurrentPage, currentLineNumber, currentSlideNumber]);
 
     const handleClickMarpitContainer = useCallback(
         (event: MouseEvent) => {
