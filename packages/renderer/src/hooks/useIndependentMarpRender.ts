@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useCallback } from 'react';
+import { useRef, useEffect, useMemo, useCallback } from 'react';
+import Marp from '@marp-team/marp-core';
 import appMarp from '@/lib/marp/appMarp';
 import slideConfigUtil from '@/lib/utils/slideConfigUtil';
 import type { SlideConfigState } from '@/lib/types/common';
@@ -8,6 +9,8 @@ function useIndependentMarpRender(
     slideConfig: string | SlideConfigState,
     content: string
 ) {
+    const marpInstanceRef = useRef<Marp | null>(null);
+
     const { html, css, comments } = useMemo(() => {
         if (content) {
             try {
@@ -18,9 +21,14 @@ function useIndependentMarpRender(
                               slideConfig
                           );
 
-                return appMarp
-                    .createInstance(containerClassName)
-                    .render(`---\n${config}\n---\n\n${content}`);
+                if (!marpInstanceRef.current) {
+                    marpInstanceRef.current =
+                        appMarp.createInstance(containerClassName);
+                }
+
+                return marpInstanceRef.current.render(
+                    `---\n${config}\n---\n\n${content}`
+                );
             } catch (error) {
                 console.error(error);
             }
@@ -30,7 +38,9 @@ function useIndependentMarpRender(
     }, [slideConfig, content, containerClassName]);
 
     const refresh = useCallback(() => {
-        appMarp.getDefaultInstance().markdown.mermaid.contentLoaded();
+        if (marpInstanceRef.current) {
+            marpInstanceRef.current.markdown.mermaid.contentLoaded();
+        }
     }, []);
 
     useEffect(() => {
