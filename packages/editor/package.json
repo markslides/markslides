@@ -1,7 +1,7 @@
 {
     "name": "@markslides/editor",
     "description": "MarkSlides Editor",
-    "version": "0.1.49",
+    "version": "0.1.50",
     "main": "./dist/index.js",
     "module": "./dist/index.mjs",
     "types": "./dist/index.d.ts",
@@ -61,7 +61,7 @@
         "@codemirror/language-data": "^6.3.1",
         "@codemirror/lint": "^6.8.1",
         "@lezer/common": "^1.2.1",
-        "@markslides/renderer": "^0.1.24",
+        "@markslides/renderer": "^0.1.25",
         "@uiw/codemirror-extensions-color": "^4.23.2",
         "@uiw/codemirror-extensions-langs": "^4.23.2",
         "@uiw/codemirror-themes-all": "^4.23.2",
