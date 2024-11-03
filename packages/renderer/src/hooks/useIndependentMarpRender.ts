@@ -9,6 +9,7 @@ function useIndependentMarpRender(
     slideConfig: string | SlideConfigState,
     content: string
 ) {
+    const containerClassNameRef = useRef<string | null>(null);
     const marpInstanceRef = useRef<Marp | null>(null);
 
     const { html, css, comments } = useMemo(() => {
@@ -21,7 +22,12 @@ function useIndependentMarpRender(
                               slideConfig
                           );
 
-                if (!marpInstanceRef.current) {
+                if (
+                    containerClassNameRef.current === null ||
+                    containerClassNameRef.current !== containerClassName ||
+                    !marpInstanceRef.current
+                ) {
+                    containerClassNameRef.current = containerClassName;
                     marpInstanceRef.current =
                         appMarp.createInstance(containerClassName);
                 }
