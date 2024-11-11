@@ -1,7 +1,7 @@
 {
     "name": "@markslides/markdown-it-mermaid",
     "description": "Mermaid plugin for markdown-it",
-    "version": "0.3.4",
+    "version": "0.3.5",
     "main": "./dist/index.js",
     "module": "./dist/index.mjs",
     "types": "./dist/index.d.ts",
@@ -34,7 +34,8 @@
         }
     },
     "dependencies": {
-        "mermaid": "^10.6.1"
+        "@iconify-json/logos": "^1.2.3",
+        "mermaid": "^11.4.0"
     },
     "devDependencies": {
         "@types/markdown-it": "^13.0.0",

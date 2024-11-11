@@ -26,6 +26,15 @@ const markdownItMermaid = (md: MarkdownIt, config?: MermaidConfig) => {
         ...config,
     });
 
+    // Register icon packs asynchronously
+    mermaid.registerIconPacks([
+        {
+            name: 'logos',
+            loader: () =>
+                import('@iconify-json/logos').then((module) => module.icons),
+        },
+    ]);
+
     // @ts-ignore
     md.mermaid = mermaid;
 
