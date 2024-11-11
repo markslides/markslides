@@ -31,7 +31,9 @@ const markdownItMermaid = (md: MarkdownIt, config?: MermaidConfig) => {
         {
             name: 'logos',
             loader: () =>
-                import('@iconify-json/logos').then((module) => module.icons),
+                fetch(
+                    'https://unpkg.com/@iconify-json/logos@1/icons.json'
+                ).then((res) => res.json()),
         },
     ]);
 
