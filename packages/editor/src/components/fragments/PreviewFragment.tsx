@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useEffect, useCallback, MouseEvent } from 'react';
+import { useRef, useEffect, useCallback, memo, MouseEvent } from 'react';
 import styled from 'styled-components';
 import {
     useDefaultMarpRender,
@@ -154,4 +154,4 @@ function PreviewFragment(props: PreviewFragmentProps) {
     );
 }
 
-export default PreviewFragment;
+export default memo(PreviewFragment);
