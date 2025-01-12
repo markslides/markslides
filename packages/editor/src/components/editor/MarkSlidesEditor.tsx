@@ -17,7 +17,6 @@ import { langs } from '@uiw/codemirror-extensions-langs';
 import { color as colorPickerExtension } from '@uiw/codemirror-extensions-color';
 import { githubLight } from '@uiw/codemirror-themes-all';
 import type { SlideConfigState } from '@markslides/renderer';
-import { RefreshCwIcon, RefreshCwOffIcon } from 'lucide-react';
 import useSyncCurrentCursorPositionExtension from '@/hooks/codemirror/useSyncCurrentCursorPositionExtension';
 import useSyncCurrentLineNumberExtension from '@/hooks/codemirror/useSyncCurrentLineNumberExtension';
 import useSyncCurrentSelectionExtension from '@/hooks/codemirror/useSyncCurrentSelectionExtension';
@@ -27,6 +26,7 @@ import PreviewFragment from '@/components/fragments/PreviewFragment';
 import EditorToolbar, {
     type EditorToolbarProps,
 } from '@/components/editor/EditorToolbar';
+import CurrentPageSyncButton from '@/components/editor/CurrentPageSyncButton';
 import shortcutExtension from '@/lib/codemirror/shortcutExtension';
 import dividerHighlightExtension from '@/lib/codemirror/dividerHighlightExtension';
 import lintExtension from '@/lib/codemirror/lintExtension';
@@ -83,34 +83,6 @@ const VerticalDivider = styled.div`
     width: 1px;
     height: 100%;
     background-color: #dddddd;
-`;
-
-const CurrentPageSyncButtonContainer = styled.div`
-    width: 40px;
-    height: 40px;
-    position: absolute;
-    margin: auto;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #dddddd;
-    border-radius: 100%;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
-    background-color: white;
-    &:hover {
-        background-color: #cccccc;
-    }
-`;
-
-const CurrentPageSyncButton = styled.button`
-    all: unset;
-    width: 20px;
-    height: 20px;
 `;
 
 const styleTheme = EditorView.baseTheme({
@@ -277,6 +249,12 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
         }
     }, []);
 
+    const handleClickSyncCurrentPage = useCallback(() => {
+        setIsSyncCurrentPage((prevIsSyncCurrentPage) => {
+            return !prevIsSyncCurrentPage;
+        });
+    }, [isSyncCurrentPage]);
+
     return (
         <Wrapper $height={height}>
             <EditorToolbar
@@ -315,26 +293,10 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
                     />
                 </PreviewContainer>
 
-                <CurrentPageSyncButtonContainer
-                    onClick={() => {
-                        setIsSyncCurrentPage((prevIsSyncCurrentPage) => {
-                            return !prevIsSyncCurrentPage;
-                        });
-                    }}>
-                    <CurrentPageSyncButton>
-                        {isSyncCurrentPage ? (
-                            <RefreshCwIcon
-                                color='#333333'
-                                size={20}
-                            />
-                        ) : (
-                            <RefreshCwOffIcon
-                                color='#666666'
-                                size={20}
-                            />
-                        )}
-                    </CurrentPageSyncButton>
-                </CurrentPageSyncButtonContainer>
+                <CurrentPageSyncButton
+                    isSyncCurrentPage={isSyncCurrentPage}
+                    onToggle={handleClickSyncCurrentPage}
+                />
             </EditorContainer>
         </Wrapper>
     );

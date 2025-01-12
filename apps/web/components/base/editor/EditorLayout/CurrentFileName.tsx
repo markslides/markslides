@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Flex } from '@markslides/ui/flex';
 import { Text } from '@markslides/ui/text';
 import { Tooltip } from '@markslides/ui/tooltip';
@@ -34,4 +35,4 @@ function CurrentFileName(props: CurrentFileNameProps) {
     return null;
 }
 
-export default CurrentFileName;
+export default memo(CurrentFileName);

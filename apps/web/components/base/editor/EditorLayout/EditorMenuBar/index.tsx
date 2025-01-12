@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, memo } from 'react';
 import Link from 'next/link';
 import {
     MenubarRoot,
@@ -148,4 +148,4 @@ function EditorMenuBar() {
     );
 }
 
-export default EditorMenuBar;
+export default memo(EditorMenuBar);

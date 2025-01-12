@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Flex } from '@markslides/ui/flex';
 import { Button } from '@markslides/ui/button';
 import { Image } from '@markslides/ui/image';
@@ -47,4 +48,4 @@ function EditorHeader() {
     );
 }
 
-export default EditorHeader;
+export default memo(EditorHeader);
