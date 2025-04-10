@@ -1,4 +1,4 @@
-import { dirname, join, resolve } from "path";
+const { dirname, join, resolve } = require('path');
 
 function getAbsolutePath(value) {
   return dirname(require.resolve(join(value, "package.json")));
@@ -39,4 +39,4 @@ const config = {
   },
 };
 
-export default config;
+module.exports = config;
