@@ -1,5 +1,6 @@
 import { useRef, useEffect, useMemo, useCallback } from 'react';
 import Marp from '@marp-team/marp-core';
+import useCopyFenceContent from '@/hooks/useCopyFenceContent';
 import appMarp from '@/lib/marp/appMarp';
 import slideConfigUtil from '@/lib/utils/slideConfigUtil';
 import type { SlideConfigState } from '@/lib/types/common';
@@ -52,6 +53,8 @@ function useIndependentMarpRender(
     useEffect(() => {
         refresh();
     });
+
+    useCopyFenceContent();
 
     return { html, css, comments, refresh };
 }

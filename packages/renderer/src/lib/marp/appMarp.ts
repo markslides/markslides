@@ -2,10 +2,11 @@ import { Marp } from '@marp-team/marp-core';
 import { Element as MarpitElement } from '@marp-team/marpit';
 import markdownItContainer from 'markdown-it-container';
 import markdownItLink from '@markslides/markdown-it-link';
-import markdownItTaskLists from '@/lib/marp/plugins/taskLists';
 import markdownItMermaid from '@markslides/markdown-it-mermaid';
 import markdownItTypograms from '@markslides/markdown-it-typograms';
 import themes from '@markslides/themes';
+import markdownItTaskLists from '@/lib/marp/plugins/taskLists';
+import markdownItCopyFenceContent from '@/lib/marp/plugins/copyFenceContent';
 
 const appMarp = (function () {
     let instance: Marp;
@@ -36,9 +37,10 @@ const appMarp = (function () {
         marp.use(markdownItContainer, 'columns-5', {});
         marp.use(markdownItContainer, 'columns-6', {});
         marp.use(markdownItLink);
-        marp.use(markdownItTaskLists);
         marp.use(markdownItMermaid, {});
         marp.use(markdownItTypograms);
+        marp.use(markdownItTaskLists);
+        marp.use(markdownItCopyFenceContent);
 
         // Set themes
         if (themes.length > 0) {

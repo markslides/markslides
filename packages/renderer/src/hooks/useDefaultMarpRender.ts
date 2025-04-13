@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useCallback } from 'react';
+import useCopyFenceContent from '@/hooks/useCopyFenceContent';
 import appMarp from '@/lib/marp/appMarp';
 import slideConfigUtil from '@/lib/utils/slideConfigUtil';
 import type { SlideConfigState } from '@/lib/types/common';
@@ -34,6 +35,8 @@ function useDefaultMarpRender(
     useEffect(() => {
         refresh();
     });
+
+    useCopyFenceContent();
 
     return { html, css, comments, refresh };
 }
