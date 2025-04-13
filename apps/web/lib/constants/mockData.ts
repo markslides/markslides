@@ -15,7 +15,7 @@ theme: default
 size: 16:9
 style: |
   pre {
-    overflow: scroll;
+    overflow: auto;
   }
 `,
         content: `

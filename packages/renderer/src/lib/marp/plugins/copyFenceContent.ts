@@ -25,7 +25,7 @@ const markdownItCopyFenceContent = (md: MarkdownIt) => {
         const escapedContent = md.utils.escapeHtml(content);
 
         return `
-            <div style="position: relative;">
+            <div style="position: relative; overflow: auto;">
                 ${original(tokens, idx, options, env, self)}
 
                 <style>
@@ -50,7 +50,7 @@ const markdownItCopyFenceContent = (md: MarkdownIt) => {
                         color: var(--color-canvas-default);
                     }
 
-                    /* Inactive  */
+                    /* Inactive */
                     button.copy-fence-content .lucide-copy-icon {
                         display: block !important;
                     }
@@ -58,7 +58,7 @@ const markdownItCopyFenceContent = (md: MarkdownIt) => {
                         display: none !important;
                     }
 
-                    /* Active  */
+                    /* Active */
                     button.copy-fence-content:hover.active {
                         color: var(--color-canvas-default);
                     }
