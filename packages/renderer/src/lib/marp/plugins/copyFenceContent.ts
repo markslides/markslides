@@ -52,10 +52,10 @@ const markdownItCopyFenceContent = (md: MarkdownIt) => {
 
                     /* Inactive  */
                     button.copy-fence-content .lucide-copy-icon {
-                        display: block;
+                        display: block !important;
                     }
                     button.copy-fence-content .lucide-check-icon {
-                        display: none;
+                        display: none !important;
                     }
 
                     /* Active  */
@@ -63,10 +63,10 @@ const markdownItCopyFenceContent = (md: MarkdownIt) => {
                         color: var(--color-canvas-default);
                     }
                     button.copy-fence-content.active .lucide-copy-icon {
-                        display: none;
+                        display: none !important;
                     }
                     button.copy-fence-content.active .lucide-check-icon {
-                        display: block;
+                        display: block !important;
                     }
                 </style>
                 <button
