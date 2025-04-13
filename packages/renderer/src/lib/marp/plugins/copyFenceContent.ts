@@ -27,11 +27,52 @@ const markdownItCopyFenceContent = (md: MarkdownIt) => {
         return `
             <div style="position: relative;">
                 ${original(tokens, idx, options, env, self)}
+
+                <style>
+                    button.copy-fence-content {
+                        width: 36px;
+                        height: 36px;
+                        position: absolute;
+                        top: 8px;
+                        right: 8px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        cursor: pointer;
+                        background-color: var(--color-neutral-muted);
+                        color: var(--color-fg-default);
+                        border: 1px solid var(--color-border-default);
+                        border-radius: 4px;
+                        transition: all 0.2s ease-in-out;
+                    }
+                    button.copy-fence-content:hover {
+                        background-color: var(--color-fg-muted);
+                        color: var(--color-canvas-default);
+                    }
+
+                    /* Inactive  */
+                    button.copy-fence-content .lucide-copy-icon {
+                        display: block;
+                    }
+                    button.copy-fence-content .lucide-check-icon {
+                        display: none;
+                    }
+
+                    /* Active  */
+                    button.copy-fence-content:hover.active {
+                        color: var(--color-canvas-default);
+                    }
+                    button.copy-fence-content.active .lucide-copy-icon {
+                        display: none;
+                    }
+                    button.copy-fence-content.active .lucide-check-icon {
+                        display: block;
+                    }
+                </style>
                 <button
                     class="copy-fence-content"
-                    style="width: 36px; height: 36px; position: absolute; top: 8px; right: 8px; display: flex; align-items: center; justify-content: center; background-color: var(--color-neutral-muted); color: white; border: 1px solid var(--color-border-default); border-radius: 4px; cursor: pointer; color: var(--color-fg-default);"
                     data-content="${escapedContent}">
-                    <svg
+                    <svg class="lucide-copy-icon"
                         width="20"
                         height="20"
                         viewBox="0 0 24 24"
@@ -49,6 +90,17 @@ const markdownItCopyFenceContent = (md: MarkdownIt) => {
                             ry="2"
                         />
                         <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+                    </svg>
+                    <svg class="lucide-check-icon"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M20 6 9 17l-5-5" />
                     </svg>
                 </button>
             </div>
