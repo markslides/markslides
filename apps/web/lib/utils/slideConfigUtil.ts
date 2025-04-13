@@ -18,7 +18,7 @@ theme: ${configState.theme}
 size: ${configState.size}
 style: |
   pre {
-    overflow: scroll;
+    overflow: auto;
   }
 `.trim();
     },
