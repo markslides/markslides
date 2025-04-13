@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useCallback } from 'react';
-import useCopyFenceContent from '@/hooks/useCopyFenceContent';
+import useRefreshCopyFenceContent from '@/hooks/useRefreshCopyFenceContent';
 import appMarp from '@/lib/marp/appMarp';
 import slideConfigUtil from '@/lib/utils/slideConfigUtil';
 import type { SlideConfigState } from '@/lib/types/common';
@@ -28,15 +28,20 @@ function useDefaultMarpRender(
         return { html: null, css: null, comments: null };
     }, [slideConfig, content]);
 
-    const refresh = useCallback(() => {
+    const refreshMermaid = useCallback(() => {
         appMarp.getDefaultInstance().markdown.mermaid.contentLoaded();
+    }, []);
+
+    const refreshCopyFenceContent = useRefreshCopyFenceContent();
+
+    const refresh = useCallback(() => {
+        refreshMermaid();
+        refreshCopyFenceContent();
     }, []);
 
     useEffect(() => {
         refresh();
     });
-
-    useCopyFenceContent();
 
     return { html, css, comments, refresh };
 }
