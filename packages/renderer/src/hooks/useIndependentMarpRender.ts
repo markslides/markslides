@@ -1,5 +1,6 @@
 import { useRef, useEffect, useMemo, useCallback } from 'react';
 import Marp from '@marp-team/marp-core';
+import useRefreshCopyFenceContent from '@/hooks/useRefreshCopyFenceContent';
 import appMarp from '@/lib/marp/appMarp';
 import slideConfigUtil from '@/lib/utils/slideConfigUtil';
 import type { SlideConfigState } from '@/lib/types/common';
@@ -43,10 +44,17 @@ function useIndependentMarpRender(
         return { html: null, css: null, comments: null };
     }, [slideConfig, content, containerClassName]);
 
-    const refresh = useCallback(() => {
+    const refreshMermaid = useCallback(() => {
         if (marpInstanceRef.current) {
             marpInstanceRef.current.markdown.mermaid.contentLoaded();
         }
+    }, []);
+
+    const refreshCopyFenceContent = useRefreshCopyFenceContent();
+
+    const refresh = useCallback(() => {
+        refreshMermaid();
+        refreshCopyFenceContent();
     }, []);
 
     useEffect(() => {
