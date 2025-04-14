@@ -1,15 +1,10 @@
 import { useCallback } from 'react';
-import appMarp from '@/lib/marp/appMarp';
 
 function useRefreshCopyFenceContent() {
     return useCallback(() => {
-        // For mermaid
-        appMarp.getDefaultInstance().markdown.mermaid.contentLoaded();
-
-        // For copy fence content
-        const copyFenceContentElems = Array.from(
-            document.getElementsByClassName('copy-fence-content')
-        ) as HTMLElement[];
+        const copyFenceContentButtonElems = Array.from(
+            document.querySelectorAll('button.copy-fence-content')
+        ) as HTMLButtonElement[];
 
         const handleClickCopyCodeButton = async (event: Event) => {
             event.stopPropagation();
@@ -37,12 +32,12 @@ function useRefreshCopyFenceContent() {
             }
         };
 
-        copyFenceContentElems.forEach((elem) => {
+        copyFenceContentButtonElems.forEach((elem) => {
             elem.addEventListener('click', handleClickCopyCodeButton);
         });
 
         return () => {
-            copyFenceContentElems.forEach((elem) => {
+            copyFenceContentButtonElems.forEach((elem) => {
                 elem.removeEventListener('click', handleClickCopyCodeButton);
             });
         };
