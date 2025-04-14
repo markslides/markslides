@@ -29,21 +29,15 @@ const markdownItCopyFenceContent = (md: MarkdownIt) => {
         const styles = `
             <style>
                 .copy-fence-container {
-                    height: inherit;
                     position: relative;
-                }
-                .copy-fence-container pre {
-                    max-height: 100%;
-                    position: absolute;
-                    inset: 0;
                 }
 
                 button.copy-fence-content {
                     width: 36px;
                     height: 36px;
                     position: absolute;
-                    top: 8px;
-                    right: 8px;
+                    top: 12px;
+                    right: 12px;
                     display: flex;
                     align-items: center;
                     justify-content: center;
@@ -118,11 +112,11 @@ const markdownItCopyFenceContent = (md: MarkdownIt) => {
         `;
 
         return `
-            ${styles}
             <div class="copy-fence-container">
-                ${originalFenceContent}
+                ${styles}
                 ${buttonHtml}
             </div>
+            ${originalFenceContent}
         `;
     };
 };
