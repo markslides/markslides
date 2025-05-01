@@ -7,6 +7,7 @@ import markdownItTypograms from '@markslides/markdown-it-typograms';
 import themes from '@markslides/themes';
 import markdownItTaskLists from '@/lib/marp/plugins/taskLists';
 import markdownItCopyFenceContent from '@/lib/marp/plugins/copyFenceContent';
+import markdownItFenceCodeBlockEnhancer from '@/lib/marp/plugins/fenceCodeBlockEnhancer';
 
 const appMarp = (function () {
     let instance: Marp;
@@ -37,9 +38,10 @@ const appMarp = (function () {
         marp.use(markdownItContainer, 'columns-5', {});
         marp.use(markdownItContainer, 'columns-6', {});
         marp.use(markdownItLink);
+        marp.use(markdownItTaskLists);
+        marp.use(markdownItFenceCodeBlockEnhancer);
         marp.use(markdownItMermaid, {});
         marp.use(markdownItTypograms);
-        marp.use(markdownItTaskLists);
         marp.use(markdownItCopyFenceContent);
 
         // Set themes
