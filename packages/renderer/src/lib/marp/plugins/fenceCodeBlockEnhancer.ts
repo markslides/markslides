@@ -49,7 +49,11 @@ const markdownItFenceCodeBlockEnhancer = (md: MarkdownIt) => {
         }
 
         const tokenParts = token.info.split(' ').filter(Boolean);
-        const langName = tokenParts[0] || '';
+        const langName = tokenParts[0];
+        if (!langName) {
+            return original(tokens, idx, options, env, self);
+        }
+
         const isShowLineNumber = tokenParts.includes(SHOW_LINE_NUMBERS);
 
         let lineNumbers: number[][] = [];
