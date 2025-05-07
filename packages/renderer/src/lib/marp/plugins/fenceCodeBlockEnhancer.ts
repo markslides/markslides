@@ -19,7 +19,6 @@ const generateFenceStyles = (digits: number): string => `
             color: var(--color-fg-default);
         }
         .highlighted-line {
-            display: block;
             background-color: var(--color-neutral-muted);
             padding: 0.1rem 12px;
             margin-left: -16px;
@@ -74,7 +73,7 @@ const markdownItFenceCodeBlockEnhancer = (md: MarkdownIt) => {
 
         const lines = code.split('\n').map((line, index) => {
             const lineNumber = index + 1;
-            const isInRange = lineNumbers.some(([start, end]) => {
+            const isInHighlightRange = lineNumbers.some(([start, end]) => {
                 if (start && end) {
                     return (
                         lineNumber >= start &&
@@ -96,10 +95,10 @@ const markdownItFenceCodeBlockEnhancer = (md: MarkdownIt) => {
             }${line}`;
 
             return {
-                content: isInRange
-                    ? `<span class="highlighted-line">${lineContent}</span>`
+                content: isInHighlightRange
+                    ? `<div class="highlighted-line">${lineContent}</div>`
                     : lineContent,
-                isHighlighted: isInRange,
+                isHighlighted: isInHighlightRange,
             };
         });
 
