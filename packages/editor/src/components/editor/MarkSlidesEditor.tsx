@@ -92,7 +92,10 @@ const styleTheme = EditorView.baseTheme({
 });
 
 interface MarkSlidesEditorProps
-    extends Pick<ReactCodeMirrorProps, 'readOnly' | 'value' | 'onChange'>,
+    extends Pick<
+            ReactCodeMirrorProps,
+            'extensions' | 'readOnly' | 'value' | 'onChange'
+        >,
         Partial<Pick<EditorToolbarProps, 'toolbarCommands'>> {
     height?: number | string;
     config?: SlideConfigState;
@@ -118,6 +121,7 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
         isFixScrollToBottom = false,
         slideInfo,
         onChangeSlideInfo,
+        extensions: externalExtensions = [],
         readOnly,
         value,
         onChange,
@@ -208,6 +212,7 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
             syncCurrentSelectionExtension,
             syncSlideInfoExtension,
             bottomPanelExtension,
+            ...externalExtensions,
         ];
     }, [
         syncCurrentCursorPositionExtension,
@@ -215,6 +220,7 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
         syncCurrentSelectionExtension,
         syncSlideInfoExtension,
         bottomPanelExtension,
+        externalExtensions,
     ]);
 
     const handleClickSlide = useCallback((slide: Element, index: number) => {
