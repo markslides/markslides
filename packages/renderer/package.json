@@ -53,7 +53,7 @@
     },
     "dependencies": {
         "@markslides/markdown-it-link": "^0.1.1",
-        "@markslides/markdown-it-mermaid": "^0.3.6",
+        "@markslides/markdown-it-mermaid": "^0.3.7",
         "@markslides/markdown-it-typograms": "^0.1.2",
         "@markslides/themes": "^0.1.6",
         "@marp-team/marp-core": "^3.9.0",

@@ -40,7 +40,7 @@ const appMarp = (function () {
         marp.use(markdownItLink);
         marp.use(markdownItTaskLists);
         marp.use(markdownItFenceCodeBlockEnhancer);
-        marp.use(markdownItMermaid, {});
+        marp.use(markdownItMermaid);
         marp.use(markdownItTypograms);
         marp.use(markdownItCopyFenceContent);
 
