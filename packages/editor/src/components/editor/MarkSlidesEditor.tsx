@@ -1,6 +1,14 @@
 'use client';
 
-import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
+import {
+    useState,
+    useEffect,
+    useMemo,
+    useRef,
+    useCallback,
+    forwardRef,
+    ForwardedRef,
+} from 'react';
 import styled from 'styled-components';
 import { markdown, markdownLanguage } from '@codemirror/lang-markdown';
 import { languages } from '@codemirror/language-data';
@@ -91,6 +99,8 @@ const styleTheme = EditorView.baseTheme({
     },
 });
 
+export interface MarkSlidesEditorRef extends ReactCodeMirrorRef {}
+
 interface MarkSlidesEditorProps
     extends Pick<
             ReactCodeMirrorProps,
@@ -113,7 +123,10 @@ const DEFAULT_SLIDE_CONFIG: SlideConfigState = {
     size: '16:9',
 };
 
-function MarkSlidesEditor(props: MarkSlidesEditorProps) {
+function MarkSlidesEditor(
+    props: MarkSlidesEditorProps,
+    ref: ForwardedRef<MarkSlidesEditorRef>
+) {
     const {
         toolbarCommands = defaultToolbarCommands,
         height = '100vh',
@@ -127,7 +140,7 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
         onChange,
     } = props;
 
-    const codeMirrorRef = useRef<ReactCodeMirrorRef>(null);
+    const codeMirrorRef = useRef<ReactCodeMirrorRef | null>(null);
     // const editorViewRef = useRef<EditorView | null>(null);
     // const editorStateRef = useRef<EditorState | null>(null);
 
@@ -270,7 +283,15 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
 
             <EditorContainer>
                 <ReactCodeMirror
-                    ref={codeMirrorRef}
+                    ref={(_ref) => {
+                        if (ref && typeof ref === 'function') {
+                            ref(_ref);
+                        } else if (ref && typeof ref === 'object') {
+                            ref.current = _ref;
+                        }
+
+                        codeMirrorRef.current = _ref as ReactCodeMirrorRef;
+                    }}
                     height='100%'
                     style={{
                         flex: '1',
@@ -308,4 +329,4 @@ function MarkSlidesEditor(props: MarkSlidesEditorProps) {
     );
 }
 
-export default MarkSlidesEditor;
+export default forwardRef(MarkSlidesEditor);

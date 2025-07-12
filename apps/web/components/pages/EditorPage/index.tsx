@@ -1,7 +1,7 @@
 'use client';
 
-import { useMemo } from 'react';
-import MarkSlidesEditor from '@markslides/editor';
+import { useMemo, useRef } from 'react';
+import MarkSlidesEditor, { type MarkSlidesEditorRef } from '@markslides/editor';
 import {
     undo,
     redo,
@@ -29,6 +29,8 @@ import SlideShowFragment from '@/components/fragments/SlideShowFragment';
 import slideConfigUtil from '@/lib/utils/slideConfigUtil';
 
 function EditorPage(): JSX.Element {
+    const editorRef = useRef<MarkSlidesEditorRef>(null);
+
     const isSlideShowMode = useAppSelector(
         (state) => state.app.isSlideShowMode
     );
@@ -69,6 +71,7 @@ function EditorPage(): JSX.Element {
     return (
         <Box height='100%'>
             <MarkSlidesEditor
+                ref={editorRef}
                 height='inherit'
                 toolbarCommands={toolbarCommands}
                 config={slideConfigState}
