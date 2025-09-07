@@ -80,6 +80,7 @@ function EditorPage(): JSX.Element {
                 onChangeSlideInfo={(newSlideInfo) => {
                     dispatch(setSlideInfo(newSlideInfo));
                 }}
+                placeholder='# Hi, MarkSlides!'
                 value={markdownContent}
                 onChange={(newValue) => {
                     dispatch(setContentRequested(newValue));
