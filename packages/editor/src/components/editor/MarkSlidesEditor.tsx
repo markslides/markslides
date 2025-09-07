@@ -104,7 +104,7 @@ export interface MarkSlidesEditorRef extends ReactCodeMirrorRef {}
 interface MarkSlidesEditorProps
     extends Pick<
             ReactCodeMirrorProps,
-            'extensions' | 'readOnly' | 'value' | 'onChange'
+            'placeholder' | 'extensions' | 'readOnly' | 'value' | 'onChange'
         >,
         Partial<Pick<EditorToolbarProps, 'toolbarCommands'>> {
     height?: number | string;
@@ -134,6 +134,7 @@ function MarkSlidesEditor(
         isFixScrollToBottom = false,
         slideInfo,
         onChangeSlideInfo,
+        placeholder,
         extensions: externalExtensions = [],
         readOnly,
         value,
@@ -297,6 +298,7 @@ function MarkSlidesEditor(
                         flex: '1',
                     }}
                     theme={[githubLight, pageDividerTheme]}
+                    placeholder={placeholder}
                     extensions={extensions}
                     // onCreateEditor={(view: EditorView, state: EditorState) => {
                     //     editorViewRef.current = view;
