@@ -24,6 +24,8 @@
     "scripts": {
         "lint": "eslint . --max-warnings 0",
         "generate:component": "turbo gen react-component",
+        "generate:themes": "node scripts/generate-themes.js",
+        "prebuild": "npm run generate:themes",
         "dev": "npm run build -- --watch",
         "build": "tsup ./src/index.ts --format cjs,esm --dts"
     },
