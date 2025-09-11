@@ -815,6 +815,7 @@ section .csv-data th {
    ========================================================================== */
 
 section code,
+section code span,
 section kbd,
 section pre,
 section samp,
