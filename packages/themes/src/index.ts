@@ -1,7 +1,5 @@
-// import defaultTheme from '@/themes/default';
-// import red from '@/themes/red';
-// import green from '@/themes/green';
-// import blue from '@/themes/blue';
+import defaultTheme from '@/generated/default';
+import minimalTheme from '@/generated/minimal';
 
 type MarkSlidesTheme = {
     name: string;
@@ -9,22 +7,14 @@ type MarkSlidesTheme = {
 };
 
 const themes: MarkSlidesTheme[] = [
-    // {
-    //     name: 'default',
-    //     css: defaultTheme,
-    // },
-    // {
-    //     name: 'red',
-    //     css: red,
-    // },
-    // {
-    //     name: 'green',
-    //     css: green,
-    // },
-    // {
-    //     name: 'blue',
-    //     css: blue,
-    // },
+    {
+        name: 'default',
+        css: defaultTheme,
+    },
+    {
+        name: 'minimal',
+        css: minimalTheme,
+    },
 ];
 
 export default themes;

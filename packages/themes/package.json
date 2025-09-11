@@ -1,7 +1,7 @@
 {
     "name": "@markslides/themes",
     "description": "MarkSlides Themes",
-    "version": "0.1.6",
+    "version": "0.1.7",
     "main": "./dist/index.js",
     "module": "./dist/index.mjs",
     "types": "./dist/index.d.ts",
@@ -24,6 +24,8 @@
     "scripts": {
         "lint": "eslint . --max-warnings 0",
         "generate:component": "turbo gen react-component",
+        "generate:themes": "node scripts/generate-themes.js",
+        "prebuild": "npm run generate:themes",
         "dev": "npm run build -- --watch",
         "build": "tsup ./src/index.ts --format cjs,esm --dts"
     },
