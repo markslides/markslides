@@ -11,17 +11,14 @@ const minimalTheme = `/*
  * @size 4K 3840px 2160px
  */
 
-@import 'default';
-
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap');
 
 * {
     font-family: 'Noto Sans', sans-serif;
     font-optical-sizing: auto;
-    /* font-weight: 500; */
     font-style: normal;
     font-variation-settings: 'wdth' 100;
-    letter-spacing: -1px;
 }
 
 /* ==========================================================================
@@ -78,15 +75,15 @@ section {
     --color-danger-fg: #cf222e;
 
     /* Custom Theme Variables */
-    --h1-color: black;
-    --header-footer-color: hsla(0, 0%, 40%, 0.75);
+    --heading-color: black;
     --heading-strong-color: black;
+    --header-footer-color: hsla(0, 0%, 40%, 0.75);
     --paginate-color: #777;
 
     /* Base Layout & Typography */
     width: 1280px;
     height: 720px;
-    padding: 78.5px;
+    padding: 64px;
     margin: 0;
     display: flex;
     align-items: stretch;
@@ -166,9 +163,9 @@ section:where(.invert) {
     --color-attention-subtle: rgba(187, 128, 9, 0.15);
     --color-danger-fg: #f85149;
 
-    --h1-color: #ffffff;
-    --header-footer-color: hsla(0, 0%, 80%, 0.75);
+    --heading-color: #ffffff;
     --heading-strong-color: #ffffff;
+    --header-footer-color: hsla(0, 0%, 80%, 0.75);
     --paginate-color: #999999;
 
     color-scheme: dark;
@@ -186,12 +183,12 @@ section::after {
 
 section::after {
     clear: both;
-    bottom: 21px;
-    color: var(--paginate-color);
-    font-size: 24px;
     padding: 0;
     position: absolute;
-    right: 30px;
+    right: 32px;
+    bottom: 20px;
+    font-size: 1em;
+    color: var(--paginate-color);
 }
 
 section > *:first-child,
@@ -215,20 +212,16 @@ section h3,
 section h4,
 section h5,
 section h6 {
+    margin-bottom: 12px;
+    color: var(--heading-color);
     font-weight: var(--base-text-weight-semibold, 600);
     line-height: 1.25;
-    /* margin-bottom: 16px; */
-    /* margin-top: 24px; */
+    letter-spacing: -0.5px;
 }
 
 /* Individual heading sizes */
 section h1 {
-    /* margin: 0.67em 0;
-    padding-bottom: 0.3em; */
-    color: var(--h1-color);
-    border-bottom: 1px solid var(--color-border-muted);
     font-size: 2em;
-    font-weight: 600 !important;
 }
 
 section h2 {
@@ -248,7 +241,6 @@ section h5 {
 }
 
 section h6 {
-    /* color: var(--color-fg-muted); */
     font-size: 1em;
 }
 
@@ -350,6 +342,7 @@ section h5 tt,
 section h6 code,
 section h6 tt {
     font-size: inherit;
+    font-weight: 800;
     padding: 0 0.2em;
 }
 
@@ -830,14 +823,7 @@ section kbd,
 section pre,
 section samp,
 section tt {
-    font-family:
-        ui-monospace,
-        SFMono-Regular,
-        SF Mono,
-        Menlo,
-        Consolas,
-        Liberation Mono,
-        monospace;
+    font-family: Inconsolata, monospace;
 }
 
 /* Inline code */
@@ -845,7 +831,7 @@ section code,
 section tt {
     background-color: var(--color-neutral-muted);
     border-radius: 6px;
-    font-size: 85%;
+    font-size: 0.9em;
     margin: 0;
     padding: 0.2em 0.4em;
     white-space: break-spaces;
@@ -866,15 +852,16 @@ section samp {
 
 /* Pre blocks */
 section pre {
-    background-color: var(--color-canvas-subtle);
-    border-radius: 6px;
-    font-size: 85%;
-    line-height: 1.45;
-    margin-bottom: 0;
+    /* margin-bottom: 0; */
     margin-top: 0;
-    overflow: auto;
     padding: 16px;
+    overflow: auto;
+    font-size: 0.9em;
+    line-height: 1.4;
     word-wrap: normal;
+    border-radius: 6px;
+    border: 1px solid var(--color-border-default);
+    background-color: var(--color-canvas-subtle);
 }
 
 section pre code,
@@ -902,13 +889,6 @@ section pre > code {
     word-break: normal;
 }
 
-/* Override pre styles for slide theme */
-pre {
-    border: 1px solid var(--color-border-default);
-    line-height: 1.15;
-    overflow: visible;
-}
-
 pre::part(auto-scaling) {
     max-height: 529px;
 }
@@ -922,16 +902,9 @@ section kbd {
     box-shadow: inset 0 -1px 0 var(--color-neutral-muted);
     color: var(--color-fg-default);
     display: inline-block;
-    font:
-        11px ui-monospace,
-        SFMono-Regular,
-        SF Mono,
-        Menlo,
-        Consolas,
-        Liberation Mono,
-        monospace;
-    line-height: 10px;
-    padding: 3px 5px;
+    font-size: 0.8em;
+    line-height: 1;
+    padding: 0.2em 0.3em;
     vertical-align: middle;
 }
 
@@ -1397,30 +1370,26 @@ pre :where(.hljs-deletion) {
     color: var(--color-prettylights-syntax-markup-deleted-text);
 }
 
-:is(pre, marp-pre) * {
-    font-family: monospace;
-    letter-spacing: 0px;
-}
-
 /* ==========================================================================
    Header & Footer
    ========================================================================== */
 
 footer,
 header {
-    color: var(--header-footer-color);
-    font-size: 18px;
-    left: 30px;
     margin: 0;
     position: absolute;
+    left: 32px;
+    font-size: 0.9em;
+    color: var(--header-footer-color);
+    line-height: 1;
 }
 
 header {
-    top: 21px;
+    top: 20px;
 }
 
 footer {
-    bottom: 21px;
+    bottom: 20px;
 }
 
 /* ==========================================================================
