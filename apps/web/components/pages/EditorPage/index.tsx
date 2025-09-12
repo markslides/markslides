@@ -76,6 +76,7 @@ function EditorPage(): JSX.Element {
                 toolbarCommands={toolbarCommands}
                 config={slideConfigState}
                 isFixScrollToBottom={false}
+                isOverwriteMode={false}
                 slideInfo={slideInfo}
                 onChangeSlideInfo={(newSlideInfo) => {
                     dispatch(setSlideInfo(newSlideInfo));
