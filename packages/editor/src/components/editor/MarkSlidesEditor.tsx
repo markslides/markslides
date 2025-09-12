@@ -99,6 +99,21 @@ const styleTheme = EditorView.baseTheme({
     },
 });
 
+const overwriteCursorTheme = EditorView.baseTheme({
+    '&.cm-editor .cm-cursor': {
+        borderLeft: 'none',
+        borderBottom: '2px solid',
+        width: '0.6em',
+        marginLeft: '0',
+    },
+    '&.cm-editor.cm-focused .cm-cursor': {
+        borderLeft: 'none',
+        borderBottom: '2px solid',
+        width: '0.6em',
+        marginLeft: '0',
+    },
+});
+
 export interface MarkSlidesEditorRef extends ReactCodeMirrorRef {}
 
 interface MarkSlidesEditorProps
@@ -110,6 +125,7 @@ interface MarkSlidesEditorProps
     height?: number | string;
     config?: SlideConfigState;
     isFixScrollToBottom?: boolean;
+    isOverwriteMode?: boolean;
     slideInfo: SlideInfo;
     onChangeSlideInfo: (newSlideInfo: SlideInfo) => void;
 }
@@ -132,6 +148,7 @@ function MarkSlidesEditor(
         height = '100vh',
         config = DEFAULT_SLIDE_CONFIG,
         isFixScrollToBottom = false,
+        isOverwriteMode = false,
         slideInfo,
         onChangeSlideInfo,
         placeholder,
@@ -210,10 +227,53 @@ function MarkSlidesEditor(
         slideInfo.totalSlideCount
     );
 
+    const overwriteModeExtension = useMemo(() => {
+        if (!isOverwriteMode) {
+            return [];
+        }
+
+        return [
+            EditorView.domEventHandlers({
+                keydown(event, view) {
+                    // Handle regular character input in overwrite mode
+                    if (
+                        event.key.length === 1 &&
+                        !event.ctrlKey &&
+                        !event.metaKey &&
+                        !event.altKey
+                    ) {
+                        const { state } = view;
+                        const { from, to } = state.selection.main;
+
+                        // If it's a selection, let default behavior handle it
+                        if (from !== to) {
+                            return false;
+                        }
+
+                        // In overwrite mode, select the next character if it exists
+                        const nextChar = from + 1;
+                        if (nextChar <= state.doc.length) {
+                            const char = state.doc.sliceString(from, nextChar);
+                            // Don't overwrite newlines
+                            if (char !== '\n') {
+                                view.dispatch({
+                                    selection: { anchor: from, head: nextChar },
+                                });
+                            }
+                        }
+                    }
+
+                    return false;
+                },
+            }),
+        ];
+    }, [isOverwriteMode]);
+
     const extensions = useMemo(() => {
         return [
             historyExtension(),
             styleTheme,
+            ...(isOverwriteMode ? [overwriteCursorTheme] : []),
             shortcutExtension,
             colorPickerExtension,
             dividerHighlightExtension,
@@ -226,14 +286,17 @@ function MarkSlidesEditor(
             syncCurrentSelectionExtension,
             syncSlideInfoExtension,
             bottomPanelExtension,
+            ...overwriteModeExtension,
             ...externalExtensions,
         ];
     }, [
+        isOverwriteMode,
         syncCurrentCursorPositionExtension,
         syncCurrentLineNumberExtension,
         syncCurrentSelectionExtension,
         syncSlideInfoExtension,
         bottomPanelExtension,
+        overwriteModeExtension,
         externalExtensions,
     ]);
 
