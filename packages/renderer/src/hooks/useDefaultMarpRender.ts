@@ -28,14 +28,14 @@ function useDefaultMarpRender(
         return { html: null, css: null, comments: null };
     }, [slideConfig, content]);
 
-    const refreshMermaid = useCallback(() => {
-        appMarp.getDefaultInstance().markdown.mermaid.contentLoaded();
-    }, []);
+    // const refreshMermaid = useCallback(() => {
+    //     appMarp.getDefaultInstance().markdown.mermaid.contentLoaded();
+    // }, []);
 
     const refreshCopyFenceContent = useRefreshCopyFenceContent();
 
     const refresh = useCallback(() => {
-        refreshMermaid();
+        // refreshMermaid();
         refreshCopyFenceContent();
     }, []);
 

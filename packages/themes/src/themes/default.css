@@ -1400,7 +1400,16 @@ section[data-color] h6 {
 /*
  * Mermaid
  */
-.mermaid {
+.mermaid-container {
     height: fit-content;
     text-align: center;
+}
+
+.mermaid-loading {
+    padding: 32px 16px;
+    text-align: center;
+}
+
+.mermaid-error {
+    color: red;
 }

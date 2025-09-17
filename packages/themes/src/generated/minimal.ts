@@ -14,12 +14,12 @@ const minimalTheme = `/*
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap');
 
-* {
+/* * {
     font-family: 'Noto Sans', sans-serif;
     font-optical-sizing: auto;
     font-style: normal;
     font-variation-settings: 'wdth' 100;
-}
+} */
 
 /* ==========================================================================
    CSS Variables & Theme Definition
@@ -1427,9 +1427,18 @@ footer {
    Mermaid
    ========================================================================== */
 
-.mermaid {
+.mermaid-container {
     height: fit-content;
+    overflow: auto;
+}
+
+.mermaid-loading {
+    padding: 32px 16px;
     text-align: center;
+}
+
+.mermaid-error {
+    color: red;
 }
 `;
 
