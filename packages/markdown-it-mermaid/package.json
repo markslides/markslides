@@ -34,7 +34,7 @@
         }
     },
     "dependencies": {
-        "mermaid": "^11.8.1"
+        "mermaid": "^11.11.0"
     },
     "devDependencies": {
         "@types/markdown-it": "^13.0.0",
