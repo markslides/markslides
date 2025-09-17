@@ -44,16 +44,16 @@ function useIndependentMarpRender(
         return { html: null, css: null, comments: null };
     }, [slideConfig, content, containerClassName]);
 
-    const refreshMermaid = useCallback(() => {
-        if (marpInstanceRef.current) {
-            marpInstanceRef.current.markdown.mermaid.contentLoaded();
-        }
-    }, []);
+    // const refreshMermaid = useCallback(() => {
+    //     if (marpInstanceRef.current) {
+    //         marpInstanceRef.current.markdown.mermaid.contentLoaded();
+    //     }
+    // }, []);
 
     const refreshCopyFenceContent = useRefreshCopyFenceContent();
 
     const refresh = useCallback(() => {
-        refreshMermaid();
+        // refreshMermaid();
         refreshCopyFenceContent();
     }, []);
 

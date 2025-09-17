@@ -47,7 +47,7 @@ section {
     --color-canvas-subtle: #f6f8fa;
     --color-border-default: #d0d7de;
     --color-border-muted: #d8dee4;
-    --color-neutral-muted: rgba(175, 184, 193, .2);
+    --color-neutral-muted: rgba(175, 184, 193, 0.2);
     --color-accent-fg: #0969da;
     --color-accent-emphasis: #0969da;
     --color-attention-subtle: #fff8c5;
@@ -93,10 +93,10 @@ section:where(.invert) {
     --color-canvas-subtle: #161b22;
     --color-border-default: #30363d;
     --color-border-muted: #21262d;
-    --color-neutral-muted: hsla(215, 8%, 47%, .4);
+    --color-neutral-muted: hsla(215, 8%, 47%, 0.4);
     --color-accent-fg: #58a6ff;
     --color-accent-emphasis: #1f6feb;
-    --color-attention-subtle: rgba(187, 128, 9, .15);
+    --color-attention-subtle: rgba(187, 128, 9, 0.15);
     --color-danger-fg: #f85149;
     color-scheme: dark;
 }
@@ -107,7 +107,16 @@ section {
     word-wrap: break-word;
     background-color: var(--color-canvas-default);
     color: var(--color-fg-default);
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Noto Sans, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        Segoe UI,
+        Noto Sans,
+        Helvetica,
+        Arial,
+        sans-serif,
+        Apple Color Emoji,
+        Segoe UI Emoji;
     font-size: 16px;
     line-height: 1.5;
     margin: 0;
@@ -134,8 +143,8 @@ section h6:hover .anchor .octicon-link:before {
     content: \\" \\";
     display: inline-block;
     height: 16px;
-    -webkit-mask-image: url('data:image/svg+xml;charset=utf-8,<svg xmlns=\\"http://www.w3.org/2000/svg\\" aria-hidden=\\"true\\" viewBox=\\"0 0 16 16\\"><path fill-rule=\\"evenodd\\" d=\\"M7.775 3.275a.75.75 0 0 0 1.06 1.06l1.25-1.25a2 2 0 1 1 2.83 2.83l-2.5 2.5a2 2 0 0 1-2.83 0 .75.75 0 0 0-1.06 1.06 3.5 3.5 0 0 0 4.95 0l2.5-2.5a3.5 3.5 0 0 0-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 0 1 0-2.83l2.5-2.5a2 2 0 0 1 2.83 0 .75.75 0 0 0 1.06-1.06 3.5 3.5 0 0 0-4.95 0l-2.5 2.5a3.5 3.5 0 0 0 4.95 4.95l1.25-1.25a.75.75 0 0 0-1.06-1.06l-1.25 1.25a2 2 0 0 1-2.83 0z\\"/></svg>');
-    mask-image: url('data:image/svg+xml;charset=utf-8,<svg xmlns=\\"http://www.w3.org/2000/svg\\" aria-hidden=\\"true\\" viewBox=\\"0 0 16 16\\"><path fill-rule=\\"evenodd\\" d=\\"M7.775 3.275a.75.75 0 0 0 1.06 1.06l1.25-1.25a2 2 0 1 1 2.83 2.83l-2.5 2.5a2 2 0 0 1-2.83 0 .75.75 0 0 0-1.06 1.06 3.5 3.5 0 0 0 4.95 0l2.5-2.5a3.5 3.5 0 0 0-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 0 1 0-2.83l2.5-2.5a2 2 0 0 1 2.83 0 .75.75 0 0 0 1.06-1.06 3.5 3.5 0 0 0-4.95 0l-2.5 2.5a3.5 3.5 0 0 0 4.95 4.95l1.25-1.25a.75.75 0 0 0-1.06-1.06l-1.25 1.25a2 2 0 0 1-2.83 0z\\"/></svg>');
+    -webkit-mask-image: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 0 0 1.06 1.06l1.25-1.25a2 2 0 1 1 2.83 2.83l-2.5 2.5a2 2 0 0 1-2.83 0 .75.75 0 0 0-1.06 1.06 3.5 3.5 0 0 0 4.95 0l2.5-2.5a3.5 3.5 0 0 0-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 0 1 0-2.83l2.5-2.5a2 2 0 0 1 2.83 0 .75.75 0 0 0 1.06-1.06 3.5 3.5 0 0 0-4.95 0l-2.5 2.5a3.5 3.5 0 0 0 4.95 4.95l1.25-1.25a.75.75 0 0 0-1.06-1.06l-1.25 1.25a2 2 0 0 1-2.83 0z"/></svg>');
+    mask-image: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 0 0 1.06 1.06l1.25-1.25a2 2 0 1 1 2.83 2.83l-2.5 2.5a2 2 0 0 1-2.83 0 .75.75 0 0 0-1.06 1.06 3.5 3.5 0 0 0 4.95 0l2.5-2.5a3.5 3.5 0 0 0-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 0 1 0-2.83l2.5-2.5a2 2 0 0 1 2.83 0 .75.75 0 0 0 1.06-1.06 3.5 3.5 0 0 0-4.95 0l-2.5 2.5a3.5 3.5 0 0 0 4.95 4.95l1.25-1.25a.75.75 0 0 0-1.06-1.06l-1.25 1.25a2 2 0 0 1-2.83 0z"/></svg>');
     width: 16px;
 }
 
@@ -178,8 +187,8 @@ section h1 {
     border-bottom: 1px solid var(--color-border-muted);
     font-size: 2em;
     font-weight: var(--base-text-weight-semibold, 600);
-    margin: .67em 0;
-    padding-bottom: .3em;
+    margin: 0.67em 0;
+    padding-bottom: 0.3em;
 }
 
 section mark {
@@ -200,11 +209,11 @@ section sup {
 }
 
 section sub {
-    bottom: -.25em;
+    bottom: -0.25em;
 }
 
 section sup {
-    top: -.5em;
+    top: -0.5em;
 }
 
 section img {
@@ -231,7 +240,7 @@ section hr {
     background-color: var(--color-border-default);
     border: 0;
     box-sizing: content-box;
-    height: .25em;
+    height: 0.25em;
     margin: 24px 0;
     overflow: hidden;
     padding: 0;
@@ -246,31 +255,31 @@ section input {
     overflow: visible;
 }
 
-section [type=button],
-section [type=reset],
-section [type=submit] {
+section [type='button'],
+section [type='reset'],
+section [type='submit'] {
     -webkit-appearance: button;
 }
 
-section [type=checkbox],
-section [type=radio] {
+section [type='checkbox'],
+section [type='radio'] {
     box-sizing: border-box;
     padding: 0;
 }
 
-section [type=number]::-webkit-inner-spin-button,
-section [type=number]::-webkit-outer-spin-button {
+section [type='number']::-webkit-inner-spin-button,
+section [type='number']::-webkit-outer-spin-button {
     height: auto;
 }
 
-section [type=search]::-webkit-search-cancel-button,
-section [type=search]::-webkit-search-decoration {
+section [type='search']::-webkit-search-cancel-button,
+section [type='search']::-webkit-search-decoration {
     -webkit-appearance: none;
 }
 
 section ::-webkit-input-placeholder {
     color: inherit;
-    opacity: .54;
+    opacity: 0.54;
 }
 
 section ::-webkit-file-upload-button {
@@ -321,30 +330,30 @@ section details summary {
     cursor: pointer;
 }
 
-section details:not([open])>*:not(summary) {
+section details:not([open]) > *:not(summary) {
     display: none !important;
 }
 
-section [role=button]:focus,
+section [role='button']:focus,
 section a:focus,
-section input[type=checkbox]:focus,
-section input[type=radio]:focus {
+section input[type='checkbox']:focus,
+section input[type='radio']:focus {
     box-shadow: none;
     outline: 2px solid var(--color-accent-fg);
     outline-offset: -2px;
 }
 
-section [role=button]:focus:not(:focus-visible),
+section [role='button']:focus:not(:focus-visible),
 section a:focus:not(:focus-visible),
-section input[type=checkbox]:focus:not(:focus-visible),
-section input[type=radio]:focus:not(:focus-visible) {
+section input[type='checkbox']:focus:not(:focus-visible),
+section input[type='radio']:focus:not(:focus-visible) {
     outline: 1px solid transparent;
 }
 
-section [role=button]:focus-visible,
+section [role='button']:focus-visible,
 section a:focus-visible,
-section input[type=checkbox]:focus-visible,
-section input[type=radio]:focus-visible {
+section input[type='checkbox']:focus-visible,
+section input[type='radio']:focus-visible {
     box-shadow: none;
     outline: 2px solid var(--color-accent-fg);
     outline-offset: -2px;
@@ -352,10 +361,10 @@ section input[type=radio]:focus-visible {
 
 section a:not([class]):focus,
 section a:not([class]):focus-visible,
-section input[type=checkbox]:focus,
-section input[type=checkbox]:focus-visible,
-section input[type=radio]:focus,
-section input[type=radio]:focus-visible {
+section input[type='checkbox']:focus,
+section input[type='checkbox']:focus-visible,
+section input[type='radio']:focus,
+section input[type='radio']:focus-visible {
     outline-offset: 0;
 }
 
@@ -367,7 +376,14 @@ section kbd {
     box-shadow: inset 0 -1px 0 var(--color-neutral-muted);
     color: var(--color-fg-default);
     display: inline-block;
-    font: 11px ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+    font:
+        11px ui-monospace,
+        SFMono-Regular,
+        SF Mono,
+        Menlo,
+        Consolas,
+        Liberation Mono,
+        monospace;
     line-height: 10px;
     padding: 3px 5px;
     vertical-align: middle;
@@ -388,7 +404,7 @@ section h6 {
 section h2 {
     border-bottom: 1px solid var(--color-border-muted);
     font-size: 1.5em;
-    padding-bottom: .3em;
+    padding-bottom: 0.3em;
 }
 
 section h2,
@@ -410,12 +426,12 @@ section h5 {
 }
 
 section h5 {
-    font-size: .875em;
+    font-size: 0.875em;
 }
 
 section h6 {
     color: var(--color-fg-muted);
-    font-size: .85em;
+    font-size: 0.85em;
     font-weight: var(--base-text-weight-semibold, 600);
 }
 
@@ -425,7 +441,7 @@ section p {
 }
 
 section blockquote {
-    border-left: .25em solid var(--color-border-default);
+    border-left: 0.25em solid var(--color-border-default);
     color: var(--color-fg-muted);
     margin: 0;
     padding: 0 1em;
@@ -458,7 +474,14 @@ section code,
 section pre,
 section samp,
 section tt {
-    font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+    font-family:
+        ui-monospace,
+        SFMono-Regular,
+        SF Mono,
+        Menlo,
+        Consolas,
+        Liberation Mono,
+        monospace;
     font-size: 12px;
 }
 
@@ -492,11 +515,11 @@ section::after {
     clear: both;
 }
 
-section>*:first-child {
+section > *:first-child {
     margin-top: 0 !important;
 }
 
-section>*:last-child {
+section > *:last-child {
     margin-bottom: 0 !important;
 }
 
@@ -532,11 +555,11 @@ section ul {
     margin-top: 0;
 }
 
-section blockquote> :first-child {
+section blockquote > :first-child {
     margin-top: 0;
 }
 
-section blockquote> :last-child {
+section blockquote > :last-child {
     margin-bottom: 0;
 }
 
@@ -582,7 +605,7 @@ section h5 tt,
 section h6 code,
 section h6 tt {
     font-size: inherit;
-    padding: 0 .2em;
+    padding: 0 0.2em;
 }
 
 section summary h1,
@@ -615,23 +638,23 @@ section ul.no-list {
     padding: 0;
 }
 
-section ol[type=a] {
+section ol[type='a'] {
     list-style-type: lower-alpha;
 }
 
-section ol[type=A] {
+section ol[type='A'] {
     list-style-type: upper-alpha;
 }
 
-section ol[type=i] {
+section ol[type='i'] {
     list-style-type: lower-roman;
 }
 
-section ol[type=I] {
+section ol[type='I'] {
     list-style-type: upper-roman;
 }
 
-section div>ol:not([type]),
+section div > ol:not([type]),
 section ol[type=\\"1\\"] {
     list-style-type: decimal;
 }
@@ -644,12 +667,12 @@ section ul ul {
     margin-top: 0;
 }
 
-section li>p {
+section li > p {
     margin-top: 16px;
 }
 
-section li+li {
-    margin-top: .25em;
+section li + li {
+    margin-top: 0.25em;
 }
 
 section dl {
@@ -692,11 +715,11 @@ section table img {
     background-color: transparent;
 }
 
-section img[align=right] {
+section img[align='right'] {
     padding-left: 20px;
 }
 
-section img[align=left] {
+section img[align='left'] {
     padding-right: 20px;
 }
 
@@ -707,12 +730,12 @@ section .emoji {
 }
 
 section span.frame,
-section span.frame>span {
+section span.frame > span {
     display: block;
     overflow: hidden;
 }
 
-section span.frame>span {
+section span.frame > span {
     border: 1px solid var(--color-border-default);
     float: left;
     margin: 13px 0 0;
@@ -738,7 +761,7 @@ section span.align-center {
     overflow: hidden;
 }
 
-section span.align-center>span {
+section span.align-center > span {
     display: block;
     margin: 13px auto 0;
     overflow: hidden;
@@ -756,7 +779,7 @@ section span.align-right {
     overflow: hidden;
 }
 
-section span.align-right>span {
+section span.align-right > span {
     display: block;
     margin: 13px 0 0;
     overflow: hidden;
@@ -786,7 +809,7 @@ section span.float-right {
     overflow: hidden;
 }
 
-section span.float-right>span {
+section span.float-right > span {
     display: block;
     margin: 13px auto 0;
     overflow: hidden;
@@ -799,7 +822,7 @@ section tt {
     border-radius: 6px;
     font-size: 85%;
     margin: 0;
-    padding: .2em .4em;
+    padding: 0.2em 0.4em;
     white-space: break-spaces;
 }
 
@@ -820,7 +843,7 @@ section pre code {
     font-size: 100%;
 }
 
-section pre>code {
+section pre > code {
     background: transparent;
     border: 0;
     margin: 0;
@@ -888,11 +911,11 @@ section .csv-data th {
 }
 
 section [data-footnote-ref]::before {
-    content: "[";
+    content: '[';
 }
 
 section [data-footnote-ref]::after {
-    content: "]";
+    content: ']';
 }
 
 section .footnotes {
@@ -1057,13 +1080,16 @@ section .pl-corl {
 
 section g-emoji {
     display: inline-block;
-    font-family: Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+    font-family:
+        Apple Color Emoji,
+        Segoe UI Emoji,
+        Segoe UI Symbol;
     font-size: 1em;
     font-style: normal !important;
     font-weight: var(--base-text-weight-normal, 400);
     line-height: 1;
     min-width: 1ch;
-    vertical-align: -.075em;
+    vertical-align: -0.075em;
 }
 
 section g-emoji img {
@@ -1083,7 +1109,7 @@ section .task-list-item.enabled label {
     cursor: pointer;
 }
 
-section .task-list-item+.task-list-item {
+section .task-list-item + .task-list-item {
     margin-top: 4px;
 }
 
@@ -1092,12 +1118,12 @@ section .task-list-item .handle {
 }
 
 section .task-list-item-checkbox {
-    margin: 0 .2em .25em -1.4em;
+    margin: 0 0.2em 0.25em -1.4em;
     vertical-align: middle;
 }
 
 section .contains-task-list:dir(rtl) .task-list-item-checkbox {
-    margin: 0 -1.6em .25em .2em;
+    margin: 0 -1.6em 0.25em 0.2em;
 }
 
 section .contains-task-list {
@@ -1144,7 +1170,7 @@ h5 {
 }
 
 h6 {
-    font-size: .9em;
+    font-size: 0.9em;
 }
 
 h1 strong,
@@ -1168,7 +1194,7 @@ h6::part(auto-scaling) {
 
 hr {
     height: 0;
-    padding-top: .25em;
+    padding-top: 0.25em;
 }
 
 pre {
@@ -1291,7 +1317,7 @@ footer {
 
 section {
     --h1-color: #246;
-    --header-footer-color: hsla(0, 0%, 40%, .75);
+    --header-footer-color: hsla(0, 0%, 40%, 0.75);
     --heading-strong-color: #48c;
     --paginate-color: #777;
     align-items: stretch;
@@ -1306,18 +1332,18 @@ section {
 
 section:where(.invert) {
     --h1-color: #cee7ff;
-    --header-footer-color: hsla(0, 0%, 60%, .75);
+    --header-footer-color: hsla(0, 0%, 60%, 0.75);
     --heading-strong-color: #7bf;
     --paginate-color: #999;
 }
 
-section>*:last-child,
-section[data-footer]> :nth-last-child(2) {
+section > *:last-child,
+section[data-footer] > :nth-last-child(2) {
     margin-bottom: 0;
 }
 
-section>*:first-child,
-section>header:first-child+* {
+section > *:first-child,
+section > header:first-child + * {
     margin-top: 0;
 }
 
@@ -1370,6 +1396,24 @@ section[data-color] h6 {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-column-gap: 8px;
-}`;
+}
+
+/*
+ * Mermaid
+ */
+.mermaid-container {
+    height: fit-content;
+    text-align: center;
+}
+
+.mermaid-loading {
+    padding: 32px 16px;
+    text-align: center;
+}
+
+.mermaid-error {
+    color: red;
+}
+`;
 
 export default defaultTheme;
