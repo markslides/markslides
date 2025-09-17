@@ -63,4 +63,9 @@ function EditorToolbar(
     );
 }
 
-export default memo(forwardRef(EditorToolbar));
+export default memo(forwardRef(EditorToolbar), (prevProps, nextProps) => {
+    return (
+        !!(prevProps.codeMirrorRef && nextProps.codeMirrorRef) ||
+        prevProps.toolbarCommands === nextProps.toolbarCommands
+    );
+});
