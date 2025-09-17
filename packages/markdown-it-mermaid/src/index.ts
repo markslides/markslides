@@ -17,7 +17,7 @@ const isDarkMode = false;
 
 const markdownItMermaid = (md: MarkdownIt, config?: MermaidConfig) => {
     mermaid.initialize({
-        theme: isDarkMode ? 'default' : 'dark',
+        theme: isDarkMode ? 'dark' : 'default',
         darkMode: isDarkMode,
         fontFamily: 'monospace',
         // fontFamily: 'ui-monospace',
