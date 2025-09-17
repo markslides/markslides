@@ -1422,6 +1422,15 @@ footer {
     grid-template-columns: repeat(6, 1fr);
     grid-column-gap: 8px;
 }
+
+/* ==========================================================================
+   Mermaid
+   ========================================================================== */
+
+.mermaid {
+    height: fit-content;
+    text-align: center;
+}
 `;
 
 export default minimalTheme;
