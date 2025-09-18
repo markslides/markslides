@@ -1,6 +1,14 @@
 'use client';
 
-import { useRef, useEffect, useCallback, memo, MouseEvent } from 'react';
+import {
+    useImperativeHandle,
+    useRef,
+    useState,
+    useCallback,
+    memo,
+    forwardRef,
+} from 'react';
+import type { MouseEvent, ForwardedRef } from 'react';
 import styled from 'styled-components';
 import {
     useDefaultMarpRender,
@@ -73,21 +81,18 @@ const MarpitContainer = styled.div<{ $currentSlideNum: number }>`
 type PreviewFragmentProps = {
     config: SlideConfigState;
     content: string;
-    isSyncCurrentPage?: boolean;
-    currentLineNumber: number;
-    currentSlideNumber: number;
     onClickSlide: (slide: HTMLElement, index: number) => void;
 };
 
-function PreviewFragment(props: PreviewFragmentProps) {
-    const {
-        config,
-        content,
-        isSyncCurrentPage = true,
-        currentLineNumber,
-        currentSlideNumber,
-        onClickSlide,
-    } = props;
+export type PreviewFragmentRef = {
+    setCurrentPage: (pageNumber: number, isScrollIntoView?: boolean) => void;
+};
+
+function PreviewFragment(
+    props: PreviewFragmentProps,
+    ref: ForwardedRef<PreviewFragmentRef>
+) {
+    const { config, content, onClickSlide } = props;
 
     const { html, css, comments, refresh } = useDefaultMarpRender(
         config,
@@ -96,28 +101,31 @@ function PreviewFragment(props: PreviewFragmentProps) {
 
     const wrapperRef = useRef<HTMLDivElement | null>(null);
 
-    useEffect(() => {
-        if (!isSyncCurrentPage) {
-            return;
-        }
+    const [_currentPageNumber, _setCurrentPageNumber] = useState(1);
 
-        if (wrapperRef.current) {
-            const marpitElem = wrapperRef.current.querySelector('.marpit');
-            if (marpitElem) {
-                const currentSlideElem =
-                    marpitElem.children[currentSlideNumber - 1];
-                if (currentSlideElem) {
-                    setTimeout(() => {
+    useImperativeHandle(ref, () => ({
+        setCurrentPage: (
+            pageNumber: number,
+            isScrollIntoView: boolean = true
+        ) => {
+            _setCurrentPageNumber(pageNumber);
+
+            if (wrapperRef.current && isScrollIntoView) {
+                const marpitElem = wrapperRef.current.querySelector('.marpit');
+                if (marpitElem) {
+                    const currentSlideElem =
+                        marpitElem.children[pageNumber - 1];
+                    if (currentSlideElem) {
                         currentSlideElem.scrollIntoView({
                             block: 'center',
                             inline: 'center',
                             behavior: 'smooth',
                         });
-                    }, 100);
+                    }
                 }
             }
-        }
-    }, [isSyncCurrentPage, currentLineNumber, currentSlideNumber]);
+        },
+    }));
 
     const handleClickMarpitContainer = useCallback(
         (event: MouseEvent) => {
@@ -144,7 +152,7 @@ function PreviewFragment(props: PreviewFragmentProps) {
         <Wrapper ref={wrapperRef}>
             <style>{css}</style>
             <MarpitContainer
-                $currentSlideNum={currentSlideNumber}
+                $currentSlideNum={_currentPageNumber}
                 dangerouslySetInnerHTML={{
                     __html: html,
                 }}
@@ -154,4 +162,4 @@ function PreviewFragment(props: PreviewFragmentProps) {
     );
 }
 
-export default memo(PreviewFragment);
+export default memo(forwardRef(PreviewFragment));
