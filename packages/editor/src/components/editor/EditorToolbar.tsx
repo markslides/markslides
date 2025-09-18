@@ -1,6 +1,6 @@
-import { ForwardedRef, forwardRef, memo } from 'react';
+import { ForwardedRef, forwardRef, RefObject, memo } from 'react';
 import styled from 'styled-components';
-import { ReactCodeMirrorRef } from '@uiw/react-codemirror';
+import type { ReactCodeMirrorRef } from '@uiw/react-codemirror';
 import appConst from '@/lib/constants/appConst';
 import type { ToolbarCommand } from '@/toolbar';
 
@@ -32,7 +32,7 @@ const ToolbarItem = styled.button`
 
 export interface EditorToolbarProps {
     toolbarCommands: ToolbarCommand[];
-    codeMirrorRef: ReactCodeMirrorRef | null;
+    codeMirrorRef: RefObject<ReactCodeMirrorRef | null>;
 }
 
 function EditorToolbar(
@@ -51,8 +51,8 @@ function EditorToolbar(
                         key={toolbarCommand.name}
                         aria-label={toolbarCommand.name}
                         onClick={() => {
-                            if (codeMirrorRef) {
-                                toolbarCommand.execute(codeMirrorRef);
+                            if (codeMirrorRef.current) {
+                                toolbarCommand.execute(codeMirrorRef.current);
                             }
                         }}>
                         {toolbarCommand.icon}
@@ -64,8 +64,5 @@ function EditorToolbar(
 }
 
 export default memo(forwardRef(EditorToolbar), (prevProps, nextProps) => {
-    return (
-        !!(prevProps.codeMirrorRef && nextProps.codeMirrorRef) ||
-        prevProps.toolbarCommands === nextProps.toolbarCommands
-    );
+    return prevProps.toolbarCommands === nextProps.toolbarCommands;
 });
