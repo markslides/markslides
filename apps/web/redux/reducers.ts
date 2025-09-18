@@ -5,7 +5,6 @@ import appReducer from '@/redux/slices/appSlice';
 import dialogReducer from '@/redux/slices/dialogSlice';
 import slideConfigReducer from '@/redux/slices/slideConfigSlice';
 import localReducer from '@/redux/slices/localSlice';
-import editorReducer from '@/redux/slices/editorSlice';
 
 const appReducerConfig = {
     key: 'app',
@@ -18,7 +17,6 @@ const rootReducer = combineReducers({
     dialog: dialogReducer,
     slideConfig: slideConfigReducer,
     local: localReducer,
-    editor: editorReducer,
 });
 
 export default rootReducer;

@@ -25,12 +25,10 @@ import { langs } from '@uiw/codemirror-extensions-langs';
 import { color as colorPickerExtension } from '@uiw/codemirror-extensions-color';
 import { githubLight } from '@uiw/codemirror-themes-all';
 import type { SlideConfigState } from '@markslides/renderer';
-import useSyncCurrentCursorPositionExtension from '@/hooks/codemirror/useSyncCurrentCursorPositionExtension';
-import useSyncCurrentLineNumberExtension from '@/hooks/codemirror/useSyncCurrentLineNumberExtension';
-import useSyncCurrentSelectionExtension from '@/hooks/codemirror/useSyncCurrentSelectionExtension';
-import useSyncSlideInfoExtension from '@/hooks/codemirror/useSyncSlideInfoExtension';
 import useBottomPanelExtension from '@/hooks/codemirror/useBottomPanelExtension';
-import PreviewFragment from '@/components/fragments/PreviewFragment';
+import PreviewFragment, {
+    type PreviewFragmentRef,
+} from '@/components/fragments/PreviewFragment';
 import EditorToolbar, {
     type EditorToolbarProps,
 } from '@/components/editor/EditorToolbar';
@@ -38,6 +36,9 @@ import CurrentPageSyncButton from '@/components/editor/CurrentPageSyncButton';
 import shortcutExtension from '@/lib/codemirror/shortcutExtension';
 import dividerHighlightExtension from '@/lib/codemirror/dividerHighlightExtension';
 import lintExtension from '@/lib/codemirror/lintExtension';
+import slideInfoExtension from '@/lib/codemirror/slideInfoExtension';
+import cursorContextExtension from '@/lib/codemirror/cursorContextExtension';
+import overwriteModeExtension from '@/lib/codemirror/overwriteModeExtension';
 import defaultToolbarCommands from '@/toolbar/commands';
 import codemirrorUtil from '@/lib/codemirror/util';
 import type { SlideInfo } from '@/lib/types/common';
@@ -126,8 +127,7 @@ interface MarkSlidesEditorProps
     config?: SlideConfigState;
     isFixScrollToBottom?: boolean;
     isOverwriteMode?: boolean;
-    slideInfo: SlideInfo;
-    onChangeSlideInfo: (newSlideInfo: SlideInfo) => void;
+    onChangeSlideInfo?: (newSlideInfo: SlideInfo) => void;
 }
 
 const DEFAULT_SLIDE_CONFIG: SlideConfigState = {
@@ -149,7 +149,6 @@ function MarkSlidesEditor(
         config = DEFAULT_SLIDE_CONFIG,
         isFixScrollToBottom = false,
         isOverwriteMode = false,
-        slideInfo,
         onChangeSlideInfo,
         placeholder,
         extensions: externalExtensions = [],
@@ -163,11 +162,9 @@ function MarkSlidesEditor(
     // const editorStateRef = useRef<EditorState | null>(null);
 
     const previewContainerRef = useRef<HTMLDivElement>(null);
+    const previewRef = useRef<PreviewFragmentRef>(null);
 
     const [isSyncCurrentPage, setIsSyncCurrentPage] = useState(true);
-    const [currentCursorPosition, setCurrentCursorPosition] = useState(0);
-    const [currentLineNumber, setCurrentLineNumber] = useState(0);
-    const [currentSelection, setCurrentSelection] = useState('');
 
     useEffect(() => {
         if (isFixScrollToBottom && value) {
@@ -195,82 +192,10 @@ function MarkSlidesEditor(
         }
     }, [value]);
 
-    const handleChangeCursorPosition = useCallback(
-        (newCursorPosition: number) => {
-            setCurrentCursorPosition(newCursorPosition);
-        },
-        []
-    );
-
-    const handleChangeLineNumber = useCallback((newLineNumber: number) => {
-        setCurrentLineNumber(newLineNumber);
-    }, []);
-
-    const handleChangeSelectionStr = useCallback((newSelection: string) => {
-        setCurrentSelection(newSelection);
-    }, []);
-
-    const syncCurrentCursorPositionExtension =
-        useSyncCurrentCursorPositionExtension(handleChangeCursorPosition);
-    const syncCurrentLineNumberExtension = useSyncCurrentLineNumberExtension(
-        handleChangeLineNumber
-    );
-    const syncCurrentSelectionExtension = useSyncCurrentSelectionExtension(
-        handleChangeSelectionStr
-    );
-    const syncSlideInfoExtension = useSyncSlideInfoExtension(
-        slideInfo,
-        onChangeSlideInfo
-    );
-    const bottomPanelExtension = useBottomPanelExtension(
-        slideInfo.currentSlideNumber,
-        slideInfo.totalSlideCount
-    );
-
-    const overwriteModeExtension = useMemo(() => {
-        if (!isOverwriteMode) {
-            return [];
-        }
-
-        return [
-            EditorView.domEventHandlers({
-                keydown(event, view) {
-                    // Handle regular character input in overwrite mode
-                    if (
-                        event.key.length === 1 &&
-                        !event.ctrlKey &&
-                        !event.metaKey &&
-                        !event.altKey
-                    ) {
-                        const { state } = view;
-                        const { from, to } = state.selection.main;
-
-                        // If it's a selection, let default behavior handle it
-                        if (from !== to) {
-                            return false;
-                        }
-
-                        // In overwrite mode, select the next character if it exists
-                        const nextChar = from + 1;
-                        if (nextChar <= state.doc.length) {
-                            const char = state.doc.sliceString(from, nextChar);
-                            // Don't overwrite newlines
-                            if (char !== '\n') {
-                                view.dispatch({
-                                    selection: { anchor: from, head: nextChar },
-                                });
-                            }
-                        }
-                    }
-
-                    return false;
-                },
-            }),
-        ];
-    }, [isOverwriteMode]);
+    const bottomPanelExtension = useBottomPanelExtension();
 
     const extensions = useMemo(() => {
-        return [
+        let _extensions = [
             historyExtension(),
             styleTheme,
             ...(isOverwriteMode ? [overwriteCursorTheme] : []),
@@ -281,56 +206,74 @@ function MarkSlidesEditor(
             // lintGutter(),
             extendedMarkdownLanguage,
             EditorView.lineWrapping,
-            syncCurrentCursorPositionExtension,
-            syncCurrentLineNumberExtension,
-            syncCurrentSelectionExtension,
-            syncSlideInfoExtension,
+            // cursorContextExtension((cursorContext) => {
+            //     const { cursorPosition, lineNumber, selectionStr } =
+            //         cursorContext;
+
+            //     // NOTE: Add something to use these values
+            // }),
+            slideInfoExtension((slideInfo) => {
+                if (previewRef.current) {
+                    previewRef.current.setCurrentPage(
+                        slideInfo.currentPageNumber,
+                        isSyncCurrentPage
+                    );
+                }
+
+                if (!!onChangeSlideInfo) {
+                    onChangeSlideInfo(slideInfo);
+                }
+            }),
             bottomPanelExtension,
-            ...overwriteModeExtension,
             ...externalExtensions,
         ];
+
+        if (isOverwriteMode) {
+            _extensions.push(overwriteModeExtension);
+        }
+
+        return _extensions;
     }, [
         isOverwriteMode,
-        syncCurrentCursorPositionExtension,
-        syncCurrentLineNumberExtension,
-        syncCurrentSelectionExtension,
-        syncSlideInfoExtension,
         bottomPanelExtension,
-        overwriteModeExtension,
         externalExtensions,
+        overwriteModeExtension,
     ]);
 
-    const handleClickSlide = useCallback((slide: Element, index: number) => {
-        if (!codeMirrorRef.current) {
-            return;
-        }
+    const handleClickSlide = useCallback(
+        (slide: Element, index: number) => {
+            if (!codeMirrorRef.current) {
+                return;
+            }
 
-        const { view } = codeMirrorRef.current;
-        if (!view) {
-            return;
-        }
-        // NOTE: Do not use codeMirrorRef.current.state, because it doesn't updated in correctly
-        const state = view.state;
+            const { view } = codeMirrorRef.current;
+            if (!view) {
+                return;
+            }
+            // NOTE: Do not use codeMirrorRef.current.state, because it doesn't updated in correctly
+            const state = view.state;
 
-        const line = codemirrorUtil.getLineFromSlideIndex(state, index);
+            const line = codemirrorUtil.getLineFromSlideIndex(state, index);
 
-        view.dispatch({
-            selection: { head: line.from, anchor: line.from },
-            // scrollIntoView: true,
-        });
-        view.focus();
-
-        const lineBlockAt = view.lineBlockAt(line.from);
-        if (lineBlockAt) {
-            const scroller = view.scrollDOM.getBoundingClientRect();
-            const middle = lineBlockAt.top - scroller.height / 2;
-
-            view.scrollDOM.scrollTo({
-                top: middle,
-                behavior: 'smooth',
+            view.dispatch({
+                selection: { head: line.from, anchor: line.from },
+                // scrollIntoView: true,
             });
-        }
-    }, []);
+            view.focus();
+
+            const lineBlockAt = view.lineBlockAt(line.from);
+            if (lineBlockAt) {
+                const scroller = view.scrollDOM.getBoundingClientRect();
+                const middle = lineBlockAt.top - scroller.height / 2;
+
+                view.scrollDOM.scrollTo({
+                    top: middle,
+                    behavior: 'smooth',
+                });
+            }
+        },
+        [codeMirrorRef.current]
+    );
 
     const handleClickSyncCurrentPage = useCallback(() => {
         setIsSyncCurrentPage((prevIsSyncCurrentPage) => {
@@ -370,17 +313,23 @@ function MarkSlidesEditor(
                     readOnly={readOnly}
                     value={value}
                     onChange={onChange}
+                    // TODO: Use this to update value
+                    // onUpdate={(update) => {
+                    //     // console.log('onUpdate', update);
+
+                    //     if (onChange) {
+                    //         onChange(update.state.doc.toString(), update);
+                    //     }
+                    // }}
                 />
 
                 <VerticalDivider />
 
                 <PreviewContainer ref={previewContainerRef}>
                     <PreviewFragment
+                        ref={previewRef}
                         config={config}
                         content={value ?? ''}
-                        isSyncCurrentPage={isSyncCurrentPage}
-                        currentLineNumber={currentLineNumber}
-                        currentSlideNumber={slideInfo.currentSlideNumber}
                         onClickSlide={handleClickSlide}
                     />
                 </PreviewContainer>
