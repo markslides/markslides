@@ -281,24 +281,29 @@ function MarkSlidesEditor(
         });
     }, [isSyncCurrentPage]);
 
+    const reactCodeMirrorCallbackRef = useCallback(
+        (_ref: ReactCodeMirrorRef | null) => {
+            if (ref && typeof ref === 'function') {
+                ref(_ref);
+            } else if (ref && typeof ref === 'object') {
+                ref.current = _ref;
+            }
+
+            codeMirrorRef.current = _ref as ReactCodeMirrorRef;
+        },
+        [ref]
+    );
+
     return (
         <Wrapper $height={height}>
             <EditorToolbar
                 toolbarCommands={toolbarCommands}
-                codeMirrorRef={codeMirrorRef.current}
+                codeMirrorRef={codeMirrorRef}
             />
 
             <EditorContainer>
                 <ReactCodeMirror
-                    ref={(_ref) => {
-                        if (ref && typeof ref === 'function') {
-                            ref(_ref);
-                        } else if (ref && typeof ref === 'object') {
-                            ref.current = _ref;
-                        }
-
-                        codeMirrorRef.current = _ref as ReactCodeMirrorRef;
-                    }}
+                    ref={reactCodeMirrorCallbackRef}
                     height='100%'
                     style={{
                         flex: '1',
