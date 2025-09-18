@@ -1,11 +1,9 @@
 import { useMemo } from 'react';
 import { showPanel, EditorView, ViewUpdate, Panel } from '@codemirror/view';
 import { Extension } from '@codemirror/state';
+import codemirrorUtil from '@/lib/codemirror/util';
 
-function useBottomPanelExtension(
-    currentSlideNum: number,
-    totalSlideCount: number
-) {
+function useBottomPanelExtension() {
     const element = useMemo(() => {
         if (typeof window === 'undefined') {
             return null;
@@ -29,21 +27,25 @@ font-size: 12px;`
         }
 
         const panelConstructor = (view: EditorView): Panel => {
-            element.textContent = `Current page: ${currentSlideNum}/${totalSlideCount}`;
+            const { currentPageNumber, totalPageCount } =
+                codemirrorUtil.getPageInfo(view.state);
+
+            element.textContent = `Current page: ${currentPageNumber}/${totalPageCount}`;
             return {
                 dom: element,
                 // mount: () => {},
                 update: (update: ViewUpdate) => {
-                    if (update.docChanged) {
-                        element.textContent = `Current page: ${currentSlideNum}/${totalSlideCount}`;
-                    }
+                    const { currentPageNumber, totalPageCount } =
+                        codemirrorUtil.getPageInfo(update.state);
+
+                    element.textContent = `Current page: ${currentPageNumber}/${totalPageCount}`;
                 },
                 // destroy: () => {},
             };
         };
 
         return showPanel.of(panelConstructor);
-    }, [element, currentSlideNum, totalSlideCount]);
+    }, [element]);
 }
 
 export default useBottomPanelExtension;

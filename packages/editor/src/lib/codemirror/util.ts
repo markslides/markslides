@@ -32,6 +32,30 @@ const codemirrorUtil = {
         const line = state.doc.line(lineNum);
         return line;
     },
+    getPageInfo: (state: EditorState) => {
+        const currentLineNumber = state.doc.lineAt(
+            state.selection.main.head
+        ).number;
+
+        let lineNum = 1;
+        let totalPageCount = 1;
+        let currentPageNumber = 1;
+        const iterLine = state.doc.iterLines();
+        while (!iterLine.done) {
+            if (iterLine.value === '---') {
+                totalPageCount++;
+            }
+
+            if (lineNum === currentLineNumber) {
+                currentPageNumber = totalPageCount;
+            }
+            lineNum++;
+
+            iterLine.next();
+        }
+
+        return { currentPageNumber, totalPageCount };
+    },
 };
 
 export default codemirrorUtil;
