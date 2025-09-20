@@ -8,28 +8,7 @@ function useDefaultMarpRender(
     slideConfig: string | SlideConfigState,
     content: string
 ) {
-    // const { html, css, comments } = useMemo(() => {
-    //     if (content) {
-    //         try {
-    //             const config =
-    //                 typeof slideConfig === 'string'
-    //                     ? slideConfig
-    //                     : slideConfigUtil.generateMarpConfigFromSlideConfigState(
-    //                           slideConfig
-    //                       );
-    //             return appMarp
-    //                 .getDefaultInstance()
-    //                 .render(`---\n${config}\n---\n\n${content}`);
-    //         } catch (error) {
-    //             console.error(error);
-    //         }
-    //     }
-
-    //     return { html: null, css: null, comments: null };
-    // }, [slideConfig, content]);
-
-    // NOTE: Without memoization
-    const { html, css, comments } = (() => {
+    const { html, css, comments } = useMemo(() => {
         if (content) {
             try {
                 const config =
@@ -47,7 +26,7 @@ function useDefaultMarpRender(
         }
 
         return { html: null, css: null, comments: null };
-    })();
+    }, [slideConfig, content]);
 
     // const refreshMermaid = useCallback(() => {
     //     appMarp.getDefaultInstance().markdown.mermaid.contentLoaded();
