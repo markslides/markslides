@@ -125,6 +125,7 @@ interface MarkSlidesEditorProps
         Partial<Pick<EditorToolbarProps, 'toolbarCommands'>> {
     height?: number | string;
     config?: SlideConfigState;
+    isShowSyncCurrentPageToggle?: boolean;
     isFixScrollToBottom?: boolean;
     isOverwriteMode?: boolean;
     onChangeSlideInfo?: (newSlideInfo: SlideInfo) => void;
@@ -147,6 +148,7 @@ function MarkSlidesEditor(
         toolbarCommands = defaultToolbarCommands,
         height = '100vh',
         config = DEFAULT_SLIDE_CONFIG,
+        isShowSyncCurrentPageToggle = true,
         isFixScrollToBottom = false,
         isOverwriteMode = false,
         onChangeSlideInfo,
@@ -164,7 +166,9 @@ function MarkSlidesEditor(
     const previewContainerRef = useRef<HTMLDivElement>(null);
     const previewRef = useRef<PreviewFragmentRef>(null);
 
-    const [isSyncCurrentPage, setIsSyncCurrentPage] = useState(true);
+    const [isSyncCurrentPage, setIsSyncCurrentPage] = useState(
+        isShowSyncCurrentPageToggle
+    );
 
     useEffect(() => {
         if (isFixScrollToBottom && value) {
@@ -339,10 +343,12 @@ function MarkSlidesEditor(
                     />
                 </PreviewContainer>
 
-                <CurrentPageSyncButton
-                    isSyncCurrentPage={isSyncCurrentPage}
-                    onToggle={handleClickSyncCurrentPage}
-                />
+                {isShowSyncCurrentPageToggle && (
+                    <CurrentPageSyncButton
+                        isSyncCurrentPage={isSyncCurrentPage}
+                        onToggle={handleClickSyncCurrentPage}
+                    />
+                )}
             </EditorContainer>
         </Wrapper>
     );

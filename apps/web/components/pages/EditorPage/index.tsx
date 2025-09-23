@@ -73,6 +73,7 @@ function EditorPage(): JSX.Element {
                 height='inherit'
                 toolbarCommands={toolbarCommands}
                 config={slideConfigState}
+                isShowSyncCurrentPageToggle={true}
                 isFixScrollToBottom={false}
                 isOverwriteMode={false}
                 placeholder='# Hi, MarkSlides!'
