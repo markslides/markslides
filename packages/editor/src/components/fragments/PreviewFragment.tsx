@@ -117,6 +117,10 @@ function PreviewFragment(
                         marpitElem.children[pageNumber - 1];
                     if (currentSlideElem) {
                         currentSlideElem.scrollIntoView({
+                            // NOTE: Chrome 140 ScrollIntoView container option
+                            // https://developer.chrome.com/release-notes/140#scrollintoview_container_option
+                            // @ts-ignore
+                            container: 'nearest',
                             block: 'center',
                             inline: 'center',
                             behavior: 'smooth',
