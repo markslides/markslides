@@ -58,7 +58,6 @@ const renderAndCaching = async (id: string, code: string) => {
             if (!svgElement.hasAttribute('viewBox')) {
                 const width = svgElement.getAttribute('width') || '100%';
                 const height = svgElement.getAttribute('height') || '100%';
-                console.log('width, height', width, height);
                 if (width !== '100%' && height !== '100%') {
                     svgElement.setAttribute(
                         'viewBox',
