@@ -17,129 +17,93 @@ const hashCode = (str: string): string => {
     return hash.toString(36);
 };
 
-const mermaidChart = (code: string) => {
+const getHashCodeId = (code: string): string => {
     const codeHash = hashCode(code);
-    const cachedResult = renderCache.get(codeHash);
+    return `mermaid-${codeHash}`;
+};
 
-    // Return cached result if available
-    if (cachedResult) {
-        return cachedResult;
-    }
-
-    // Use hash-based ID to ensure consistency across re-renders
-    const id = `mermaid-${codeHash}`;
-    const containerId = `${id}-container`;
+const renderAndCaching = async (id: string, code: string) => {
+    // Check if element still exists and hasn't been replaced
+    const containerElem = document.getElementById(id);
+    if (!containerElem) return;
 
     try {
-        // Create a placeholder container that will be replaced with the rendered diagram
-        const placeholder = `<div id="${containerId}" class="mermaid-container">
-            <div class="mermaid-loading">Rendering diagram...</div>
-        </div>`;
+        // First, validate the syntax with parse
+        await mermaid.parse(code, { suppressErrors: false });
 
-        // Use setTimeout to ensure the DOM is ready and process async operations
-        setTimeout(async () => {
-            // Check if element still exists and hasn't been replaced
-            const containerElem = document.getElementById(containerId);
-            if (!containerElem) return;
+        // If parse succeeds, proceed with rendering
+        const { svg, bindFunctions } = await mermaid.render(
+            `${id}-${Date.now()}`,
+            code
+        );
 
-            try {
-                // First, validate the syntax with parse
-                await mermaid.parse(code, { suppressErrors: false });
+        // Create a wrapper for the SVG with responsive scaling
+        const svgWrapper = document.createElement('div');
+        svgWrapper.className = 'mermaid-svg-wrapper';
+        svgWrapper.style.cssText =
+            'width: 100%; height: auto; display: flex; justify-content: center; align-items: center;';
 
-                // If parse succeeds, proceed with rendering
-                const { svg, bindFunctions } = await mermaid.render(
-                    `${id}-${Date.now()}`,
-                    code
-                );
+        // Parse and modify the SVG for responsive scaling
+        const parser = new DOMParser();
+        const svgDoc = parser.parseFromString(svg, 'image/svg+xml');
+        const svgElement = svgDoc.querySelector('svg');
 
-                // Double-check that container still exists
-                const currentContainer = document.getElementById(containerId);
-                if (currentContainer) {
-                    // Create a wrapper for the SVG with responsive scaling
-                    const svgWrapper = document.createElement('div');
-                    svgWrapper.className = 'mermaid-svg-wrapper';
-                    svgWrapper.style.cssText =
-                        'width: 100%; height: auto; display: flex; justify-content: center; align-items: center;';
+        if (svgElement) {
+            // Set responsive attributes
+            // svgElement.style.cssText =
+            //     'max-width: 100%; height: auto; display: block;';
+            svgElement.setAttribute('preserveAspectRatio', 'xMidYMid meet');
 
-                    // Parse and modify the SVG for responsive scaling
-                    const parser = new DOMParser();
-                    const svgDoc = parser.parseFromString(svg, 'image/svg+xml');
-                    const svgElement = svgDoc.querySelector('svg');
-
-                    if (svgElement) {
-                        // Set responsive attributes
-                        // svgElement.style.cssText =
-                        //     'max-width: 100%; height: auto; display: block;';
-                        svgElement.setAttribute(
-                            'preserveAspectRatio',
-                            'xMidYMid meet'
-                        );
-
-                        // If no viewBox exists, create one from width and height
-                        if (!svgElement.hasAttribute('viewBox')) {
-                            const width =
-                                svgElement.getAttribute('width') || '100%';
-                            const height =
-                                svgElement.getAttribute('height') || '100%';
-                            if (width !== '100%' && height !== '100%') {
-                                svgElement.setAttribute(
-                                    'viewBox',
-                                    `0 0 ${width} ${height}`
-                                );
-                            }
-                        }
-
-                        // Remove fixed width/height to make it responsive
-                        svgElement.removeAttribute('width');
-                        svgElement.removeAttribute('height');
-
-                        svgWrapper.appendChild(svgElement);
-                    } else {
-                        // Fallback: use the original SVG string
-                        svgWrapper.innerHTML = svg;
-                    }
-
-                    currentContainer.innerHTML = '';
-                    currentContainer.appendChild(svgWrapper);
-
-                    // Bind any interactive functions if needed
-                    if (bindFunctions) {
-                        bindFunctions(currentContainer);
-                    }
-
-                    // Cache the final rendered result
-                    const finalResult = currentContainer.outerHTML;
-                    renderCache.set(codeHash, finalResult);
+            // If no viewBox exists, create one from width and height
+            if (!svgElement.hasAttribute('viewBox')) {
+                const width = svgElement.getAttribute('width') || '100%';
+                const height = svgElement.getAttribute('height') || '100%';
+                console.log('width, height', width, height);
+                if (width !== '100%' && height !== '100%') {
+                    svgElement.setAttribute(
+                        'viewBox',
+                        `0 0 ${width} ${height}`
+                    );
                 }
-            } catch (error: any) {
-                console.error('Mermaid error:', error);
-                const errorResult = `<pre class="mermaid-error">${
-                    error.message?.includes('Syntax error')
-                        ? `Syntax error: ${error.message}`
-                        : error.message || 'Failed to render diagram'
-                }</pre>`;
-
-                const currentContainer = document.getElementById(containerId);
-                if (currentContainer) {
-                    currentContainer.innerHTML = errorResult;
-                }
-
-                // Cache the error result as well to avoid re-rendering failed diagrams
-                renderCache.set(codeHash, errorResult);
             }
-        }, 0);
 
-        return placeholder;
+            // Remove fixed width/height to make it responsive
+            svgElement.removeAttribute('width');
+            svgElement.removeAttribute('height');
+
+            svgWrapper.appendChild(svgElement);
+        } else {
+            // Fallback: use the original SVG string
+            svgWrapper.innerHTML = svg;
+        }
+
+        containerElem.innerHTML = '';
+        containerElem.appendChild(svgWrapper);
+
+        // Bind any interactive functions if needed
+        if (bindFunctions) {
+            bindFunctions(containerElem);
+        }
+
+        // Cache the final rendered result
+        renderCache.set(id, containerElem.outerHTML);
     } catch (error: any) {
-        console.error('Mermaid chart error:', error);
-        const errorResult = `<pre class="mermaid-error">${
-            error.message || 'Unknown error'
-        }</pre>`;
+        console.error('Mermaid error:', error);
+        const errorResult = `<p class="mermaid-error">${
+            error.message?.includes('Syntax error')
+                ? `Syntax error: ${error.message}`
+                : error.message || 'Failed to render diagram'
+        }</p>`;
 
-        // Cache the error result
-        renderCache.set(codeHash, errorResult);
-        return errorResult;
+        containerElem.innerHTML = errorResult;
+
+        // Cache the error result as well to avoid re-rendering failed diagrams
+        renderCache.set(id, containerElem.outerHTML);
     }
+};
+
+const mermaidChart = (id: string, code: string) => {
+    return `<pre id="${id}" class="mermaid">${code}</pre>`;
 };
 
 // TODO: Inject this value from outside
@@ -152,8 +116,7 @@ const markdownItMermaid = (md: MarkdownIt, config?: MermaidConfig) => {
         fontFamily: 'Inconsolata, monospace !important',
         // fontFamily: 'ui-monospace',
         // altFontFamily: 'monospace',
-        startOnLoad: false, // Set to false to prevent auto-initialization conflicts
-        securityLevel: 'loose', // Allow more flexible parsing
+        startOnLoad: false,
         logLevel: 'error', // Reduce console noise
         ...config,
     });
@@ -170,7 +133,29 @@ const markdownItMermaid = (md: MarkdownIt, config?: MermaidConfig) => {
     ]);
 
     // @ts-ignore
-    md.mermaid = mermaid;
+    md.mermaid = {
+        ...mermaid,
+        renderAll: async () => {
+            const mermaidElems = document.querySelectorAll('pre.mermaid');
+            for await (const [_, elem] of mermaidElems.entries()) {
+                const code = elem.textContent || '';
+                const id = getHashCodeId(code);
+
+                // If already rendered and cached, use the cached version
+                const cachedResult = renderCache.get(id);
+                if (cachedResult) {
+                    elem.innerHTML = cachedResult;
+                }
+
+                // If not cached, render and cache it
+                await renderAndCaching(id, code);
+                const newCachedResult = renderCache.get(id);
+                if (newCachedResult) {
+                    elem.innerHTML = newCachedResult;
+                }
+            }
+        },
+    };
 
     const original =
         md.renderer.rules.fence ||
@@ -188,7 +173,14 @@ const markdownItMermaid = (md: MarkdownIt, config?: MermaidConfig) => {
         const token = tokens[idx];
         const code = token.content.trim();
         if (token.info === 'mermaid') {
-            return mermaidChart(code);
+            const id = getHashCodeId(code);
+
+            const cachedResult = renderCache.get(id);
+            if (cachedResult) {
+                return cachedResult;
+            }
+
+            return mermaidChart(id, code);
         }
 
         return original(tokens, idx, options, env, self);
