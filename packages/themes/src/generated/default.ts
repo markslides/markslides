@@ -1401,9 +1401,11 @@ section[data-color] h6 {
 /*
  * Mermaid
  */
-.mermaid-container {
+pre.mermaid {
     height: fit-content;
     text-align: center;
+    background: transparent;
+    border: none;
 }
 
 .mermaid-loading {
@@ -1412,6 +1414,8 @@ section[data-color] h6 {
 }
 
 .mermaid-error {
+    font-size: 0.8em;
+    text-align: left;
     color: red;
 }
 `;

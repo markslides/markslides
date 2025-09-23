@@ -1427,9 +1427,11 @@ footer {
    Mermaid
    ========================================================================== */
 
-.mermaid-container {
+pre.mermaid {
     height: fit-content;
     overflow: auto;
+    background: transparent;
+    border: none;
 }
 
 .mermaid-loading {
@@ -1438,6 +1440,8 @@ footer {
 }
 
 .mermaid-error {
+    font-size: 0.8em;
+    text-align: left;
     color: red;
 }
 `;
