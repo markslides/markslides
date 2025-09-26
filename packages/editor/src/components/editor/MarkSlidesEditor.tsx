@@ -198,6 +198,22 @@ function MarkSlidesEditor(
 
     const bottomPanelExtension = useBottomPanelExtension();
 
+    const slideInfoExtensionCallback = useCallback(
+        (slideInfo: SlideInfo) => {
+            if (previewRef.current) {
+                previewRef.current.setCurrentPage(
+                    slideInfo.currentPageNumber,
+                    isSyncCurrentPage
+                );
+            }
+
+            if (!!onChangeSlideInfo) {
+                onChangeSlideInfo(slideInfo);
+            }
+        },
+        [isSyncCurrentPage, onChangeSlideInfo]
+    );
+
     const extensions = useMemo(() => {
         let _extensions = [
             historyExtension(),
@@ -216,18 +232,7 @@ function MarkSlidesEditor(
 
             //     // NOTE: Add something to use these values
             // }),
-            slideInfoExtension((slideInfo) => {
-                if (previewRef.current) {
-                    previewRef.current.setCurrentPage(
-                        slideInfo.currentPageNumber,
-                        isSyncCurrentPage
-                    );
-                }
-
-                if (!!onChangeSlideInfo) {
-                    onChangeSlideInfo(slideInfo);
-                }
-            }),
+            slideInfoExtension(slideInfoExtensionCallback),
             bottomPanelExtension,
             ...externalExtensions,
         ];
@@ -238,6 +243,7 @@ function MarkSlidesEditor(
 
         return _extensions;
     }, [
+        slideInfoExtensionCallback,
         isOverwriteMode,
         bottomPanelExtension,
         externalExtensions,
