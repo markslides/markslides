@@ -70,6 +70,7 @@ function SlideSettingDialog(props: DialogPropsWithPayload) {
         });
         onOpenChange(false);
     }, [
+        slideConfigState.title,
         header,
         footer,
         paginate,
