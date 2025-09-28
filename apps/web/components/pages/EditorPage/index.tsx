@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo, useRef } from 'react';
+import { slideConfigUtil } from '@markslides/renderer';
 import MarkSlidesEditor, { type MarkSlidesEditorRef } from '@markslides/editor';
 import {
     undo,
@@ -25,7 +26,6 @@ import useAppDispatch from '@/redux/hooks/useAppDispatch';
 import useAppSelector from '@/redux/hooks/useAppSelector';
 import { setContentRequested } from '@/redux/slices/localSlice';
 import SlideShowFragment from '@/components/fragments/SlideShowFragment';
-import slideConfigUtil from '@/lib/utils/slideConfigUtil';
 
 function EditorPage(): JSX.Element {
     const editorRef = useRef<MarkSlidesEditorRef>(null);

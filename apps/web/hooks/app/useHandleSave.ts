@@ -5,11 +5,10 @@ import {
     fileSave,
     supported as isFileSystemAccessApiSupported,
 } from 'browser-fs-access';
-import type { SlideConfigState } from '@markslides/renderer';
+import { slideConfigUtil, type SlideConfigState } from '@markslides/renderer';
 import useAppSelector from '@/redux/hooks/useAppSelector';
 import useAppDispatch from '@/redux/hooks/useAppDispatch';
 import { useToast } from '@/components/ui/use-toast';
-import slideConfigUtil from '@/lib/utils/slideConfigUtil';
 
 function useHandleSave() {
     const { toast } = useToast();

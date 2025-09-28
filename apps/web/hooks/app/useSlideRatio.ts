@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import slideConfigUtil from '@/lib/utils/slideConfigUtil';
+import { slideConfigUtil } from '@markslides/renderer';
 
 function useSlideRatio(slideConfigStr: string) {
     return useMemo(() => {

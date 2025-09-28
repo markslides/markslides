@@ -10,6 +10,7 @@ import type {
 const initialState: SlideConfigState = {
     header: '',
     footer: '![height:40px](/image/credit.png)',
+    title: '',
     paginate: false,
     theme: 'default',
     class: 'normal',
