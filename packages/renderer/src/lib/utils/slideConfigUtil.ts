@@ -12,6 +12,7 @@ const slideConfigUtil = {
 marp: true
 header: ${configState.header}
 footer: ${configState.footer}
+title: ${configState.title}
 paginate: ${configState.paginate}
 class: ${configState.class}
 theme: ${configState.theme}
@@ -26,6 +27,7 @@ style: |
         let slideConfigState: SlideConfigState = {
             header: '',
             footer: '![height:40px](https://www.markslides.ai/image/credit.png)',
+            title: '',
             paginate: false,
             theme: 'default',
             class: 'normal',

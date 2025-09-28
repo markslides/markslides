@@ -62,6 +62,7 @@ function SlideSettingDialog(props: DialogPropsWithPayload) {
         handleSave({
             header,
             footer,
+            title: slideConfigState.title,
             paginate,
             theme,
             class: slideClass,
@@ -69,6 +70,7 @@ function SlideSettingDialog(props: DialogPropsWithPayload) {
         });
         onOpenChange(false);
     }, [
+        slideConfigState.title,
         header,
         footer,
         paginate,

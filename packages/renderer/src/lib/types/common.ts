@@ -7,6 +7,7 @@ export type SlideSize = (typeof slideConfigConst.sizes)[number];
 export interface SlideConfigState {
     header: string;
     footer: string;
+    title: string;
     paginate: boolean;
     theme: SlideTheme;
     class: SlideClass;

@@ -4,11 +4,11 @@ import { useMemo } from 'react';
 import { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 // import { CircularProgress } from '@chakra-ui/react';
+import { slideConfigUtil } from '@markslides/renderer';
 import { Center } from '@markslides/ui/center';
 import useAppSelector from '@/redux/hooks/useAppSelector';
 import useAppDispatch from '@/redux/hooks/useAppDispatch';
 import useRouterQuery from '@/hooks/router/useRouterQuery';
-import slideConfigUtil from '@/lib/utils/slideConfigUtil';
 import type { SlideShowMode } from '@/lib/types/common';
 const SlideShowFragment = dynamic(
     () => import('@/components/fragments/SlideShowFragment'),

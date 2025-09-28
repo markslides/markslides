@@ -134,6 +134,7 @@ interface MarkSlidesEditorProps
 const DEFAULT_SLIDE_CONFIG: SlideConfigState = {
     header: '',
     footer: '',
+    title: '',
     paginate: true,
     theme: 'default',
     class: 'normal',
