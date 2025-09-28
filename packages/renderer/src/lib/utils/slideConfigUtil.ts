@@ -12,7 +12,7 @@ const slideConfigUtil = {
 marp: true
 header: ${configState.header}
 footer: ${configState.footer}
-title: ${configState.title}
+title: "${configState.title}"
 paginate: ${configState.paginate}
 class: ${configState.class}
 theme: ${configState.theme}
