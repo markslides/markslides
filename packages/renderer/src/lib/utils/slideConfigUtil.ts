@@ -33,35 +33,40 @@ style: |
             class: 'normal',
             size: '16:9',
         };
-        marpConfig.split('\n').forEach((part) => {
-            const separatorIndex = part.indexOf(':');
-            const key = part.substring(
-                0,
-                separatorIndex
-            ) as keyof SlideConfigState;
-            const value = part.substring(separatorIndex + 1).trim();
+        marpConfig
+            .trim()
+            .split('\n')
+            .forEach((part) => {
+                const separatorIndex = part.indexOf(':');
+                const key = part.substring(
+                    0,
+                    separatorIndex
+                ) as keyof SlideConfigState;
+                const value = part.substring(separatorIndex + 1).trim();
 
-            if (slideConfigState[key] !== undefined) {
-                if (
-                    key === 'title' &&
-                    value.startsWith('"') &&
-                    value.endsWith('"')
-                ) {
-                    // Remove surrounding quotes for title
-                    slideConfigState[key] = value
-                        .substring(1, value.length - 1)
-                        .trim();
-                    return;
+                if (slideConfigState[key] !== undefined) {
+                    if (
+                        key === 'title' &&
+                        value.startsWith('"') &&
+                        value.endsWith('"')
+                    ) {
+                        // Remove surrounding quotes for title
+                        slideConfigState[key] = value.substring(
+                            1,
+                            value.length - 1
+                        );
+                        return;
+                    }
+
+                    if (key === 'paginate') {
+                        (slideConfigState as any)[key] =
+                            value.trim() === 'true';
+                        return;
+                    }
+
+                    (slideConfigState as any)[key] = value.trim();
                 }
-
-                if (key === 'paginate') {
-                    (slideConfigState as any)[key] = value.trim() === 'true';
-                    return;
-                }
-
-                (slideConfigState as any)[key] = value.trim();
-            }
-        });
+            });
 
         return slideConfigState;
     },
