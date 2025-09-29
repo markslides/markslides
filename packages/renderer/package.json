@@ -1,7 +1,7 @@
 {
     "name": "@markslides/renderer",
     "description": "MarkSlides Renderer",
-    "version": "0.1.54",
+    "version": "0.1.55",
     "main": "./dist/index.js",
     "module": "./dist/index.mjs",
     "types": "./dist/index.d.ts",
@@ -25,7 +25,10 @@
         "lint": "eslint . --max-warnings 0",
         "generate:component": "turbo gen react-component",
         "dev": "npm run build -- --watch",
-        "build": "tsup ./src/index.ts --format cjs,esm --dts"
+        "build": "tsup ./src/index.ts --format cjs,esm --dts",
+        "test": "jest",
+        "test:watch": "jest --watch",
+        "test:coverage": "jest --coverage"
     },
     "exports": {
         ".": {
@@ -44,12 +47,15 @@
         "@repo/typescript-config": "*",
         "@turbo/gen": "^1.10.12",
         "@types/eslint": "^8.44.7",
+        "@types/jest": "^30.0.0",
         "@types/markdown-it": "^13.0.7",
         "@types/markdown-it-container": "^2.0.9",
         "@types/node": "^20.5.2",
         "eslint": "^8.53.0",
+        "jest": "^30.2.0",
+        "ts-jest": "^29.4.4",
         "tsup": "^8.0.1",
-        "typescript": "^5.2.2"
+        "typescript": "^5.9.2"
     },
     "dependencies": {
         "@markslides/markdown-it-link": "^0.1.1",
