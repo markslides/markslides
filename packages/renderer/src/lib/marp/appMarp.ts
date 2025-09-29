@@ -8,11 +8,20 @@ import themes from '@markslides/themes';
 import markdownItTaskLists from '@/lib/marp/plugins/taskLists';
 import markdownItCopyFenceContent from '@/lib/marp/plugins/copyFenceContent';
 import markdownItFenceCodeBlockEnhancer from '@/lib/marp/plugins/fenceCodeBlockEnhancer';
+import { SlideConfigState } from '@/lib/types/common';
 
 const appMarp = (function () {
     let instance: Marp;
+    let _slideConfigState: SlideConfigState;
 
-    function createInstance(containerClassName?: string) {
+    function createInstance(
+        slideConfigState?: SlideConfigState,
+        containerClassName?: string
+    ) {
+        if (slideConfigState) {
+            _slideConfigState = slideConfigState;
+        }
+
         // https://marpit-api.marp.app/marpit
         const marp = new Marp({
             container: [
@@ -40,7 +49,13 @@ const appMarp = (function () {
         marp.use(markdownItLink);
         marp.use(markdownItTaskLists);
         marp.use(markdownItFenceCodeBlockEnhancer);
-        marp.use(markdownItMermaid);
+        marp.use((md) => {
+            const isDarkMode = slideConfigState?.class === 'invert';
+            return markdownItMermaid(md, {
+                theme: isDarkMode ? 'dark' : 'default',
+                darkMode: isDarkMode,
+            });
+        });
         marp.use(markdownItTypograms);
         marp.use(markdownItCopyFenceContent);
 
@@ -57,9 +72,13 @@ const appMarp = (function () {
 
     return {
         createInstance,
-        getDefaultInstance: function () {
-            if (!instance) {
-                instance = createInstance();
+        getDefaultInstance: function (slideConfigState?: SlideConfigState) {
+            if (
+                !instance ||
+                (slideConfigState &&
+                    !Object.is(_slideConfigState, slideConfigState))
+            ) {
+                instance = createInstance(slideConfigState);
             }
             return instance;
         },
