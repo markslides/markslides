@@ -35,13 +35,31 @@ style: |
         };
         marpConfig.split('\n').forEach((part) => {
             const separatorIndex = part.indexOf(':');
-            const key = part.substring(0, separatorIndex);
+            const key = part.substring(
+                0,
+                separatorIndex
+            ) as keyof SlideConfigState;
             const value = part.substring(separatorIndex + 1).trim();
 
-            // @ts-ignore
             if (slideConfigState[key] !== undefined) {
-                // @ts-ignore
-                slideConfigState[key] = value.trim();
+                if (
+                    key === 'title' &&
+                    value.startsWith('"') &&
+                    value.endsWith('"')
+                ) {
+                    // Remove surrounding quotes for title
+                    slideConfigState[key] = value
+                        .substring(1, value.length - 1)
+                        .trim();
+                    return;
+                }
+
+                if (key === 'paginate') {
+                    (slideConfigState as any)[key] = value.trim() === 'true';
+                    return;
+                }
+
+                (slideConfigState as any)[key] = value.trim();
             }
         });
 
