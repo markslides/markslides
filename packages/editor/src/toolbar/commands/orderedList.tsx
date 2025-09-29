@@ -14,7 +14,7 @@ const orderedList: ToolbarCommand = {
 
         const lineInfo = view.state.doc.lineAt(view.state.selection.main.from);
         let mark = '1. ';
-        const matchMark = lineInfo.text.match(/^\1\./);
+        const matchMark = lineInfo.text.match(/^\d+\. /);
         if (matchMark && matchMark[0]) {
             mark = '';
         }
