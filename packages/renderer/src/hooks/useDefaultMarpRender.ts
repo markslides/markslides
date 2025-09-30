@@ -11,15 +11,24 @@ function useDefaultMarpRender(
     const { html, css, comments } = useMemo(() => {
         if (content) {
             try {
-                const config =
+                const [slideConfigStr, slideConfigState] =
                     typeof slideConfig === 'string'
-                        ? slideConfig
-                        : slideConfigUtil.generateMarpConfigFromSlideConfigState(
-                              slideConfig
-                          );
+                        ? [
+                              slideConfig,
+                              slideConfigUtil.generateSlideConfigStateFromMarpConfig(
+                                  slideConfig
+                              ),
+                          ]
+                        : [
+                              slideConfigUtil.generateMarpConfigFromSlideConfigState(
+                                  slideConfig
+                              ),
+                              slideConfig,
+                          ];
+
                 return appMarp
-                    .getDefaultInstance()
-                    .render(`---\n${config}\n---\n\n${content}`);
+                    .getDefaultInstance(slideConfigState)
+                    .render(`---\n${slideConfigStr}\n---\n\n${content}`);
             } catch (error) {
                 console.error(error);
             }

@@ -16,12 +16,20 @@ function useIndependentMarpRender(
     const { html, css, comments } = useMemo(() => {
         if (content) {
             try {
-                const config =
+                const [slideConfigStr, slideConfigState] =
                     typeof slideConfig === 'string'
-                        ? slideConfig
-                        : slideConfigUtil.generateMarpConfigFromSlideConfigState(
-                              slideConfig
-                          );
+                        ? [
+                              slideConfig,
+                              slideConfigUtil.generateSlideConfigStateFromMarpConfig(
+                                  slideConfig
+                              ),
+                          ]
+                        : [
+                              slideConfigUtil.generateMarpConfigFromSlideConfigState(
+                                  slideConfig
+                              ),
+                              slideConfig,
+                          ];
 
                 if (
                     containerClassNameRef.current === null ||
@@ -29,12 +37,14 @@ function useIndependentMarpRender(
                     !marpInstanceRef.current
                 ) {
                     containerClassNameRef.current = containerClassName;
-                    marpInstanceRef.current =
-                        appMarp.createInstance(containerClassName);
+                    marpInstanceRef.current = appMarp.createInstance(
+                        slideConfigState,
+                        containerClassName
+                    );
                 }
 
                 return marpInstanceRef.current.render(
-                    `---\n${config}\n---\n\n${content}`
+                    `---\n${slideConfigStr}\n---\n\n${content}`
                 );
             } catch (error) {
                 console.error(error);

@@ -3,6 +3,16 @@ import Token from 'markdown-it/lib/token';
 import Renderer from 'markdown-it/lib/renderer';
 import mermaid, { type MermaidConfig } from 'mermaid';
 
+// Default Mermaid configuration
+let _config: MermaidConfig = {
+    theme: 'default',
+    fontFamily: 'Inconsolata, monospace !important',
+    // fontFamily: 'ui-monospace',
+    // altFontFamily: 'monospace',
+    startOnLoad: false,
+    logLevel: 'error', // Reduce console noise
+};
+
 // Cache for memoization
 const renderCache = new Map<string, string>();
 
@@ -80,12 +90,13 @@ const renderAndCaching = async (id: string, code: string) => {
         containerElem.appendChild(svgWrapper);
 
         // Bind any interactive functions if needed
-        if (bindFunctions) {
-            bindFunctions(containerElem);
-        }
+        // if (bindFunctions) {
+        //     bindFunctions(containerElem);
+        // }
 
         // Cache the final rendered result
-        renderCache.set(id, containerElem.outerHTML);
+        // renderCache.set(id, containerElem.outerHTML);
+        renderCache.set(id, svgWrapper.getHTML());
     } catch (error: any) {
         console.error('Mermaid error:', error);
         const errorResult = `<p class="mermaid-error">${
@@ -97,7 +108,8 @@ const renderAndCaching = async (id: string, code: string) => {
         containerElem.innerHTML = errorResult;
 
         // Cache the error result as well to avoid re-rendering failed diagrams
-        renderCache.set(id, containerElem.outerHTML);
+        // renderCache.set(id, containerElem.outerHTML);
+        renderCache.set(id, errorResult);
     }
 };
 
@@ -105,20 +117,22 @@ const mermaidChart = (id: string, code: string) => {
     return `<pre id="${id}" class="mermaid">${code}</pre>`;
 };
 
-// TODO: Inject this value from outside
-const isDarkMode = false;
-
 const markdownItMermaid = (md: MarkdownIt, config?: MermaidConfig) => {
-    mermaid.initialize({
-        theme: isDarkMode ? 'dark' : 'default',
-        darkMode: isDarkMode,
-        fontFamily: 'Inconsolata, monospace !important',
-        // fontFamily: 'ui-monospace',
-        // altFontFamily: 'monospace',
-        startOnLoad: false,
-        logLevel: 'error', // Reduce console noise
-        ...config,
-    });
+    if (config) {
+        // Clear cache if config is changed to avoid stale renders
+        if (!Object.is(_config, config)) {
+            renderCache.clear();
+        }
+
+        // Merge user config with existing config
+        _config = {
+            ..._config,
+            ...config,
+        };
+    }
+
+    // Initialize Mermaid with the merged config
+    mermaid.initialize(_config);
 
     // Register icon packs asynchronously
     mermaid.registerIconPacks([
@@ -135,7 +149,9 @@ const markdownItMermaid = (md: MarkdownIt, config?: MermaidConfig) => {
     md.mermaid = {
         ...mermaid,
         renderAll: async () => {
-            const mermaidElems = document.querySelectorAll('pre.mermaid');
+            const mermaidElems = document.querySelectorAll(
+                'pre.mermaid:not(:has(svg))'
+            );
             for await (const [_, elem] of mermaidElems.entries()) {
                 const code = elem.textContent || '';
                 const id = getHashCodeId(code);
@@ -144,6 +160,7 @@ const markdownItMermaid = (md: MarkdownIt, config?: MermaidConfig) => {
                 const cachedResult = renderCache.get(id);
                 if (cachedResult) {
                     elem.innerHTML = cachedResult;
+                    continue;
                 }
 
                 // If not cached, render and cache it
@@ -173,13 +190,8 @@ const markdownItMermaid = (md: MarkdownIt, config?: MermaidConfig) => {
         const code = token.content.trim();
         if (token.info === 'mermaid') {
             const id = getHashCodeId(code);
-
             const cachedResult = renderCache.get(id);
-            if (cachedResult) {
-                return cachedResult;
-            }
-
-            return mermaidChart(id, code);
+            return mermaidChart(id, cachedResult ?? code);
         }
 
         return original(tokens, idx, options, env, self);
