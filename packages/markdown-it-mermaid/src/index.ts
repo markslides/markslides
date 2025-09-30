@@ -90,12 +90,13 @@ const renderAndCaching = async (id: string, code: string) => {
         containerElem.appendChild(svgWrapper);
 
         // Bind any interactive functions if needed
-        if (bindFunctions) {
-            bindFunctions(containerElem);
-        }
+        // if (bindFunctions) {
+        //     bindFunctions(containerElem);
+        // }
 
         // Cache the final rendered result
-        renderCache.set(id, containerElem.outerHTML);
+        // renderCache.set(id, containerElem.outerHTML);
+        renderCache.set(id, svgWrapper.getHTML());
     } catch (error: any) {
         console.error('Mermaid error:', error);
         const errorResult = `<p class="mermaid-error">${
@@ -107,7 +108,8 @@ const renderAndCaching = async (id: string, code: string) => {
         containerElem.innerHTML = errorResult;
 
         // Cache the error result as well to avoid re-rendering failed diagrams
-        renderCache.set(id, containerElem.outerHTML);
+        // renderCache.set(id, containerElem.outerHTML);
+        renderCache.set(id, errorResult);
     }
 };
 
@@ -148,12 +150,25 @@ const markdownItMermaid = (md: MarkdownIt, config?: MermaidConfig) => {
         ...mermaid,
         renderAll: async () => {
             const mermaidElems = document.querySelectorAll(
-                'pre.mermaid:not(:has(.mermaid-svg-wrapper))'
+                'pre.mermaid:not(:has(svg))'
             );
             for await (const [_, elem] of mermaidElems.entries()) {
                 const code = elem.textContent || '';
                 const id = getHashCodeId(code);
+
+                // If already rendered and cached, use the cached version
+                const cachedResult = renderCache.get(id);
+                if (cachedResult) {
+                    elem.innerHTML = cachedResult;
+                    continue;
+                }
+
+                // If not cached, render and cache it
                 await renderAndCaching(id, code);
+                const newCachedResult = renderCache.get(id);
+                if (newCachedResult) {
+                    elem.innerHTML = newCachedResult;
+                }
             }
         },
     };
@@ -175,13 +190,8 @@ const markdownItMermaid = (md: MarkdownIt, config?: MermaidConfig) => {
         const code = token.content.trim();
         if (token.info === 'mermaid') {
             const id = getHashCodeId(code);
-
             const cachedResult = renderCache.get(id);
-            if (cachedResult) {
-                return cachedResult;
-            }
-
-            return mermaidChart(id, code);
+            return mermaidChart(id, cachedResult ?? code);
         }
 
         return original(tokens, idx, options, env, self);
