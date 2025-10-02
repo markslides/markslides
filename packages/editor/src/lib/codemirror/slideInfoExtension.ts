@@ -2,7 +2,9 @@ import { EditorView, ViewUpdate } from '@codemirror/view';
 import codemirrorUtil from '@/lib/codemirror/util';
 import type { SlideInfo } from '@/lib/types/common';
 
-function slideInfoExtension(callback: (slideInfo: SlideInfo) => void) {
+function slideInfoExtension(onChange: (slideInfo: SlideInfo) => void) {
+    let prevSlideInfo: SlideInfo | null = null;
+
     return EditorView.updateListener.of((update: ViewUpdate) => {
         const { state } = update;
 
@@ -45,14 +47,26 @@ function slideInfoExtension(callback: (slideInfo: SlideInfo) => void) {
             iterLine.next();
         }
 
-        const newPageInfo: SlideInfo = {
+        const slideInfo: SlideInfo = {
             slideTitle,
             currentPageTitle: pageTitleArray[currentPageNumber - 1],
             currentPageNumber,
             totalPageCount,
         };
 
-        callback(newPageInfo);
+        // Compare with previous slide info and call callback if changed or cursor position changed
+        const hasSelectionChanged = update.selectionSet;
+        if (
+            !prevSlideInfo ||
+            prevSlideInfo.slideTitle !== slideInfo.slideTitle ||
+            prevSlideInfo.currentPageTitle !== slideInfo.currentPageTitle ||
+            prevSlideInfo.currentPageNumber !== slideInfo.currentPageNumber ||
+            prevSlideInfo.totalPageCount !== slideInfo.totalPageCount ||
+            hasSelectionChanged
+        ) {
+            prevSlideInfo = { ...slideInfo };
+            onChange(slideInfo);
+        }
     });
 }
 
