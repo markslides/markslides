@@ -3,6 +3,15 @@ import Token from 'markdown-it/lib/token';
 import Renderer from 'markdown-it/lib/renderer';
 import mermaid, { type MermaidConfig } from 'mermaid';
 
+// Base64 encoding/decoding available in browser environment
+const base64Encode = (str: string): string => {
+    return btoa(unescape(encodeURIComponent(str)));
+};
+
+const base64Decode = (str: string): string => {
+    return decodeURIComponent(escape(atob(str)));
+};
+
 // Default Mermaid configuration
 let _config: MermaidConfig = {
     theme: 'default',
@@ -11,6 +20,9 @@ let _config: MermaidConfig = {
     // altFontFamily: 'monospace',
     startOnLoad: false,
     logLevel: 'error', // Reduce console noise
+    // NOTE: HTML tags in text are allowed and click functionality is enabled.
+    // https://mermaid.js.org/config/usage.html#securitylevel
+    securityLevel: 'loose',
 };
 
 // Cache for memoization
@@ -114,7 +126,9 @@ const renderAndCaching = async (id: string, code: string) => {
 };
 
 const mermaidChart = (id: string, code: string) => {
-    return `<pre id="${id}" class="mermaid">${code}</pre>`;
+    return `<pre id="${id}" class="mermaid" data-mermaid-code="${base64Encode(
+        code
+    )}"></pre>`;
 };
 
 const markdownItMermaid = (md: MarkdownIt, config?: MermaidConfig) => {
@@ -153,8 +167,12 @@ const markdownItMermaid = (md: MarkdownIt, config?: MermaidConfig) => {
                 'pre.mermaid:not(:has(svg))'
             );
             for await (const [_, elem] of mermaidElems.entries()) {
-                const code = elem.textContent || '';
-                const id = getHashCodeId(code);
+                // Get the code from data attribute
+                const id = elem.getAttribute('id');
+                const code = elem.getAttribute('data-mermaid-code');
+                if (!id || !code) {
+                    continue;
+                }
 
                 // If already rendered and cached, use the cached version
                 const cachedResult = renderCache.get(id);
@@ -164,7 +182,7 @@ const markdownItMermaid = (md: MarkdownIt, config?: MermaidConfig) => {
                 }
 
                 // If not cached, render and cache it
-                await renderAndCaching(id, code);
+                await renderAndCaching(id, base64Decode(code));
                 const newCachedResult = renderCache.get(id);
                 if (newCachedResult) {
                     elem.innerHTML = newCachedResult;
@@ -187,8 +205,8 @@ const markdownItMermaid = (md: MarkdownIt, config?: MermaidConfig) => {
         self: Renderer
     ) => {
         const token = tokens[idx];
-        const code = token.content.trim();
         if (token.info === 'mermaid') {
+            const code = token.content.trim();
             const id = getHashCodeId(code);
             const cachedResult = renderCache.get(id);
             return mermaidChart(id, cachedResult ?? code);
