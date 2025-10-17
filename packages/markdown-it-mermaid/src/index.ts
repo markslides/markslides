@@ -72,8 +72,8 @@ const renderAndCaching = async (id: string, code: string) => {
 
         if (svgElement) {
             // Set responsive attributes
-            // svgElement.style.cssText =
-            //     'max-width: 100%; height: auto; display: block;';
+            svgElement.style.cssText =
+                'max-width: 100%; max-height: 100%; margin: auto; display: block;';
             svgElement.setAttribute('preserveAspectRatio', 'xMidYMid meet');
 
             // If no viewBox exists, create one from width and height
