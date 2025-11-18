@@ -1,5 +1,7 @@
 import { EditorState } from '@codemirror/state';
 
+const regExpForFence = /^```/;
+
 const codemirrorUtil = {
     getCurrentSelectionStr: (state: EditorState) => {
         const { from, to } = state.selection.main;
@@ -14,10 +16,17 @@ const codemirrorUtil = {
     getLineFromSlideIndex: (state: EditorState, slideIndex: number) => {
         let lineNum = 1;
         let slideCount = 1;
+        let isInsideFence = false;
 
         const iterLine = state.doc.iterLines();
         while (!iterLine.done && lineNum < state.doc.lines) {
-            if (iterLine.value === '---') {
+            // Check if current line starts or ends a fence
+            if (regExpForFence.test(iterLine.value)) {
+                isInsideFence = !isInsideFence;
+            }
+
+            // Only count dividers that are not inside fence blocks
+            if (iterLine.value === '---' && !isInsideFence) {
                 slideCount++;
             }
             lineNum++;
@@ -40,9 +49,16 @@ const codemirrorUtil = {
         let lineNum = 1;
         let totalPageCount = 1;
         let currentPageNumber = 1;
+        let isInsideFence = false;
         const iterLine = state.doc.iterLines();
         while (!iterLine.done) {
-            if (iterLine.value === '---') {
+            // Check if current line starts or ends a fence
+            if (regExpForFence.test(iterLine.value)) {
+                isInsideFence = !isInsideFence;
+            }
+
+            // Only count dividers that are not inside fence blocks as page separators
+            if (iterLine.value === '---' && !isInsideFence) {
                 totalPageCount++;
             }
 
