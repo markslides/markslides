@@ -2,6 +2,8 @@ import { EditorView, ViewUpdate } from '@codemirror/view';
 import codemirrorUtil from '@/lib/codemirror/util';
 import type { SlideInfo } from '@/lib/types/common';
 
+const regExpForFence = /^```/;
+
 function slideInfoExtension(onChange: (slideInfo: SlideInfo) => void) {
     let prevSlideInfo: SlideInfo | null = null;
 
@@ -16,9 +18,15 @@ function slideInfoExtension(onChange: (slideInfo: SlideInfo) => void) {
         let slideTitle: string | undefined = '';
         let pageTitleArray: (string | undefined)[] = [];
         let isSearchTitleMode = true;
+        let isInsideFence = false;
         const iterLine = state.doc.iterLines();
         while (!iterLine.done) {
-            if (iterLine.value === '---') {
+            // Check if current line starts or ends a fence
+            if (regExpForFence.test(iterLine.value)) {
+                isInsideFence = !isInsideFence;
+            }
+
+            if (iterLine.value === '---' && !isInsideFence) {
                 // Handle no slide title case
                 if (totalPageCount > 1 && isSearchTitleMode) {
                     pageTitleArray.push('');
