@@ -12,7 +12,7 @@ import "./globals.css";
 export async function generateMetadata({
   params,
 }: {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Metadata" });
@@ -22,12 +22,9 @@ export async function generateMetadata({
     description: t("description"),
   };
 }
-
-interface props extends PropsWithChildren {
-  params?: Promise<{ locale: string }>;
-}
-
-async function RootLayout(props: props): Promise<JSX.Element> {
+interface Props extends PropsWithChildren {
+  params: Promise<{ locale: string }>;
+}async function RootLayout(props: Props): Promise<JSX.Element> {
   const { children, params } = props;
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) {
@@ -35,9 +32,9 @@ async function RootLayout(props: props): Promise<JSX.Element> {
   }
 
   return (
-    <html>
+    <html lang={locale}>
       <body>
-        <NextIntlClientProvider>
+        <NextIntlClientProvider locale={locale}>
           <App>{children}</App>
           <Toaster />
           <Script
