@@ -1,0 +1,49 @@
+{
+    "Metadata": {
+        "title": "MarkSlides エディタ",
+        "description": "MarkSlides で作成"
+    },
+    "EditorMenuBar": {
+        "file": "ファイル",
+        "create": "新規作成",
+        "open": "開く",
+        "save": "保存",
+        "saveAs": "名前を付けて保存",
+        "exportAsPDF": "PDFとしてエクスポート",
+        "untitled": "名称未設定",
+        "setting": "設定",
+        "edit": "編集",
+        "undo": "元に戻す",
+        "redo": "やり直し",
+        "view": "表示",
+        "show": "スライドショー",
+        "help": "ヘルプ",
+        "about": "MarkSlides について",
+        "syntax": "Markdown 構文",
+        "switchLocale": "言語"
+    },
+    "Dialogs": {
+        "cancel": "キャンセル",
+        "confirm": "確認",
+        "settingTitle": "設定",
+        "settingDescription": "スライドの設定を行います。",
+        "header": "ヘッダー",
+        "footer": "フッター",
+        "paginate": "ページ番号",
+        "theme": "テーマ",
+        "mode": "モード",
+        "size": "サイズ",
+        "createTitle": "新規作成",
+        "createDescription": "現在のスライドは削除されます。"
+    },
+    "SlideListPage": {
+        "loading": "読み込み中..."
+    },
+    "Toast": {
+        "unsupportedApiTitle": "このデバイスのファイルシステムはアクセスをサポートしていません。",
+        "unselectedFileTitle": "ファイルが選択されていません",
+        "unselectedFileDescription": "名前を付けて保存を試してください...",
+        "untitled": "名称未設定",
+        "description": "MarkSlides ファイル"
+    }
+}

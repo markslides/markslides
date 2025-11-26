@@ -26,8 +26,11 @@ import SaveMenubarItem from '@/components/base/editor/EditorLayout/EditorMenuBar
 import SaveAsMenubarItem from '@/components/base/editor/EditorLayout/EditorMenuBar/SaveAsMenubarItem';
 import ExportToPdfMenubarItem from '@/components/base/editor/EditorLayout/EditorMenuBar/ExportToPdfMenubarItem';
 import appConst from '@/lib/constants/appConst';
+import { useTranslations } from 'next-intl';
+import { LOCALE_NAMES, LOCALES } from '@/i18n/routing';
 
 function EditorMenuBar() {
+    const t = useTranslations('EditorMenuBar');
     const dispatch = useAppDispatch();
 
     const handleClickSlideSetting = useCallback(() => {
@@ -65,43 +68,43 @@ function EditorMenuBar() {
     return (
         <MenubarRoot>
             <MenubarMenu>
-                <MenubarTrigger>File</MenubarTrigger>
+                <MenubarTrigger>{t('file')}</MenubarTrigger>
                 <MenubarPortal>
                     <MenubarContent
                         align='start'
                         sideOffset={5}
                         alignOffset={-3}>
-                        <NewSlideMenubarItem />
-                        <OpenMenubarItem />
-                        <SaveMenubarItem />
-                        <SaveAsMenubarItem />
+                        <NewSlideMenubarItem t={t} />
+                        <OpenMenubarItem t={t} />
+                        <SaveMenubarItem t={t} />
+                        <SaveAsMenubarItem t={t} />
 
                         <MenubarSeparator />
 
-                        <ExportToPdfMenubarItem />
+                        <ExportToPdfMenubarItem t={t} />
 
                         <MenubarSeparator />
 
                         <MenubarItem onClick={handleClickSlideSetting}>
-                            Slide Setting
+                            {t('setting')}
                         </MenubarItem>
                     </MenubarContent>
                 </MenubarPortal>
             </MenubarMenu>
 
             <MenubarMenu>
-                <MenubarTrigger>Edit</MenubarTrigger>
+                <MenubarTrigger>{t('edit')}</MenubarTrigger>
                 <MenubarPortal>
                     <MenubarContent
                         align='start'
                         sideOffset={5}
                         alignOffset={-3}>
                         <MenubarItem onClick={handleClickUndoButton}>
-                            Undo
+                            {t('undo')}
                             <MenubarRightSlot>⌘Z</MenubarRightSlot>
                         </MenubarItem>
                         <MenubarItem onClick={handleClickRedoButton}>
-                            Redo
+                            {t('redo')}
                             <MenubarRightSlot>⌘⇧Z</MenubarRightSlot>
                         </MenubarItem>
                     </MenubarContent>
@@ -109,21 +112,21 @@ function EditorMenuBar() {
             </MenubarMenu>
 
             <MenubarMenu>
-                <MenubarTrigger>View</MenubarTrigger>
+                <MenubarTrigger>{t('view')}</MenubarTrigger>
                 <MenubarPortal>
                     <MenubarContent
                         align='start'
                         sideOffset={5}
                         alignOffset={-3}>
                         <MenubarItem onClick={handleClickSlideShow}>
-                            ► Slide Show
+                            ► {t('show')}
                         </MenubarItem>
                     </MenubarContent>
                 </MenubarPortal>
             </MenubarMenu>
 
             <MenubarMenu>
-                <MenubarTrigger>Help</MenubarTrigger>
+                <MenubarTrigger>{t('help')}</MenubarTrigger>
                 <MenubarPortal>
                     <MenubarContent
                         align='start'
@@ -133,14 +136,32 @@ function EditorMenuBar() {
                             target='_blank'
                             referrerPolicy='no-referrer'
                             href='https://www.markslides.ai/intro'>
-                            <MenubarItem>What is MarkSlides?</MenubarItem>
+                            <MenubarItem>{t('about')}</MenubarItem>
                         </Link>
                         <Link
                             target='_blank'
                             referrerPolicy='no-referrer'
                             href='https://www.markdownguide.org/basic-syntax/'>
-                            <MenubarItem>Markdown Syntax</MenubarItem>
+                            <MenubarItem>{t('syntax')}</MenubarItem>
                         </Link>
+                    </MenubarContent>
+                </MenubarPortal>
+            </MenubarMenu>
+
+            <MenubarMenu>
+                <MenubarTrigger>{t('switchLocale')}</MenubarTrigger>
+                <MenubarPortal>
+                    <MenubarContent
+                        align='start'
+                        sideOffset={5}
+                        alignOffset={-3}>
+                        {LOCALES.map((locale) => (
+                            <Link
+                                href={`/${locale}`}
+                            >
+                                <MenubarItem>{LOCALE_NAMES[locale]}</MenubarItem>
+                            </Link>
+                        ))}
                     </MenubarContent>
                 </MenubarPortal>
             </MenubarMenu>

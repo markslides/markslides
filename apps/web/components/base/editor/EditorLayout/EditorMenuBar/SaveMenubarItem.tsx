@@ -1,7 +1,7 @@
 import { MenubarItem, MenubarRightSlot } from '@markslides/ui/menu-bar';
 import useHandleSave from '@/hooks/app/useHandleSave';
 
-function SaveMenubarItem() {
+function SaveMenubarItem({ t }: { t: (key: string) => string }) {
     const handleClickSave = useHandleSave();
 
     return (
@@ -9,7 +9,7 @@ function SaveMenubarItem() {
             onClick={() => {
                 handleClickSave();
             }}>
-            Save<MenubarRightSlot>⌘S</MenubarRightSlot>
+            {t('save')}<MenubarRightSlot>⌘S</MenubarRightSlot>
         </MenubarItem>
     );
 }

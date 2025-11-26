@@ -1,0 +1,49 @@
+{
+    "Metadata": {
+        "title": "MarkSlides Editor",
+        "description": "Created by MarkSlides"
+    },
+    "EditorMenuBar": {
+        "file": "File",
+        "create": "New Slides",
+        "open": "Open...",
+        "save": "Save",
+        "saveAs": "Save As...",
+        "exportAsPDF": "Export as PDF",
+        "untitled": "Untitled",
+        "setting": "Setting",
+        "edit": "Edit",
+        "undo": "Undo",
+        "redo": "Redo",
+        "view": "View",
+        "show": "Slide Show",
+        "help": "Help",
+        "about": "What is MarkSlides?",
+        "syntax": "Markdown Syntax",
+        "switchLocale": "Language"
+    },
+    "Dialogs": {
+        "cancel": "Cancel",
+        "confirm": "Okay",
+        "settingTitle": "Slide Setting",
+        "settingDescription": "Customize your slide setting.",
+        "header": "Header",
+        "footer": "Footer",
+        "paginate": "Paginate",
+        "theme": "Slide Theme",
+        "mode": "Slide Mode",
+        "size": "Slide Size",
+        "createTitle": "New Slide",
+        "createDescription": "Current content will be deleted."
+    },
+    "SlideListPage": {
+        "loading": "Loading..."
+    },
+    "Toast": {
+        "unsupportedApiTitle": "File System Access API is not supported on your computer.",
+        "unselectedFileTitle": "currentFile is not selected.",
+        "unselectedFileDescription": "Please try Save As...",
+        "untitled": "Untitled",
+        "description": "MarkSlides file"
+    }
+}

@@ -2,14 +2,14 @@ import ReactToPrint from 'react-to-print';
 import { MenubarItem } from '@markslides/ui/menu-bar';
 import { useToast } from '@/components/ui/use-toast';
 
-function ExportToPdfMenubarItem() {
+function ExportToPdfMenubarItem({ t }: { t: (key: string) => string }) {
     const { toast } = useToast();
 
     return (
         <ReactToPrint
-            documentTitle='Untitled'
+            documentTitle={t('untitled')}
             trigger={() => {
-                return <MenubarItem>Export as PDF</MenubarItem>;
+                return <MenubarItem>{t('exportAsPDF')}</MenubarItem>;
             }}
             content={() => {
                 const marpitElem = document.getElementsByClassName('marpit')[0];

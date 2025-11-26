@@ -8,6 +8,7 @@ import useAppSelector from '@/redux/hooks/useAppSelector';
 import useAppDispatch from '@/redux/hooks/useAppDispatch';
 import { setCurrentFileHandle } from '@/redux/slices/appSlice';
 import { useToast } from '@/components/ui/use-toast';
+import { useTranslations } from 'next-intl';
 
 function useHandleSaveAs() {
     const { toast } = useToast();
@@ -16,11 +17,12 @@ function useHandleSaveAs() {
     const markdownTitle = useAppSelector((state) => state.local.title);
     const markdownContent = useAppSelector((state) => state.local.content);
     const dispatch = useAppDispatch();
+    const t = useTranslations('Toast');
 
     return useCallback(async () => {
         if (!isFileSystemAccessApiSupported) {
             toast({
-                title: 'File System Access API is not supported on your computer.',
+                title: t('unsupportedApiTitle'),
                 // status: 'error',
                 // position: 'top',
                 duration: 3000,
@@ -39,8 +41,8 @@ function useHandleSaveAs() {
             });
 
             const fileHandle = await fileSave(blob, {
-                fileName: markdownTitle || 'Untitled',
-                description: 'MarkSlides file',
+                fileName: markdownTitle || t('untitled'),
+                description: t('description'),
                 extensions: ['.md'],
             });
 

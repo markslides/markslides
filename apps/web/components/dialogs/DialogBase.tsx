@@ -21,6 +21,7 @@ export interface DialogProps extends PropsWithChildren {
 
 export interface DialogPropsWithPayload extends DialogProps {
     payload: Record<string, any>;
+    t: (key: string) => string;
 }
 
 function DialogBase(props: DialogProps) {

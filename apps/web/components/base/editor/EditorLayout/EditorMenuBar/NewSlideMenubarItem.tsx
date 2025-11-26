@@ -3,7 +3,7 @@ import { MenubarItem, MenubarRightSlot } from '@markslides/ui/menu-bar';
 import useAppDispatch from '@/redux/hooks/useAppDispatch';
 import { openDialog } from '@/redux/slices/dialogSlice';
 
-function NewSlideMenubarItem() {
+function NewSlideMenubarItem({ t }: { t: (key: string) => string }) {
     const dispatch = useAppDispatch();
 
     const handleClickNewSlide = useCallback(() => {
@@ -14,11 +14,12 @@ function NewSlideMenubarItem() {
         );
     }, [dispatch]);
 
-    return (
-        <MenubarItem onClick={handleClickNewSlide}>
-            New Slides<MenubarRightSlot>⌘⌥N</MenubarRightSlot>
-        </MenubarItem>
-    );
+  return (
+    <MenubarItem onClick={handleClickNewSlide}>
+      {t('create')}
+      <MenubarRightSlot>⌘⌥N</MenubarRightSlot>
+    </MenubarItem>
+  );
 }
 
 export default NewSlideMenubarItem;

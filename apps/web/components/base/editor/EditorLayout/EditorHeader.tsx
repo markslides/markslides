@@ -6,7 +6,7 @@ import { PlayIcon } from 'lucide-react';
 import useAppDispatch from '@/redux/hooks/useAppDispatch';
 import { setIsSlideShowMode } from '@/redux/slices/appSlice';
 
-function EditorHeader() {
+function EditorHeader({ t }: { t: (key: string) => string }) {
     const dispatch = useAppDispatch();
 
     return (
@@ -42,7 +42,7 @@ function EditorHeader() {
                 onClick={() => {
                     dispatch(setIsSlideShowMode(true));
                 }}>
-                Slide Show
+                {t('show')}
             </Button>
         </Flex>
     );

@@ -8,7 +8,7 @@ import DialogBase, {
 } from '@/components/dialogs/DialogBase';
 
 function NewSlideConfirmDialog(props: DialogPropsWithPayload) {
-    const { payload, onOpenChange, ...others } = props;
+    const { payload, onOpenChange, t, ...others } = props;
 
     const dispatch = useAppDispatch();
 
@@ -24,8 +24,8 @@ function NewSlideConfirmDialog(props: DialogPropsWithPayload) {
             <Flex
                 justifyContent='flex-end'
                 gap='8px'>
-                <Button onClick={() => onOpenChange(false)}>Cancel</Button>
-                <Button onClick={setNewSlideForLocalMode}>Okay</Button>
+                <Button onClick={() => onOpenChange(false)}>{t('cancel')}</Button>
+                <Button onClick={setNewSlideForLocalMode}>{t('confirm')}</Button>
             </Flex>
         </DialogBase>
     );

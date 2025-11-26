@@ -7,17 +7,19 @@ import useShortcutsExtension from '@/hooks/app/useShortcutsExtension';
 import EditorHeader from '@/components/base/editor/EditorLayout/EditorHeader';
 import EditorMenuBar from '@/components/base/editor/EditorLayout/EditorMenuBar';
 import CurrentFileName from '@/components/base/editor/EditorLayout/CurrentFileName';
+import { useTranslations } from 'next-intl';
 
 interface EditorLayoutProps extends PropsWithChildren<{}> {}
 
 function EditorLayout(props: EditorLayoutProps) {
     useShortcutsExtension();
+    const t = useTranslations('EditorMenuBar');
 
     return (
         <Flex
             height='100vh'
             flexDirection='column'>
-            <EditorHeader />
+            <EditorHeader t={t}/>
 
             <Flex
                 height='32px'

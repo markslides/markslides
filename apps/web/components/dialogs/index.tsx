@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import useAppSelector from '@/redux/hooks/useAppSelector';
 import useAppDispatch from '@/redux/hooks/useAppDispatch';
 import { closeDialog } from '@/redux/slices/dialogSlice';
+import { useTranslations } from 'next-intl';
 const NewSlideConfirmDialog = dynamic(
     () => import('@/components/dialogs/NewSlideConfirmDialog'),
     {
@@ -21,14 +22,14 @@ const SlideSettingDialog = dynamic(
 export const dialogObjs = [
     {
         key: 'NewSlideConfirm',
-        title: 'New Slide',
-        description: 'Current content will be deleted.',
+        title: 'createTitle',
+        description: 'createDescription',
         dialog: NewSlideConfirmDialog,
     },
     {
         key: 'SlideSetting',
-        title: 'Slide Setting',
-        description: 'Customize your slide setting',
+        title: 'settingTitle',
+        description: 'settingDescription',
         dialog: SlideSettingDialog,
     },
 ] as const;
@@ -37,6 +38,7 @@ const dialogKeys = dialogObjs.map((dialogObj) => dialogObj.key);
 export type DialogKey = (typeof dialogKeys)[number];
 
 function Dialogs() {
+    const t = useTranslations('Dialogs');
     const dialogStateMap = useAppSelector(
         (state) => state.dialog.dialogStateMap
     );
@@ -58,14 +60,15 @@ function Dialogs() {
                     return (
                         <DialogComponent
                             key={dialogObj.key}
-                            title={dialogObj.title}
-                            description={dialogObj.description}
+                            title={t(dialogObj.title)}
+                            description={t(dialogObj.description)}
                             onOpenChange={(open) => {
                                 if (!open) {
                                     handleClose(dialogObj.key);
                                 }
                             }}
                             payload={dialogState}
+                            t={t}
                         />
                     );
                 }

@@ -1,0 +1,49 @@
+{
+    "Metadata": {
+        "title": "MarkSlides 编辑器",
+        "description": "由 MarkSlides 创建"
+    },
+    "EditorMenuBar": {
+        "file": "文件",
+        "create": "新建",
+        "open": "打开",
+        "save": "保存",
+        "saveAs": "另存为",
+        "exportAsPDF": "导出为PDF",
+        "untitled": "未命名",
+        "setting": "设置",
+        "edit": "编辑",
+        "undo": "撤销",
+        "redo": "重做",
+        "view": "视图",
+        "show": "放映",
+        "help": "帮助",
+        "about": "MarkSlides 简介",
+        "syntax": "Markdown 语法",
+        "switchLocale": "语言"
+    },
+    "Dialogs": {
+        "cancel": "取消",
+        "confirm": "确认",
+        "settingTitle": "设置",
+        "settingDescription": "设置幻灯片。",
+        "header": "页眉",
+        "footer": "页脚",
+        "paginate": "页码",
+        "theme": "主题",
+        "mode": "模式",
+        "size": "尺寸",
+        "createTitle": "新建",
+        "createDescription": "当前幻灯片将被删除。"
+    },
+    "SlideListPage": {
+        "loading": "加载中..."
+    },
+    "Toast": {
+        "unsupportedApiTitle": "此设备文件系统不支持访问。",
+        "unselectedFileTitle": "未选择文件",
+        "unselectedFileDescription": "请尝试另存为...",
+        "untitled": "未命名",
+        "description": "MarkSlides 文件"
+    }
+}

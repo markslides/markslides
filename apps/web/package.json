@@ -17,6 +17,7 @@
     "browser-fs-access": "^0.35.0",
     "lucide-react": "^0.395.0",
     "next": "^14.0.3",
+    "next-intl": "^4.5.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^9.1.2",

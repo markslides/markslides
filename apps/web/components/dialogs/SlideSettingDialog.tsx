@@ -34,7 +34,7 @@ import DialogBase, {
 } from '@/components/dialogs/DialogBase';
 
 function SlideSettingDialog(props: DialogPropsWithPayload) {
-    const { payload, onOpenChange, ...others } = props;
+    const { payload, onOpenChange, t, ...others } = props;
 
     const slideConfigState = useAppSelector((state) => state.slideConfig);
     const dispatch = useAppDispatch();
@@ -107,7 +107,7 @@ function SlideSettingDialog(props: DialogPropsWithPayload) {
                         fontSize='sm'
                         fontWeight='500'
                         color='black'>
-                        Header
+                        {t('header')}
                     </Text>
                     <Box flex='1'>
                         <Input
@@ -132,7 +132,7 @@ function SlideSettingDialog(props: DialogPropsWithPayload) {
                         fontSize='sm'
                         fontWeight='500'
                         color='black'>
-                        Footer
+                        {t('footer')}
                     </Text>
                     <Box flex='1'>
                         <Input
@@ -157,7 +157,7 @@ function SlideSettingDialog(props: DialogPropsWithPayload) {
                         fontSize='sm'
                         fontWeight='500'
                         color='black'>
-                        Paginate
+                        {t('paginate')}
                     </Text>
                     <Box flex='1'>
                         <Switch
@@ -181,7 +181,7 @@ function SlideSettingDialog(props: DialogPropsWithPayload) {
                         fontSize='sm'
                         fontWeight='500'
                         color='black'>
-                        Slide Theme
+                        {t('theme')}
                     </Text>
                     <SelectRoot
                         defaultValue={theme}
@@ -221,7 +221,7 @@ function SlideSettingDialog(props: DialogPropsWithPayload) {
                         fontSize='sm'
                         fontWeight='500'
                         color='black'>
-                        Slide Mode
+                        {t('mode')}
                     </Text>
                     <SelectRoot
                         defaultValue={slideClass}
@@ -263,7 +263,7 @@ function SlideSettingDialog(props: DialogPropsWithPayload) {
                         fontSize='sm'
                         fontWeight='500'
                         color='black'>
-                        Slide Size
+                        {t('size')}
                     </Text>
                     <SelectRoot
                         defaultValue={size}
@@ -298,8 +298,8 @@ function SlideSettingDialog(props: DialogPropsWithPayload) {
                 marginTop='16px'
                 justifyContent='flex-end'
                 gap='8px'>
-                <Button onClick={() => onOpenChange(false)}>Cancel</Button>
-                <Button onClick={handleClickApply}>Apply</Button>
+                <Button onClick={() => onOpenChange(false)}>{t('cancel')}</Button>
+                <Button onClick={handleClickApply}>{t('confirm')}</Button>
             </Flex>
         </DialogBase>
     );

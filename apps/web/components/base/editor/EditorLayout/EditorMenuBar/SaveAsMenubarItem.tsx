@@ -1,12 +1,13 @@
 import { MenubarItem, MenubarRightSlot } from '@markslides/ui/menu-bar';
 import useHandleSaveAs from '@/hooks/app/useHandleSaveAs';
 
-function SaveAsMenubarItem() {
+function SaveAsMenubarItem({ t }: { t: (key: string) => string }) {
     const handleSaveAs = useHandleSaveAs();
 
     return (
         <MenubarItem onClick={handleSaveAs}>
-            Save As...<MenubarRightSlot>⌘⌥S</MenubarRightSlot>
+            {t('saveAs')}
+            <MenubarRightSlot>⌘⌥S</MenubarRightSlot>
         </MenubarItem>
     );
 }
