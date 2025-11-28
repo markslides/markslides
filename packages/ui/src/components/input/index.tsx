@@ -1,5 +1,6 @@
+import type { CSSProperties } from 'react';
 import { InputHTMLAttributes } from 'react';
-import styled, { type CSSProperties } from 'styled-components';
+import styled from 'styled-components';
 import { inlineRules } from '../../utils/rulesUtil';
 
 export const Input = styled.input.attrs<

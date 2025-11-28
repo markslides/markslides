@@ -1,5 +1,6 @@
+import type { CSSProperties } from 'react';
 import { ButtonHTMLAttributes } from 'react';
-import styled, { type CSSProperties } from 'styled-components';
+import styled from 'styled-components';
 import { inlineRules } from '../../utils/rulesUtil';
 
 const Wrapper = styled.button.attrs<
@@ -26,14 +27,14 @@ const Wrapper = styled.button.attrs<
 `;
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-    icon: JSX.Element;
+    icon: React.ReactElement;
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
     variant: 'solid' | 'outline' | 'unstyled';
     isDisabled?: boolean;
     _hover?: CSSProperties;
 }
 
-export function IconButton(props: ButtonProps): JSX.Element {
+export function IconButton(props: ButtonProps): React.ReactElement {
     // TODO: Apply size, variant prop to button style
     const {
         icon,
