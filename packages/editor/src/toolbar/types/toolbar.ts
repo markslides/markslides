@@ -2,6 +2,6 @@ import type { ReactCodeMirrorRef } from '@uiw/react-codemirror';
 
 export type ToolbarCommand = {
     name: string;
-    icon: JSX.Element;
+    icon: React.ReactElement;
     execute: (codeMirrorRef: ReactCodeMirrorRef) => void;
 };

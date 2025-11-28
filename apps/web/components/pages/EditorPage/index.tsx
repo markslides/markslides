@@ -27,7 +27,7 @@ import useAppSelector from '@/redux/hooks/useAppSelector';
 import { setContentRequested } from '@/redux/slices/localSlice';
 import SlideShowFragment from '@/components/fragments/SlideShowFragment';
 
-function EditorPage(): JSX.Element {
+function EditorPage(): React.ReactElement {
     const editorRef = useRef<MarkSlidesEditorRef>(null);
 
     const isSlideShowMode = useAppSelector(

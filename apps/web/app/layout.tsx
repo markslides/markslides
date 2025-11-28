@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     description: 'Created by MarkSlides',
 };
 
-function RootLayout(props: PropsWithChildren): JSX.Element {
+function RootLayout(props: PropsWithChildren): React.ReactElement {
     const { children } = props;
 
     return (

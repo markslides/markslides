@@ -1,4 +1,4 @@
-import { type CSSProperties } from 'styled-components';
+import type { CSSProperties } from 'react';
 
 export function inlineRules(rulesObj: CSSProperties) {
     return Object.entries(rulesObj)

@@ -1,5 +1,6 @@
+import type { CSSProperties } from 'react';
 import * as SwitchPrimitive from '@radix-ui/react-switch';
-import styled, { type CSSProperties } from 'styled-components';
+import styled from 'styled-components';
 
 const SwitchRoot = styled(SwitchPrimitive.Root).attrs<CSSProperties>(
     (props) => ({

@@ -11,7 +11,7 @@ const container: Variants = {
 };
 
 interface SlideTransitionProps {
-    children: JSX.Element;
+    children: React.ReactElement;
     direction: 'left' | 'top' | 'right' | 'bottom';
     isOpen: boolean;
     style?: CSSProperties;

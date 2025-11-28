@@ -1,9 +1,10 @@
-import styled, { type CSSProperties } from 'styled-components';
+import type { CSSProperties } from 'react';
+import styled from 'styled-components';
 
 export const Flex = styled.div.attrs<CSSProperties>((props) => ({
     style: {
         ...props,
     },
-}))<CSSProperties>`
+}))`
     display: flex;
 `;
