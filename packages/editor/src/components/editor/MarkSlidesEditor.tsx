@@ -118,13 +118,15 @@ const overwriteCursorTheme = EditorView.baseTheme({
 export interface MarkSlidesEditorRef extends ReactCodeMirrorRef {}
 
 interface MarkSlidesEditorProps
-    extends Pick<
+    extends
+        Pick<
             ReactCodeMirrorProps,
             'placeholder' | 'extensions' | 'readOnly' | 'value' | 'onChange'
         >,
         Partial<Pick<EditorToolbarProps, 'toolbarCommands'>> {
     height?: number | string;
     config?: SlideConfigState;
+    isHideToolbar?: boolean;
     isShowSyncCurrentPageToggle?: boolean;
     isFixScrollToBottom?: boolean;
     isOverwriteMode?: boolean;
@@ -143,12 +145,13 @@ const DEFAULT_SLIDE_CONFIG: SlideConfigState = {
 
 function MarkSlidesEditor(
     props: MarkSlidesEditorProps,
-    ref: ForwardedRef<MarkSlidesEditorRef>
+    ref: ForwardedRef<MarkSlidesEditorRef>,
 ) {
     const {
         toolbarCommands = defaultToolbarCommands,
         height = '100vh',
         config = DEFAULT_SLIDE_CONFIG,
+        isHideToolbar = false,
         isShowSyncCurrentPageToggle = true,
         isFixScrollToBottom = false,
         isOverwriteMode = false,
@@ -168,7 +171,7 @@ function MarkSlidesEditor(
     const previewRef = useRef<PreviewFragmentRef>(null);
 
     const [isSyncCurrentPage, setIsSyncCurrentPage] = useState(
-        isShowSyncCurrentPageToggle
+        isShowSyncCurrentPageToggle,
     );
 
     useEffect(() => {
@@ -204,7 +207,7 @@ function MarkSlidesEditor(
             if (previewRef.current) {
                 previewRef.current.setCurrentPage(
                     slideInfo.currentPageNumber,
-                    isSyncCurrentPage
+                    isSyncCurrentPage,
                 );
             }
 
@@ -212,7 +215,7 @@ function MarkSlidesEditor(
                 onChangeSlideInfo(slideInfo);
             }
         },
-        [isSyncCurrentPage, onChangeSlideInfo]
+        [isSyncCurrentPage, onChangeSlideInfo],
     );
 
     const extensions = useMemo(() => {
@@ -283,7 +286,7 @@ function MarkSlidesEditor(
                 });
             }
         },
-        [codeMirrorRef.current]
+        [codeMirrorRef.current],
     );
 
     const handleClickSyncCurrentPage = useCallback(() => {
@@ -302,15 +305,17 @@ function MarkSlidesEditor(
 
             codeMirrorRef.current = _ref as ReactCodeMirrorRef;
         },
-        [ref]
+        [ref],
     );
 
     return (
         <Wrapper $height={height}>
-            <EditorToolbar
-                toolbarCommands={toolbarCommands}
-                codeMirrorRef={codeMirrorRef}
-            />
+            {!isHideToolbar && (
+                <EditorToolbar
+                    toolbarCommands={toolbarCommands}
+                    codeMirrorRef={codeMirrorRef}
+                />
+            )}
 
             <EditorContainer>
                 <ReactCodeMirror
